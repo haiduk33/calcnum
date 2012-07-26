@@ -29,5 +29,9 @@ int main(int argc, char** argv) {
 
 	cout << "Precisão usando double:" << endl;
 	magnitude<double>();
+	cout << endl;
+
+	cout << "Precisão usando long double:" << endl;
+	magnitude<long double>();
 }
 
