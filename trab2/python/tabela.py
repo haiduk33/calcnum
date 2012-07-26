@@ -39,6 +39,8 @@ def tabela(n):
     print_table(tab)
     print
 
-# imprimir as tabelas n=3 e n=10
-map(tabela, [3, 10])
+
+if __name__ == '__main__':
+    # imprimir as tabelas n=3 e n=10
+    map(tabela, [3, 10])
 
