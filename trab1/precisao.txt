@@ -1,0 +1,15 @@
+Algoritmo PRECISÃO
+
+Início
+| P <- 1
+| Enquanto P+1 > 1 executar
+| | P <- P/2
+| Fim (Enquanto)
+| P <- 2*P
+| D <- abs(int(log(P)))
+| N_2 <- int(abs(log(P))/log(2))
+| Escrever "Precisão:"; P
+| Escrever "Núm. dígitos significativos decimais:"; D
+| Escrever "Núm. bits da mantissa:"; N_2
+Fim.
+

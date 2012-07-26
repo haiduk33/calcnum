@@ -1,0 +1,13 @@
+Algoritmo MAGNITUDE
+
+Início
+| Z <- 1
+| Enquanto Z > 0 executar
+| | M <- Z
+| | Z <- Z/2
+| Fim (Enquanto)
+| N_1 <- int(log(abs(log(M)/log(2))+1))
+| Escrever "Magnitude:"; M
+| Escrever "Número de bits do expoente:"; N_1
+Fim
+
