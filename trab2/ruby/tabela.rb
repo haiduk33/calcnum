@@ -16,6 +16,7 @@ tabela = lambda do |n|
   @n = n
   # calcular valores
   valores =
+    ["n=#{@n}", 'Ve', 'Va', 'Eabs', 'Erel'],
     ['pi', PI, mypi],
     ['e', E, mye],
     ['pi/e', PIE, mypie],
@@ -23,13 +24,13 @@ tabela = lambda do |n|
     ['cos(pi/e)', cos(PIE), mycos(mypie)],
     ['tg(pi/e)', tan(PIE), mytan(mypie)]
   #calcular erros
-  for v in valores do
+  for v in valores[1..-1] do
     ve, va = v[1], v[2]
     v << eabs = ve - va
     v << erel = eabs / ve
   end
   # imprimir tabela e uma linha em branco
-  print_table valores.unshift ["n=#{@n}", 'Ve', 'Va', 'Eabs', 'Erel']
+  print_table valores
   puts
 end
 
