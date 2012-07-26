@@ -1,0 +1,11 @@
+		|  Ve	|  Va	| Eabs	| Erel	|
+pi		|	|	|	|	|
+e		|	|	|	|	|
+pi/e		|	|	|	|	|
+sen(pi/e)	|	|	|	|	|
+cos(pi/e)	|	|	|	|	|
+tg(pi/e)	|	|	|	|	|
+
+n = 3
+n = 10
+
