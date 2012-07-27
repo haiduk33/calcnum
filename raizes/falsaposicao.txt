@@ -7,7 +7,7 @@ Início
 | Se f(XI)*f(XF) <= 0 então
 | | K <- 0
 | | F <- f(XI)/f(XF)
-| | XM <- iXI - ( XF - XI ) * F / (1 - F)
+| | XM <- XI - ( XF - XI ) * F / (1 - F)
 | | Enquanto ((|XF-XM| > TOL e |XI-XM| > TOL) ou |f(XM)| > TOL) e K <= NMI executar
 | | | F <- f(XI)/f(XF)
 | | | XM <- XI - ( XF - XI ) * F / (1 - F)
