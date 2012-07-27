@@ -1,0 +1,23 @@
+Algoritmo BISSEÇÃO
+
+Início
+| Funçao f(x) = < função > //declaração da função//
+| Ler XI, XF
+| Ler TOL, NMI
+| Se f(XI)*f(XF) <= 0 então
+| | K <- 0
+| | XM <- ( XI + XF )/2
+| | Enquanto (|XF-XI| > TOL ou |f(XM)| > TOL) e K <= NMI executar
+| | | XM <- ( XI + XF )/2
+| | | Se f(XM)*f(XI) <= 0 então XF <- XM
+| | | |                   senão XI <- XM
+| | | Fim (Se)
+| | | K <- K + 1
+| | Fim (Enquanto)
+| | Se K > NMI então escrever "Ultrapassou NMI"
+| | |          senão escrever "RAIZ = "; XM
+| | Fim (Se)
+| |                   senão Escrever "Não há garantia de existencia de raiz neste intervalo"
+| Fim (Se)
+Fim.
+
