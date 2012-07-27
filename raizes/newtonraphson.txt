@@ -1,0 +1,19 @@
+Algoritmo NEWTON-RAPHSON
+
+Início
+| Função f(x) = < função > //declaração da função//
+| Ler X0
+| Ler TOL, NMI
+| DX <- TOL
+| Função f'(x) = (f(x+DX)-f(x-DX))/(2*DX)
+| K <- 0
+| X <- X0-f(X0)/f'(X0)
+| Enquanto (|X-X0|>TOL ou |f(X)|>TOL) e K<=NMI executar
+| | X0 <- X
+| | X <- X0 - f(X0)/f'(X0)
+| | K <- K+1
+| Fim (Enquanto)
+| Se K > NMI então escrever "Ultrapassou NMI"
+|            senão escrever "Raiz ="; X
+Fim.
+
