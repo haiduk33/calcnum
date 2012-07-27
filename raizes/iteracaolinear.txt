@@ -1,0 +1,17 @@
+Algoritmo ITERAÇÃO LINEAR
+
+Início
+| Função g(x) = < função > //declaração da função g(x)//
+| Ler X0                   //aproximação//
+| Ler TOL, NMI
+| X <- g(X0)
+| K <- 0
+| Enquanto (|X-X0| > TOL ou |g(X)-X| > TOL) e K <= NMI executar
+| | X0 <- X
+| | X <- g(X0)
+| | K <- K + 1
+| Fim (Enquanto)
+| Se K > NMI então escrever "Ultrapassou NMI"
+|            senão escrever "RAIZ ="; X
+Fim.
+
