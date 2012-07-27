@@ -3,13 +3,16 @@ require 'pprint'
 include Math
 PIE = PI / E
 
-def factorial(n) n.zero? ? 1 : (1..n).reduce(:*) end
-def somatorio(&termo) (0..@n).map(&termo).reduce(:+) end
-def mysin(x) somatorio {|i| x ** (2 * i + 1) * (-1) ** i / factorial(2 * i + 2)} end
-def mycos(x) somatorio {|i| x ** (2 * i) * (-1) ** i / factorial(2 * i)} end
+module Enumerable
+  def mapred; map{|i| @t = yield(i, @t)} end
+  def myfold(init) mapred{|i, p| p.nil? ? init : yield(i, p)}.reduce(:+) end
+end
+
+def mysin(x) (0..@n).myfold(x){|k, z| -z * x * x / (2.0 * k) / (2.0 * k + 1.0)} end
+def mycos(x) (0..@n).myfold(1){|k, z| -z * x * x / (2.0 * k) / (2.0 * k - 1.0)} end
 def mytan(x) mysin(x) / mycos(x) end
-def mypi; somatorio {|k| 4.0 * (-1) ** k / (2.0 * k + 1.0)} end
-def mye; somatorio {|k| 1.0 / factorial(k)} end
+def mypi; 4 * (0..@n).myfold(1){|k, z| -z * (2.0 * k - 1.0) / (2.0 * k + 1.0)} end
+def mye; (0..@n).myfold(1.0){|k, z| z / k} end
 def mypie; mypi / mye end
 
 tabela = lambda do |n|
