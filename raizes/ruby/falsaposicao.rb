@@ -1,4 +1,5 @@
-require "base"
+# encoding: utf-8
+require "./base"
 # Algoritmo BISSEÇÃO
 
 def falsaposicao xi, xf, &f
@@ -14,9 +15,4 @@ def falsaposicao xi, xf, &f
     return :intervalo
   end
 end
-
-@tol = 1e-3
-@nmi = 100
-
-resolver "x - cos(x)", :falsaposicao, 0.6, 0.8
 

@@ -1,4 +1,5 @@
-require "base"
+# encoding: utf-8
+require "./base"
 # Algoritmo BISSEÇÃO
 
 def bissecao xi, xf, &f
@@ -13,9 +14,4 @@ def bissecao xi, xf, &f
     return :intervalo
   end
 end
-
-@tol = 1e-3
-@nmi = 100
-
-resolver "x - cos(x)", :bissecao, 0.6, 0.8
 

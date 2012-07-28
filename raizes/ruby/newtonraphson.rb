@@ -1,4 +1,5 @@
-require "base"
+# encoding: utf-8
+require "./base"
 # Algoritmo NEWTON-RAPHSON
 
 def derivada &f
@@ -14,16 +15,4 @@ def newtonraphson x0, &f
   end
   return :nmi
 end
-
-@tol = 1e-3
-@nmi = 100
-
-eq1 = "exp(x) - 3 * x"
-puts "Equação: #{eq1} = 0"
-resolver eq1, :newtonraphson, 1.0
-resolver eq1, :newtonraphson, 2.0
-
-eq2 = "x - cos(x)"
-puts "Equação: #{eq2}"
-resolver eq2, :newtonraphson, 1.0
 

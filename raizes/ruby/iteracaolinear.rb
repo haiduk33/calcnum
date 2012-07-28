@@ -1,4 +1,5 @@
-require "base"
+# encoding: utf-8
+require "./base"
 # Algoritmo ITERAÇÃO LINEAR
 
 def iteracaolinear x0, &g
@@ -10,9 +11,4 @@ def iteracaolinear x0, &g
   end
   return :nmi
 end
-
-@tol = 1e-3
-@nmi = 100
-
-resolver "exp(x) / 3", :iteracaolinear, 0.6
 

@@ -1,3 +1,5 @@
+# encoding: utf-8
+include Math
 # Base para aplicar metodos
 
 def aplicar metodo, *args, &fun
@@ -9,12 +11,13 @@ def aplicar metodo, *args, &fun
   when Symbol
     puts "Erro desconhecido."
   else
-    puts "Raiz: #{r}"
+    p = -log10(@tol).ceil
+    p = 0 if p < 0
+    puts "Raiz: %.#{p}f" % r
   end
 end
 
 def resolver equacao, metodo, *parametros
-  include Math
   aplicar metodo, *parametros, &lambda {|x| eval(equacao)}
 end
 
