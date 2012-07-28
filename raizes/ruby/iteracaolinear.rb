@@ -14,7 +14,5 @@ end
 @tol = 1e-3
 @nmi = 100
 
-f = lambda{|x| Math::exp(x) / 3}
-
-aplicar :iteracaolinear, 0.6, &f
+resolver "exp(x) / 3", :iteracaolinear, 0.6
 

@@ -13,3 +13,8 @@ def aplicar metodo, *args, &fun
   end
 end
 
+def resolver equacao, metodo, *parametros
+  include Math
+  aplicar metodo, *parametros, &lambda {|x| eval(equacao)}
+end
+

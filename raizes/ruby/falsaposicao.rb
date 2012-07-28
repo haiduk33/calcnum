@@ -15,12 +15,8 @@ def falsaposicao xi, xf, &f
   end
 end
 
-include Math
-
 @tol = 1e-3
 @nmi = 100
 
-f = lambda {|x| x - cos(x)}
-
-aplicar :falsaposicao, 0.6, 0.8, &f
+resolver "x - cos(x)", :falsaposicao, 0.6, 0.8
 

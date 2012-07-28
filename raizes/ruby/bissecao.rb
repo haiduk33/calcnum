@@ -14,12 +14,8 @@ def bissecao xi, xf, &f
   end
 end
 
-include Math
-
 @tol = 1e-3
 @nmi = 100
 
-f = lambda {|x| x - cos(x)}
-
-aplicar :bissecao, 0.6, 0.8, &f
+resolver "x - cos(x)", :bissecao, 0.6, 0.8
 
