@@ -1,6 +1,6 @@
 # encoding: utf-8
-require "./base"
 # Algoritmo BISSEÇÃO
+require "./base"
 
 def falsaposicao xi, xf, &f
   unless f.call(xi) * f.call(xf) > 0

@@ -1,6 +1,6 @@
 # encoding: utf-8
-require "./base"
 # Algoritmo NEWTON-RAPHSON
+require "./base"
 
 def derivada &f
   return lambda {|x| (f.call(x + @tol) - f.call(x - @tol)) / (2 * @tol)}

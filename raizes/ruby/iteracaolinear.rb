@@ -1,6 +1,6 @@
 # encoding: utf-8
-require "./base"
 # Algoritmo ITERAÇÃO LINEAR
+require "./base"
 
 def iteracaolinear x0, &g
   x1 = g.call(x0)

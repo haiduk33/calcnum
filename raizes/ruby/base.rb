@@ -1,6 +1,6 @@
 # encoding: utf-8
-include Math
 # Base para aplicar metodos
+include Math
 
 def aplicar metodo, *args, &fun
   case r = method(metodo).call(*args, &fun)
@@ -17,7 +17,26 @@ def aplicar metodo, *args, &fun
   end
 end
 
+class String
+  def to_eq
+    begin
+      eq = self
+      [%w(^   **),
+       %w(sen sin),
+       %w(tg  tan)
+      ].each {|a| eq = eq.gsub(*a)}
+      eq = eq.split("=")
+      eq = "(#{eq[0]}) - (#{eq[1]})"
+      f = eval("lambda {|x| #{eq}}")
+      f.call(0.0) # testar se essa função pode ser chamada
+      return f
+    rescue
+      raise ArgumentError.new "Equação inválida."
+    end
+  end
+end
+
 def resolver equacao, metodo, *parametros
-  aplicar metodo, *parametros, &lambda {|x| eval(equacao)}
+  aplicar metodo, *parametros, &equacao.to_fun
 end
 
