@@ -7,7 +7,7 @@ def derivada &f
 end
 
 def newtonraphson x0, &f
-  df = derivada &f
+  df = derivada(&f)
   @nmi.times do
     x = x0 - f.call(x0) / df.call(x0)
     return x if (x - x0).abs < @tol and f.call(x).abs < @tol
