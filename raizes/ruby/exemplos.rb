@@ -4,6 +4,7 @@ require './bissecao'
 require './falsaposicao'
 require './iteracaolinear'
 require './newtonraphson'
+require './secantes'
 
 @tol = 1e-3
 @nmi = 100
@@ -29,5 +30,8 @@ exemplo "Iteração Linear", :iteracaolinear, [
 exemplo "Newton-Raphson", :newtonraphson, [
   ["exp(x) - 3 * x = 0", [[1.0], [2.0]]],
   ["x - cos(x) = 0", [[2.0]]]
+]
+exemplo "Secantes", :secantes, [
+  ["x - cos(x) = 0", [[0.0, 1.0]]]
 ]
 

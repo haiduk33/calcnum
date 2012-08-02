@@ -3,6 +3,8 @@
 require './bissecao'
 require './falsaposicao'
 require './newtonraphson'
+require './iteracaolinear'
+require './secantes'
 
 def entrada tipo
   begin
@@ -56,7 +58,9 @@ puts 'Escolha um método'
 metodo, met = opcao [
   [:bissecao, 'Bisseção'],
   [:falsaposicao, 'Falsa Posição'],
-  [:newtonraphson, 'Newton-Raphson']
+  [:newtonraphson, 'Newton-Raphson'],
+  [:iteracaolinear, 'Iteração Linear'],
+  [:secantes, 'Secantes']
 ]
 puts
 
