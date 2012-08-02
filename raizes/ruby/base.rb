@@ -2,6 +2,11 @@
 # Base para aplicar metodos
 include Math
 
+def algoritmo &f
+  @nmi.times &f
+  return :nmi
+end
+
 def aplicar metodo, *args, &fun
   case r = method(metodo).call(*args, &fun)
   when :intervalo

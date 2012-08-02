@@ -8,11 +8,10 @@ end
 
 def newtonraphson x0, &f
   df = derivada(&f)
-  @nmi.times do
+  algoritmo do
     x = x0 - f.call(x0) / df.call(x0)
     return x if (x - x0).abs < @tol and f.call(x).abs < @tol
     x0 = x
   end
-  return :nmi
 end
 
