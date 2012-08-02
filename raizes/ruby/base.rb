@@ -4,14 +4,14 @@ include Math
 
 def algoritmo &f
   @nmi.times &f
-  return :nmi
+  return :erro_nmi
 end
 
 def aplicar metodo, *args, &fun
   case r = method(metodo).call(*args, &fun)
-  when :intervalo
+  when :erro_intervalo
     puts "Não há garantia de existencia de raiz neste intervalo"
-  when :nmi
+  when :erro_nmi
     puts "Ultrapassou o NMI."
   when Symbol
     puts "Erro desconhecido."
