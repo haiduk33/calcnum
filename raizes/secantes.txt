@@ -1,0 +1,18 @@
+Algoritmo SECANTES
+
+Início
+| Função f(x) = <    > // declaração da função
+| Ler X0, X1           // duas aproximações iniciais
+| Ler TOL, NMI
+| K <- 0
+| Enquanto (|X1-X0|>TOL ou |f(X1)|>TOL) e K <= NMI executar
+| | F <- f(X1)/f(X0)
+| | X <- X1 - (X0 - X1) * F / (1 - F)
+| | X0 <- X1
+| | X1 <- X
+| | K <- K + 1
+| Fim (Enquanto)
+| Se K>NMI então escrever "Ultrapassou NMI"
+|          senão escrever "Raiz = "; X
+Fim.
+
