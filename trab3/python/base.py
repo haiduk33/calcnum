@@ -34,7 +34,7 @@ def eq(string):
         fun.orig = string
         return fun
     except:
-        raise TypeError('Equação inválida.')
+        raise ValueError('Equação inválida.')
 
 
 def algoritmo(func):
