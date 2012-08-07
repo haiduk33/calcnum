@@ -30,7 +30,9 @@ class ErroIntervalo(Exception):
 
 def eq(string):
     try:
-        return eval('lambda x: ({0})'.format(')-('.join(string.split('='))))
+        fun = eval('lambda x: ({0})'.format(')-('.join(string.split('='))))
+        fun.orig = string
+        return fun
     except:
         raise TypeError('Equação inválida.')
 
