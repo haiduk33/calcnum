@@ -17,7 +17,7 @@ def exemplo(titulo, metodo, equacoes):
         print 'Equação: {0}'.format(e[0])
         for args in e[1]:
             calc.aplicar(metodo, eq(e[0]), *args)
-            print
+        print
 
 map(lambda e: exemplo(*e), [
     ['Bisseção', bissecao, [
