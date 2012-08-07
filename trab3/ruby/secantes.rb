@@ -2,11 +2,11 @@
 # Algoritmo SECANTES
 require "./base"
 
-def secantes x0, x1, &f
-  algoritmo do
-    p = f.call(x1) / f.call(x0)
+Calcnum::algoritmo :secantes do |x0, x1|
+  iterar do
+    p = f(x1) / f(x0)
     x = x1 - (x0 - x1) * p / (1.0 - p)
-    return x if (x - x1).abs < @tol and f.call(x).abs < @tol
+    break x if (x - x1).abs < tol and f(x).abs < tol
     x0, x1 = x1, x
   end
 end

@@ -6,11 +6,13 @@ require './iteracaolinear'
 require './newtonraphson'
 require './secantes'
 
-@tol = 1e-3
+include Calcnum
+
+@tol = 1e-15
 @nmi = 100
 
 def exemplo titulo, metodo, equacoes
-  puts "[#{titulo}]", ""
+  puts "[#{titulo}]"
   for eq in equacoes
     puts "Equação: #{eq[0]}"
     eq[1].each {|arg| aplicar metodo, *arg, &eq[0].to_eq}
@@ -18,20 +20,24 @@ def exemplo titulo, metodo, equacoes
   end
 end
 
+eq1 = "cos(x) = x"
+eq2 = "exp(x) = 3 * x"
+
 exemplo "Bisseção", :bissecao, [
-  ["x - cos(x) = 0", [[0.6, 0.8]]]
+  [eq1, [[0.6, 0.8]]]
 ]
 exemplo "Falsa Posição", :falsaposicao, [
-  ["x - cos(x) = 0", [[0.6, 0.8]]]
+  [eq1, [[0.6, 0.8]]]
 ]
 exemplo "Iteração Linear", :iteracaolinear, [
-  ["exp(x) / 3 = 0", [[0.6]]]
+  [eq1, [[0.6]]],
+  [eq2, [[0.6]]]
 ]
 exemplo "Newton-Raphson", :newtonraphson, [
-  ["exp(x) - 3 * x = 0", [[1.0], [2.0]]],
-  ["x - cos(x) = 0", [[2.0]]]
+  [eq1, [[2.0]]],
+  [eq2, [[1.0], [2.0]]]
 ]
 exemplo "Secantes", :secantes, [
-  ["x - cos(x) = 0", [[0.0, 1.0]]]
+  [eq1, [[0.0, 1.0]]]
 ]
 

@@ -6,6 +6,8 @@ require './newtonraphson'
 require './iteracaolinear'
 require './secantes'
 
+include Calcnum
+
 def entrada tipo
   begin
     input = gets.chomp
@@ -19,7 +21,7 @@ def entrada tipo
     end
     return [res, input]
   rescue
-    puts 'Formato não reconhecido, tente outra vez.'
+    puts 'Não reconhecido, tente denovo.'
     retry
   end
 end
@@ -42,33 +44,40 @@ def opcao opcoes
   end
 end
 
-puts 'Entre com o NMI (Número Máximo de Iterações)'
-@nmi, nmi = entrada :Integer
-puts
+begin
+  puts 'Entre com o NMI (Número Máximo de Iterações):'
+  @nmi, nmi = entrada :Integer
+  puts
 
-puts 'Entre com a tolerância (exemplo: 0.001 ou 1.0e-3 ou 1e-3)'
-@tol, tol = entrada :Float
-puts
+  puts 'Entre com a tolerância (exemplo: 0.001 ou 1.0e-3 ou 1e-3):'
+  @tol, tol = entrada :Float
+  puts
 
-puts 'Entre com a equação (exemplo: cos(x) = x, ou sen(x) - x = 0)'
-equacao, eq = entrada :Equation
-puts
+  puts 'Entre com a equação (exemplo: cos(x) = x, ou sen(x) - x = 0):'
+  equacao, eq = entrada :Equation
+  puts
 
-puts 'Escolha um método'
-metodo, met = opcao [
-  [:bissecao, 'Bisseção'],
-  [:falsaposicao, 'Falsa Posição'],
-  [:newtonraphson, 'Newton-Raphson'],
-  [:iteracaolinear, 'Iteração Linear'],
-  [:secantes, 'Secantes']
-]
-puts
+  puts 'Escolha um método'
+  metodo, met = opcao [
+    [:bissecao, 'Bisseção'],
+    [:falsaposicao, 'Falsa Posição'],
+    [:newtonraphson, 'Newton-Raphson'],
+    [:iteracaolinear, 'Iteração Linear'],
+    [:secantes, 'Secantes']
+  ]
+  puts
 
-puts 'Entre com os parametros para o método (exemplo: [0.6, 0.8] ou 1.0)'
-params, par = entrada :Floats
-puts
+  puts 'Entre com os parametros para o método (exemplo: [0.6, 0.8] ou 1.0):'
+  params, par = entrada :Floats
+  puts
 
-puts "Resolvendo a equação '#{eq}' pelo método '#{met}' com parâmetros '#{par}'"
-aplicar metodo, *params, &equacao
-puts
+  puts "Resolvendo a equação '#{eq}' pelo método '#{met}' com parâmetros #{params.inspect} ..."
+  aplicar metodo, *params, &equacao
+  puts
+rescue Interrupt
+  puts
+ensure
+  puts
+  puts "Fim do programa."
+end
 

@@ -2,16 +2,13 @@
 # Algoritmo BISSEÇÃO
 require "./base"
 
-def falsaposicao xi, xf, &f
-  unless f.call(xi) * f.call(xf) > 0
-    algoritmo do
-      p = f.call(xi) / f.call(xf)
-      xm = xi - (xf - xi) * p / (1 - p)
-      return xm if ((xf - xm).abs < @tol or (xi - xm).abs < @tol) and f.call(xm).abs < @tol
-      xi, xf = f.call(xm) * f.call(xi) < 0 ? [xi, xm] : [xm, xf]
-    end
-  else
-    return :intervalo
+Calcnum::algoritmo :falsaposicao do |xi, xf|
+  break :erro_intervalo if f(xi) * f(xf) > 0
+  iterar do
+    p = f(xi) / f(xf)
+    xm = xi - (xf - xi) * p / (1 - p)
+    break xm if ((xf - xm).abs < tol or (xi - xm).abs < tol) and f(xm).abs < tol
+    xi, xf = f(xm) * f(xi) < 0 ? [xi, xm] : [xm, xf]
   end
 end
 
