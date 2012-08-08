@@ -9,8 +9,20 @@ class Calcnum(object):
         self.tol = tol
         self.tabelar = False
 
+    def prec(self, val):
+        prec = int(ceil(-log10(self.tol)))
+        if prec < 0: prec = 0
+        return ('{0:.%df}' % prec).format(val)
+
     def tabela(self, *vals):
-        self._tabela.append(vals)
+        if self.tabelar:
+            new_vals = []
+            for val in vals:
+                if isinstance(val, float):
+                    new_vals.append(self.prec(val))
+                else:
+                    new_vals.append(val)
+            self._tabela.append(new_vals)
 
     def aplicar(self, metodo, *args):
         try:
@@ -23,9 +35,7 @@ class Calcnum(object):
         else:
             if self.tabelar:
                 print_table(self._tabela)
-            prec = int(ceil(-log10(self.tol)))
-            if prec < 0: prec = 0
-            print ('Raiz: {0:.%df}' % prec).format(raiz)
+            print 'Raiz: {0}'.format(self.prec(raiz))
 
 
 class ErroNMI(Exception):

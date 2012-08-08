@@ -7,7 +7,8 @@ def format_num(num):
     Adds commas, etc."""
 
     try:
-        return "{0: .8f}".format(float(num))
+        #return "{0: .8f}".format(float(num))
+        return str(num)
 
     except (ValueError, TypeError):
         return "{0:<}".format(num)
@@ -31,12 +32,12 @@ def print_table(table, out=sys.stdout):
     for i in range(len(table[0])):
         col_paddings.append(get_max_width(table, i))
 
+    brow = '+--' + '-+-'.join(map(lambda c: '-' * int(c), col_paddings)) + '--+'
+
+    print >> out, brow
     for row in table:
-        # left col
-        print >> out, str(row[0]).ljust(col_paddings[0] + 1),
-        # rest of the cols
-        for i in range(1, len(row)):
-            col = format_num(row[i]).rjust(col_paddings[i] + 2)
-            print >> out, col,
-        print >> out
+        print >> out, '| ',
+        print >> out, ' | '.join(map(lambda (k, c): format_num(c).rjust(col_paddings[k]), enumerate(row))),
+        print >> out, ' |'
+    print >> out, brow
 

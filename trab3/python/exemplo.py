@@ -6,7 +6,7 @@ from iteracaolinear import iteracaolinear
 from newtonraphson import newtonraphson
 from secantes import secantes
 
-calc = Calcnum(100, 1e-15)
+calc = Calcnum(100, 1e-10)
 calc.tabelar = True
 
 eq1 = 'cos(x) = x'
