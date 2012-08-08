@@ -8,8 +8,9 @@ require './secantes'
 
 include Calcnum
 
-def entrada tipo
+def entrada msg, tipo
   begin
+    print "#{msg}: "
     input = gets.chomp
     res = case tipo
     when :Equation
@@ -26,9 +27,10 @@ def entrada tipo
   end
 end
 
-def opcao opcoes
+def opcao msg, opcoes
   opcoes.each_with_index {|m, i| puts "#{i + 1}. #{m[1]}"}
   begin
+    print "#{msg}: "
     o = gets
     if o == 0
       for op in opcoes
@@ -45,39 +47,26 @@ def opcao opcoes
 end
 
 begin
-  puts 'Entre com o NMI (Número Máximo de Iterações):'
-  @nmi, nmi = entrada :Integer
-  puts
-
-  puts 'Entre com a tolerância (exemplo: 0.001 ou 1.0e-3 ou 1e-3):'
-  @tol, tol = entrada :Float
-  puts
-
-  puts 'Entre com a equação (exemplo: cos(x) = x, ou sen(x) - x = 0):'
-  equacao, eq = entrada :Equation
-  puts
-
-  puts 'Escolha um método'
-  metodo, met = opcao [
+  @tabelar = true
+  @nmi, nmi = entrada 'Entre com o NMI (Número Máximo de Iterações)', :Integer
+  @tol, tol = entrada 'Entre com a tolerância (exemplo: 0.001 ou 1.0e-3 ou 1e-3)', :Float
+  equacao, eq = entrada 'Entre com a equação (exemplo: cos(x) = x, ou sen(x) - x = 0)', :Equation
+  metodo, met = opcao 'Escolha um método', [
     [:bissecao, 'Bisseção'],
     [:falsaposicao, 'Falsa Posição'],
     [:newtonraphson, 'Newton-Raphson'],
     [:iteracaolinear, 'Iteração Linear'],
     [:secantes, 'Secantes']
   ]
+  params, par = entrada 'Entre com os parametros para o método (exemplo: [0.6, 0.8] ou 1.0)', :Floats
   puts
-
-  puts 'Entre com os parametros para o método (exemplo: [0.6, 0.8] ou 1.0):'
-  params, par = entrada :Floats
-  puts
-
   puts "Resolvendo a equação '#{eq}' pelo método '#{met}' com parâmetros #{params.inspect} ..."
   aplicar metodo, *params, &equacao
   puts
 rescue Interrupt
   puts
-ensure
   puts
+ensure
   puts "Fim do programa."
 end
 
