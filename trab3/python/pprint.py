@@ -20,7 +20,7 @@ def get_max_width(table, index):
     return max([len(format_num(row[index])) for row in table])
 
 
-def print_table(table, out=sys.stdout, realtable=False):
+def print_table(table, out=sys.stdout, heading=True, realtable=False):
     """Prints out a table of data, padded for alignment
     @param out: Output stream (file-like object)
     @param table: The table to print. A list of lists.
@@ -35,7 +35,10 @@ def print_table(table, out=sys.stdout, realtable=False):
 
     print >> out, '┌─' + '─┬─'.join(map(lambda c: '─' * int(c), col_paddings)) + '─┐'
     print >> out, '│ ' + ' │ '.join(map(lambda (k, c): format_num(c).rjust(col_paddings[k]), enumerate(table[0]))) + ' │'
-    for row in table[1:]:
+    if heading:
+        print >> out, '├─' + '─┼─'.join(map(lambda c: '─' * int(c), col_paddings)) + '─┤'
+    print >> out, '│ ' + ' │ '.join(map(lambda (k, c): format_num(c).rjust(col_paddings[k]), enumerate(table[1]))) + ' │'
+    for row in table[2:]:
         if realtable:
             print >> out, '├─' + '─┼─'.join(map(lambda c: '─' * int(c), col_paddings)) + '─┤'
         print >> out, '│ ' + ' │ '.join(map(lambda (k, c): format_num(c).rjust(col_paddings[k]), enumerate(row))) + ' │'
