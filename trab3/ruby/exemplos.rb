@@ -8,8 +8,9 @@ require './secantes'
 
 include Calcnum
 
-@tol = 1e-15
+@tol = 1e-10
 @nmi = 100
+@tabelar = true
 
 def exemplo titulo, metodo, equacoes
   puts "[#{titulo}]"

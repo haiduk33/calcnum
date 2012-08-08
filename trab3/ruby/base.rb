@@ -1,5 +1,6 @@
 # encoding: utf-8
 # Base para aplicar metodos
+require './pprint'
 
 include Math
 
@@ -22,11 +23,25 @@ module Calcnum
       rotina.call(*args)
     end
   end
+  def tabela *vals
+    @tabela << vals.map{|v| fmt(v) rescue v}
+  end
   def iterar &passo
     @nmi.times &passo
     return :erro_nmi
   end
+  def fmt val
+    case val
+    when Integer
+      val
+    else
+      p = -log10(@tol).ceil
+      p = 0 if p < 0
+      "%.#{p}f" % val
+    end
+  end
   def aplicar metodo, *args, &fun
+    @tabela = []
     case r = method(metodo).call(*args, &fun)
     when :erro_intervalo
       puts "Não há garantia de existencia de raiz neste intervalo"
@@ -35,9 +50,10 @@ module Calcnum
     when Symbol
       puts "Erro desconhecido."
     else
-      p = -log10(@tol).ceil
-      p = 0 if p < 0
-      puts "Raiz: %.#{p}f" % r
+      if @tabelar
+        print_table @tabela
+      end
+      puts "Raiz: #{fmt(r)}"
     end
   end
   def resolver equacao, metodo, *parametros
