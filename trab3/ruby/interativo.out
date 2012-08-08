@@ -1,0 +1,24 @@
+Entre com o NMI (Número Máximo de Iterações): 20 
+Entre com a tolerância (exemplo: 0.001 ou 1.0e-3 ou 1e-3): 1e-5
+Entre com a equação (exemplo: cos(x) = x, ou sen(x) - x = 0): exp(cos(x)) = x
+1. Bisseção
+2. Falsa Posição
+3. Newton-Raphson
+4. Iteração Linear
+5. Secantes
+Escolha um método: 5
+Entre com os parametros para o método (exemplo: [0.6, 0.8] ou 1.0): 1.0, 2.0
+
+Resolvendo a equação 'exp(cos(x)) = x' pelo método 'Secantes' com parâmetros [1.0, 2.0] ...
+┌───┬─────────┬─────────┬──────────┬─────────┐
+│ k │      x0 │      x1 │        p │       x │
+├───┼─────────┼─────────┼──────────┼─────────┤
+│ 0 │ 1.00000 │ 2.00000 │ -1.87072 │ 1.34835 │
+│ 1 │ 2.00000 │ 1.34835 │  0.07572 │ 1.29496 │
+│ 2 │ 1.34835 │ 1.29496 │ -0.17821 │ 1.30304 │
+│ 3 │ 1.29496 │ 1.30304 │ -0.00890 │ 1.30296 │
+│ 4 │ 1.30304 │ 1.30296 │  0.00153 │ 1.30296 │
+└───┴─────────┴─────────┴──────────┴─────────┘
+Raiz: 1.30296
+
+Fim do programa.
