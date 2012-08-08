@@ -1,4 +1,4 @@
-require 'pprint'
+require './pprint'
 
 include Math
 PIE = PI / E
