@@ -42,6 +42,7 @@ def resolver(nmi, tol, equacao, metodo, params):
     print
     print 'Resolvendo a equacao "{0}" pelo método {1} com parâmetros {2} ...'.format(equacao.orig, mets[metodo], params)
     calc = Calcnum(nmi, tol)
+    calc.tabelar = True
     calc.aplicar(metodo, equacao, *params)
     print
 
