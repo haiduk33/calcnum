@@ -5,7 +5,7 @@
 using namespace std;
 
 template <typename T>
-void precisao() {
+void magnitude() {
 	T z, m;
 	int n;
 
@@ -18,18 +18,5 @@ void precisao() {
 	n = floor(log2(abs(log(m))) + 1);// N1 <- int(log(abs(log(M)/log(2))+1)/log(2))
 	cout << "Magnitude: " << m << endl;// Escrever "Magnitude:"; M
 	cout << "Numero de bits do expoente: " << n << endl;// Escrever "Número de bits do expoente:"; N1
-}
-
-int main(int argc, char** argv) {
-	cout << "Magnitude usando float:" << endl;
-	precisao<float>();
-	cout << endl;
-
-	cout << "Magnitude usando double:" << endl;
-	precisao<double>();
-	cout << endl;
-
-	cout << "Magnitude usando long double:" << endl;
-	precisao<long double>();
 }
 

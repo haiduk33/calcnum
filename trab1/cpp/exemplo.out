@@ -1,3 +1,15 @@
+Magnitude usando float:
+Magnitude: 1.4013e-45
+Numero de bits do expoente: 7
+
+Magnitude usando double:
+Magnitude: 4.94066e-324
+Numero de bits do expoente: 10
+
+Magnitude usando long double:
+Magnitude: 3.6452e-4951
+Numero de bits do expoente: 14
+
 Precisão usando float:
 Precisao: 1.19209e-07
 Numero de digitos significativos decimais: 7
@@ -12,3 +24,4 @@ Precisão usando long double:
 Precisao: 1.0842e-19
 Numero de digitos significativos decimais: 19
 Numero de bits da mantissa: 63
+

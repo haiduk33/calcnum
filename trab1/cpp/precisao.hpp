@@ -5,7 +5,7 @@
 using namespace std;
 
 template <typename T>
-void magnitude() {
+void precisao() {
 	T p, d;
 	int n;
 
@@ -20,18 +20,5 @@ void magnitude() {
 	cout << "Precisao: " << p << endl;// Escrever "Precisão:"; P
 	cout << "Numero de digitos significativos decimais: " << d << endl;// Escrever "Núm. digitos significativos decimais:"; D
 	cout << "Numero de bits da mantissa: " << n << endl;// Escrever "Núm. bits da mantissa:"; N2
-}
-
-int main(int argc, char** argv) {
-	cout << "Precisão usando float:" << endl;
-	magnitude<float>();
-	cout << endl;
-
-	cout << "Precisão usando double:" << endl;
-	magnitude<double>();
-	cout << endl;
-
-	cout << "Precisão usando long double:" << endl;
-	magnitude<long double>();
 }
 
