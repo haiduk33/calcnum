@@ -7,6 +7,7 @@ from newtonraphson import newtonraphson
 from secantes import secantes
 
 calc = Calcnum(100, 1e-15)
+calc.tabelar = True
 
 eq1 = 'cos(x) = x'
 eq2 = 'exp(x) = 3 * x'
