@@ -4,6 +4,7 @@ Início
 | DET <- 1
 | I <- 1
 | Enquanto I <= N e DET != 0 executar
+| | Executar PIVOT(I)
 | | P <- A(I,I)
 | | DET <- DET * P
 | | Se P != 0 então
