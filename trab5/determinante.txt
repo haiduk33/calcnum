@@ -1,0 +1,24 @@
+Algoritmo DETERMINANTE (A,N)
+
+Início
+| DET <- 1
+| I <- 1
+| Enquanto I <= N e DET != 0 executar
+| | P <- A(I,I)
+| | DET <- DET * P
+| | Se P != 0 então
+| | | Para J de I até N executar
+| | | | A(I,J) <- A(I,J) / P
+| | | Fim (J)
+| | | Para K de I+1 até N executar
+| | | | P <- A(K,I)
+| | | | Para J de I+1 até N executar
+| | | | | A(K,J) <- A(K,J) - P*A(I,J)
+| | | | Fim (J)
+| | | Fim (K)
+| | | I <- I + 1
+| | Fim (Se)
+| Fim (Enquanto)
+| Escrever DET
+Fim.
+

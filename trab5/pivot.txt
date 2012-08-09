@@ -1,0 +1,20 @@
+Algoritmo PIVOT(I)
+
+Início
+| C <- A(I,I)
+| L <- I
+| Para K de I+1 até N executar
+| | Se |C| < |A(K,I)| então
+| | | C <- A(K,I)
+| | | L <- K
+| | Fim (Se)
+| Fim (K)
+| Se L != I
+| | DET <- -DET
+| | Para J de 1 até N executar
+| | | A(I,J) <-> A(L,J)
+| | Fim (J)
+| Fim (Se)
+| Retornar
+Fim.
+
