@@ -1,0 +1,88 @@
+Algoritmo NEWTON-BAIRSTOW(N,A)
+
+Início
+| Ler TOL, NMI
+| T <- A(N)
+| Para I de N até 0, incremento -1, executar
+| | A(I) <- A(I)/T
+| | V(I) <- A(I)
+| Fim (I)
+| M <- N
+| Para I de 0 até M executar
+| | Para J de 0 até M-I executar
+| | | Se |V(J)| > |V(J+1)| então V(J) <-> V(J+1)
+| | Fim (J)
+| Fim (I)
+| P0 <- V(M+1)/V(M-1)
+| Q0 <- V(M)/V(M-1)
+| J <- 1
+| Enquanto M > 2 executar
+| | B(M+2) <- B(M+1) <- C(M+2) <- C(M+1) <- 0
+| | P <- P0
+| | Q <- Q0
+| | DP <- DQ <- 1
+| | K <- 0
+| | Enquanto |DP|+|DQ| > TOL e K <= NMI executar
+| | | Para I de M até 1, incremento -1, executar
+| | | | B(I) <- A(I) - P*B(I+1) - Q*B(I+2)
+| | | | C(I) <- B(I) - P*C(I+1) - Q*C(I+2)
+| | | Fim (I)
+| | | B(0) <- A(0) - P*B(1) - Q*B(2)
+| | | C1 <- C(1) - B(1)
+| | | D <- C(2)*C(2) - C1 * C(3)
+| | | Se |D| > 0 então
+| | | | DP <- (B(1)*C(2) - B(0)*C(3)) / D
+| | | | DQ <- (B(0)*C(2) - B(1)*C1) / D
+| | | | P <- P + DP
+| | | | Q <- Q + DQ
+| | | |          senão
+| | | | M <- 0
+| | | Fim (Se)
+| | | K <- K + 1
+| | Fim (Enquanto)
+| | Se M != 0 então
+| | | Executar EQ2GPQ
+| | | M <- M - 2
+| | | Para I de 0 até M executar
+| | | | A(M-I) <- B(M+2-I)
+| | | Fim (I)
+| | | P0 <- V(M+1) / V(M+2)
+| | | Q0 <- V(M) / V(M-1)
+| | Fim (Se)
+| Fim (Enquanto)
+| Se M!= 0 e K <= NMI então
+| | Se M = 2 então
+| | | P <- B(3)
+| | | Q <- B(2)
+| | | Executar EQ2GPQ
+| | |        senão
+| | | PR(N) <- -B(2)
+| | | PI(N) <- 0
+| | Fim (Se)
+| | Para I de 1 até N executar
+| | | Escrever PR(I), PI(I)
+| | Fim (I)
+| Fim (Se)
+| Se K > NMI então escrever "Ultrapassou NMI"
+| Se M = 0 então escrever "Não convergiu com valores iniciais P0 e Q0"
+Fim.
+
+Algoritmo EQ2GPQ
+
+Início
+| DELTA <- P*P - 4*Q
+| R <- -P/2
+| M <- RAIZ(DELTA)/2
+| Se DELTA >= 0 então
+| | PR(J) <- R+IM
+| | PR(J+1) <- R-IM
+| | PI(J) <- PI(J+1) <- 0
+| |             senão
+| | PR(J) <- PR(J+1) <- R
+| | PI(J) <- IM
+| | PI(J+1) <- -IM
+| Fim (Se)
+| J <- J+2
+| Retornar
+Fim.
+
