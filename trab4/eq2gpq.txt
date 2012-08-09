@@ -1,0 +1,19 @@
+Algoritmo EQ2GPQ
+
+Início
+| DELTA <- P*P - 4*Q
+| R <- -P/2
+| M <- RAIZ(DELTA)/2
+| Se DELTA >= 0 então
+| | PR(J) <- R+IM
+| | PR(J+1) <- R-IM
+| | PI(J) <- PI(J+1) <- 0
+| |             senão
+| | PR(J) <- PR(J+1) <- R
+| | PI(J) <- IM
+| | PI(J+1) <- -IM
+| Fim (Se)
+| J <- J+2
+| Retornar
+Fim.
+
