@@ -8,7 +8,7 @@ end
 p *= 2
 d = log10(p).floor.abs
 n = (log(p)/log(2.0)).abs.floor
-puts "Precisao: #{p}"
-puts "Núm. digitos significativos decimais: #{d}"
+puts "Precisão: #{p}"
+puts "Núm. dígitos significativos decimais: #{d}"
 puts "Núm. bits da mantissa: #{n}"
 
