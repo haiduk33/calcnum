@@ -15,9 +15,9 @@ tabela(N) ->
     PIE = pi() /exp(1),
     MYPIE = mypi(N) / mye(N),
     map(fun(ROW) ->
-        Ve = nth(2, ROW),
-        Va = nth(3, ROW),
-        append(ROW, [Va - Ve, 1 - Ve / Va]) end,
+            Ve = nth(2, ROW),
+            Va = nth(3, ROW),
+            append(ROW, [Va - Ve, 1 - Ve / Va]) end,
     [["pi",        pi(),     mypi(N)        ],
      ["e",         exp(1),   mye(N)         ],
      ["pi/e",      PIE,      MYPIE          ],
@@ -26,6 +26,7 @@ tabela(N) ->
      ["tg(pi/e)",  tan(PIE), mytan(MYPIE, N)]]).
 
 main() ->
-    map(fun tabela/1, [3, 10, 30, 84, 10000]).
+    map(fun(N) -> pprint:ptable([[N, "Ve", "Va", "Eabs", "Erel"]|tabela(N)]) end,
+        [3, 10, 30, 84, 10000]).
 
 
