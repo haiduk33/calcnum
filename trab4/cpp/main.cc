@@ -5,16 +5,38 @@
 
 using std::complex;
 
-int main(int argc, char** argv) {
-  nmi = 100;
-  tol = 1e-5;
-  double p[] = {1, 2, -13, -14, 24};
-  //double p[] = {24, -14, -13, 2, 1};
-  complex<double> *raizes = newtonbairstow(p, 5);
-  for (int i = 0; i < 4; ++i) {
-    std::cout << raizes[i];
+void imprimir_raiz(complex<double> raiz) {
+  printf("%f", raiz.real());
+  if (raiz.imag() != 0) {
+    printf(" + %fi", raiz.imag());
   }
+}
+
+void imprimir(int n, complex<double> raizes[]) {
+  printf("{");
+  for (int i = 1; i < n; ++i) {
+    imprimir_raiz(raizes[i]);
+    printf(", ");
+  }
+  imprimir_raiz(raizes[n]);
+  printf("}\n");
   std::cout << std::endl;
+}
+
+int main(int argc, char** argv) {
+  nmi = 20;
+  tol = 1e-15;
+
+  // x4 + 2x3 -13x2 -14x + 24
+  // raízes: {1, 3, -4, -2}
+  double polinomio[] = {24, -14, -13, 2, 1};
+
+  // Chamar o algoritmo
+  complex<double> *raizes = newtonbairstow(4, polinomio);
+
+  // Mostrar raízes
+  imprimir(4, raizes);
+
   return 0;
 }
 

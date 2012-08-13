@@ -2,7 +2,6 @@
 #define NEWTONBAIRSTOW_H
 
 #include <stdio.h>
-#include <cstdlib>
 #include <complex>
 
 #include "eq2gpq.h"
@@ -12,29 +11,43 @@ using std::complex;
 double tol;
 int nmi;
 
-complex<double>* newtonbairstow(double a[], int n) {
-  complex<double>* raizes = (complex<double> *)malloc(n * sizeof(complex<double>));
+// Algoritmo NEWTON-BAIRSTOW(N,A)
+complex<double>* newtonbairstow(int n, double a[n]) {
+  complex<double>* raizes = new complex<double>[n];
   double t = a[n];
-  double v[n];
-  for (int i=n; i<=0; --i) {
+  double *v = new double[n + 1];
+
+  for (int i = n; i >= 0; --i) {
     a[i] = a[i] / t;
     v[i] = a[i];
   }
   int m = n;
-  for (int i=0; i<=m; ++i) {
-    for (int j=0; j <= m - i; ++j) {
-      if (abs(v[j]) > abs(v[j+1])) {
-        double temp = v[j];
-        v[j] = v[j+1];
-        v[j+1] = temp;
+
+  // Não é nescessário ordenar os coeficientes do livro como
+  // é feito no algoritmo original, apenas queremos os
+  // tres maiores em módulo, então basta buscá-los
+  double p0=0, q0=0, norm=0;
+  for (int i = 0; i <= m; ++i) {
+    if (abs(v[i]) > abs(norm)) {
+      if (abs(v[i]) > abs(q0)) {
+        norm = q0;
+        if (abs(v[i]) > abs(p0)) {
+          q0 = p0;
+          p0 = v[i];
+        } else {
+          q0 = v[i];
+        }
+      } else {
+        norm = v[i];
       }
     }
   }
-  double p0 = v[m + 1] / v[m - 1];
-  double q0 = v[m] / v[m - 1];
+  q0 = abs(q0 / norm);
+  p0 = abs(p0 / norm);
+
   int j = 1;
-  double b[n];
-  double c[n];
+  double *b = new double[n + 1];
+  double *c = new double[n + 1];
   int k = 0;
   while (m > 2) {
     b[m + 1] = 0;
@@ -65,10 +78,10 @@ complex<double>* newtonbairstow(double a[], int n) {
     }
     if (m != 0) {
       eq2gpq(p, q, raizes, j);
-      m = m - 2;
-      for (int i = 0; i < m; ++i) {
+      --m;
+      --m;
+      for (int i = 0; i < m; ++i)
         a[m - i] = b[m + 2 - i];
-      }
       p0 = v[m + 1] / v[m + 2];
       q0 = v[m] / v[m - 1];
     }
@@ -79,14 +92,11 @@ complex<double>* newtonbairstow(double a[], int n) {
       double q = b[2];
       eq2gpq(p, q, raizes, j);
     } else {
-      raizes[n] = complex<double>(-b[2], 0);
+      raizes[n] = -b[2];
     }
-    //for (int i = 1; i <= n; ++i) {
-      //TODO: imprimir pr(i), pi(i)
-    //}
   }
-  if (k > nmi) fprintf(stderr, "Ultrapassou NMI.");
-  if (m == 0) fprintf(stderr, "Nao convergiu com valores inicias p0 e q0.");
+  if (k > nmi) fprintf(stderr, "Ultrapassou NMI.\n");
+  if (m == 0) fprintf(stderr, "Nao convergiu com valores inicias p0 e q0.\n");
   return raizes;
 }
 
