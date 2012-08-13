@@ -7,6 +7,7 @@
 #include "eq2gpq.h"
 
 using std::complex;
+using std::abs;
 
 double tol;
 int nmi;
