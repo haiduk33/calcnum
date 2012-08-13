@@ -4,8 +4,6 @@
 #include <complex>
 #include <cmath>
 
-#include "polinomio.h"
-
 using std::sqrt;
 using std::complex;
 
