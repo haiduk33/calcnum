@@ -23,19 +23,34 @@ void imprimir(int n, complex<double> raizes[]) {
   std::cout << std::endl;
 }
 
+void mostrar(int n, double coeficientes[]) {
+  for(int i = n; i > 1; --i) {
+    printf("%f*x^%i + ", coeficientes[i], i);
+  }
+  printf("%f*x + ", coeficientes[1]);
+  printf("%f\n", coeficientes[0]);
+}
+
+void exemplo(int n, double polinomio[]) {
+  printf("Polinomio: ");
+  mostrar(n, polinomio);
+  printf("Raizes: ");
+  imprimir(n, newtonbairstow(n, polinomio));
+}
+
 int main(int argc, char** argv) {
-  nmi = 20;
+  nmi = 100;
   tol = 1e-15;
 
   // x4 + 2x3 -13x2 -14x + 24
   // raízes: {1, 3, -4, -2}
-  double polinomio[] = {24, -14, -13, 2, 1};
+  double pol1[] = {24, -14, -13, 2, 1};
+  exemplo(4, pol1);
 
-  // Chamar o algoritmo
-  complex<double> *raizes = newtonbairstow(4, polinomio);
-
-  // Mostrar raízes
-  imprimir(4, raizes);
+  // 9x5 +7.5x4 -2x3 + 10x2 -11x +2.5
+  // raízes: {i, -i, 1/2, -5/3, 1/3}
+  double pol2[] = {2.5, -11, 10, -2, 7.5, 9};
+  exemplo(5, pol2);
 
   return 0;
 }
