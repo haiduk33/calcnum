@@ -48,6 +48,8 @@ complex<double> *newtonbairstow(int n, double a[n]) {
     b[m + 2] = b[m + 1] = c[m + 1] = c[m + 0] = 0;
     dp = dq = 1;
     k = 0;
+    printf(" k      p      q\n");
+    printf("%2i % 2.3f % 2.3f\n", k, p, q);
     while (abs(dp) + abs(dq) > tol && k <= nmi) {
       // Computa-se os coeficientes de b e c assim como o resto
       // que serão aproximadamente b[1], b[2], c[0] e c[1].
@@ -67,6 +69,7 @@ complex<double> *newtonbairstow(int n, double a[n]) {
         dq = (b[0] * c[1] - b[1] * (c[0] - b[1])) / d;
         p = p + dp;
         q = q + dq;
+        printf("%2i % 2.3f % 2.3f\n", k, p, q);
       } else {
         // nesse caso não é inversível, podemos sair do loop
         // e avisar que tais p e q não convergíram
@@ -75,6 +78,7 @@ complex<double> *newtonbairstow(int n, double a[n]) {
       }
       ++k;
     }
+    printf("\n");
     if (m != 0) {
       // Uma vez calculada a aproximação resolvemos a equação
       // do segundo grau
