@@ -1,0 +1,22 @@
+Algoritmo TRIDIAGONAL
+
+Início
+| Ler N
+| Ler B, C, D
+| K(I) <- D/B
+| T(I) <- C/B
+| Para I de 2 até N-1 executar
+| | Ler A, B, C, D
+| | DEN <- B - A*T(I-1)
+| | K(I) <- (D - A*K(I-1)) / DEN
+| | T(I) <- C / DEN
+| Fim (I)
+| Ler A, B, D
+| K(N) <- (D - A*K(N-1)) / (B - A*T(N-1))
+| X(N) <- K(N)
+| Para I de N-1 at;e 1, incremento -1, executar
+| | X(I) <- K(I) - T(I) * X(I+1)
+| Fim (I)
+| Escrever X(I), Para I de 1 até N
+Fim.
+
