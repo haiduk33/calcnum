@@ -1,0 +1,67 @@
+Algorítmo INVERSA(A,N)
+
+Início
+| // geração da matriz identidade [AI] //
+| Para I de 1 até N executar
+| | Para I de 1 até N executar
+| | | Se I = J então AI(I,J) <- I
+| | |          senão AI(I,J) <- 0
+| | Fim (J)
+| Fim (I)
+| // cálculo da inversa que será [AI] final //
+| DET <- 1
+| I <- 1
+| Enquanto I <= N e DET != 0 executar
+| | Executar PIVOT1(I)
+| | P <- A(I,I)
+| | DET <- DET * P
+| | Se P != 0 então
+| | | Para J de 1 até N executar
+| | | | A(I,J) <- A(I,J) / P
+| | | | AI(I,J) <- AI(I,J) / P
+| | | Fim (J)
+| | | Para K de 1 até N executar
+| | | | Se K != I então
+| | | | | P <- A(K,I)
+| | | | | Para J de 1 até N executar
+| | | | | | A(K,J) <- A(K,J) - P * A(I,J)
+| | | | | | AI(K,J) <- AI(K,J) - P * AI(I,J)
+| | | | | Fim (J)
+| | | | Fim (Se)
+| | | Fim (K)
+| | | I <- I + 1
+| | Fim (Se)
+| Fim (Enquanto)
+| Se DET = 0 então
+| | Escrever "matriz não inversível"
+| |          senão
+| | Para I de 1 até N executar
+| | | Para J de 1 até N executar
+| | | | Escrever AI(I,J)
+| | | Fim (J)
+| | Fim (I)
+| Fim (Se)
+Fim.
+
+Algoritmo PIVOT1(I)
+
+Início
+| C <- A(I,I)
+| L <- I
+| Para K de I+1 até N executar
+| | Se |C| < |A(K,I)| então
+| | | C <- A(K,I)
+| | | L <- K
+| | Fim (Se)
+| Fim (K)
+| Se L != I então
+| | DET <- -DET
+| | Para J de 1 até N executar
+| | | A(I,J) <-> A(L,J)
+| | | AI(I,J) <-> AI(L,J)
+| | Fim (J)
+| Fim (Se)
+| Retornar
+Fim.
+
+

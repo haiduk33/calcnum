@@ -1,0 +1,53 @@
+Algoritmo GAUSS-JORDAN(A,B,N)
+
+Início
+| I <- 1
+| P <- 1
+| Enquanto I <= N e P != 0 executar
+| | Executar PIVOT4(I)
+| | P <- A(I,I)
+| | Se P != 0 então
+| | | Para J de I até N executar
+| | | | A(I,J) <- A(I,J) / p
+| | | Fim (J)
+| | | B(I) <- B(I) <- P
+| | | Para K de 1 até N executar
+| | | | Se K != I então
+| | | | | Q <- A(K,I)
+| | | | | Para J de I até N executar
+| | | | | | A(K,J) <- A(K,J) - Q * A(I,J)
+| | | | | Fim (J)
+| | | | | B(K) <- B(K) - Q * B(I)
+| | | | Fim (Se)
+| | | Fim (K)
+| | | I <- I + 1
+| | Fim (Se)
+| Fim (Enquanto)
+| Se P != 0 então
+| | Para I de 1 até N executar
+| | | Escrever B(I)
+| | Fim (I)
+| |         senão
+| | Escrever "sistema impossível ou indeterminado"
+| Fim (Se)
+Fim.
+
+Algoritmo PIVOT4(I)
+
+Início
+| C <- A(I,I)
+| L <- I
+| Para K de I + 1 até N executar
+| | Se |C| < |A(K,I)| então
+| | | C <- A(K,I)
+| | | L <- K
+| | Fim (Se)
+| Fim (K)
+| Se L != I então
+| | Para J de 1 até N executar
+| | | A(I,J) <-> A(L,J)
+| | Fim (J)
+| Fim (Se)
+| Retornar
+Fim.
+

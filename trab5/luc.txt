@@ -1,0 +1,48 @@
+Algoritmo LUC(A+,N)
+
+Início
+| // geração das matrizes [L] e [U] e solução de [L].{X*}={B} //
+| Para I de 1 até N executar
+| | Executar PIVOTLU(I)
+| | Para J de 1 até N + 1 executar
+| | | Se J < I então L <- J - 1
+| | |          senão L <- I - 1
+| | | SOMA <- A(I,J)
+| | | Para K de 1 até L executar
+| | | | SOMA <- SOMA - A(I,K) * A(K,J)
+| | | Fim (K)
+| | | Se J <= I então A(I,J) <- SOMA
+| | |           senão A(I,J) <- SOMA / A(I,I)
+| | Fim (J)
+| | X(I) <- 0
+| Fim (I)
+| // solução de [U].{X} = {X*} //
+| Para I de N até 1, incremento -1, executar
+| | SOMA <- A(I,N+1)
+| | Para J de I + 1 até N executar
+| | | SOMA <- SOMA - A(I,J) * X(J)
+| | Fim (J)
+| | X(I) <- SOMA
+| Fim (I)
+| Escrever X(I), I variando de 1 até N
+Fim.
+
+Algoritmo PIVOTLU(I)
+
+Início
+| C <- A(I,I)
+| L <- I
+| Para K de I + 1 até N executar
+| | Se |C| < |A(K,I)| então
+| | | C <- A(K,I)
+| | | L <- K
+| | Fim (Se)
+| Fim (K)
+| Se L != I então
+| | Para J de 1 até N + 1 executar
+| | | A(I,J) <-> A(L,J)
+| | Fim (J)
+| Fim (Se)
+| Retornar
+Fim.
+

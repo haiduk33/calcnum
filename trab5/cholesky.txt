@@ -1,0 +1,30 @@
+Algoritmo CHOLESKY(A+, N)
+
+Início
+| // geração dos lij e solução de [L].{X*}={B} //
+| Para I de 1 até N executar
+| | X(I) <- 0
+| | Para J de I até N + 1 executar
+| | | SOMA <- A(I,J)
+| | | Para K de 1 até I - 1 executar
+| | | | SOMA <- SOMA - A(K,I) * A(K,J)
+| | | Fim (K)
+| | | Se I = J então
+| | | | T <- 1 / raiz(SOMA)
+| | | | A(I,J) <- T
+| | | |        senão
+| | | | A(I,J) <- T * SOMA
+| | | Fim (Se)
+| | Fim (J)
+| Fim (I)
+| // solução de [L]t.{X} = {X*} //
+| Para I de N até 1, incremento -1, executar
+| | SOMA <- A(I,N+1)
+| | Para K de I + 1 até N executar
+| | | SOMA <- SOMA - A(I,K) * X(K)
+| | Fim (K)
+| | X(I) <- SOMA * A(I,I)
+| Fim (I)
+| Escrever X(I), I variando de 1 até N
+Fim.
+

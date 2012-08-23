@@ -1,0 +1,74 @@
+Algorítmo INVERSALOCAL(A,N)
+
+Início
+| DET <- 1
+| I <- 1
+| Enquanto I <= N e DET != 0 executar
+| | Executar PIVOT2(I)
+| | P <- A(I,I)
+| | A(I,I) <- 1
+| | DET <- DET * P
+| | Se P != 0 então
+| | | Para J de 1 até N executar
+| | | | A(I,J) <- A(I,J) / P
+| | | Fim (J)
+| | | Para K de 1 até N executar
+| | | | Se K != I então
+| | | | | P <- A(K,I)
+| | | | | A(K,I) <- 0
+| | | | | Para J de 1 até N executar
+| | | | | | A(K,J) <- A(K,J) - P * A(I,J)
+| | | | | Fim (J)
+| | | | Fim (Se)
+| | | Fim (K)
+| | | I <- I + 1
+| | Fim (Se)
+| Fim (Enquanto)
+| Se DET = 0 então
+| | Escrever "matriz não inversível"
+| |          senão
+| | Executar TROCACOL
+| | Para I de 1 até N executar
+| | | Para J de 1 até N executar
+| | | | Escrever A(I,J)
+| | | Fim (J)
+| | Fim (I)
+| Fim (Se)
+Fim.
+
+Algoritmo PIVOT2(I)
+
+Início
+| C <- A(I,I)
+| L <- I
+| Para K de I+1 até N executar
+| | Se |C| < |A(K,I)| então
+| | | C <- A(K,I)
+| | | L <- K
+| | Fim (Se)
+| Fim (K)
+| V(I) <- L
+| Se L != I então
+| | DET <- -DET
+| | Para J de 1 até N executar
+| | | A(I,J) <-> A(L,J)
+| | Fim (J)
+| Fim (Se)
+| Retornar
+Fim.
+
+Algoritmo TROCACOL
+
+Início
+| Para J de N até 1, incremento -1, executar
+| | Se V(J) != J então
+| | | Para I de 1 até N executar
+| | | | A(I,J) <-> A(I,V(J))
+| | | Fim (I)
+| | Fim (Se)
+| Fim (J)
+| Retornar
+Fim.
+
+
+
