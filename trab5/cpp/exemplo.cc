@@ -1,9 +1,11 @@
-#define USAR_FLOAT
+//#define USAR_FLOAT
 
 #include <iostream>
 #include <string>
 #include "determinante.h"
 #include "cholesky.h"
+#include "lu.h"
+#include "luc.h"
 
 using namespace std;
 
@@ -27,6 +29,20 @@ int main() {
       Matriz m(n, n + 1);
       cin >> m;
       cout << m.Cholesky() << endl;
+    } else if (comando == "lu") {
+      cin >> n;
+      Matriz m(n);
+      cin >> m;
+      Vetor b(n);
+      cin >> b;
+      cout << m.LU(b) << endl;
+    } else if (comando == "luc") {
+      cin >> n;
+      Matriz m(n, n + 1);
+      cin >> m;
+      cout << m.LUC() << endl;
+    } else {
+      cout << "Comando desconhecido." << endl;
     }
   }
   return 0;
