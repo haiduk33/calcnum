@@ -1,16 +1,25 @@
 #ifndef CALCNUM_VETOR_H
 #define CALCNUM_VETOR_H
 
+#include <algorithm>
 #include <iostream>
 
 using std::ostream;
 using std::istream;
+using std::copy;
 
 // Vetor de ordem n de elementos do tipo T
 template<typename T>
 class VetorT {
  public:
+  // Vetor de tamanho n
   VetorT(const int n) : n_(n), vetor_(new T[n]) {}
+  // Copiar outro vetor
+  VetorT(const VetorT &outro)
+      : n_(outro.n_),
+        vetor_(new T[outro.n_]) {
+    copy(outro.vetor_, outro.vetor_ + n_, vetor_);
+  }
   ~VetorT() { delete[] vetor_; }
 
   // Operador para acessar o elemento i, chamando v(i),
@@ -30,10 +39,11 @@ class VetorT {
 // Definindo como imprimir um vetor
 template<typename T>
 ostream& operator<< (ostream& out, const VetorT<T> &vetor) {
+  const int n = vetor.n();
   out << '[';
-  for (int i = 1; i < vetor.n(); ++i)
+  for (int i = 1; i < n; ++i)
     out << vetor(i) << ", ";
-  out << vetor(vetor.n());
+  out << vetor(n);
   out << ']';
   return out;
 }
@@ -41,7 +51,7 @@ ostream& operator<< (ostream& out, const VetorT<T> &vetor) {
 // Definindo como ler um vetor
 template<typename T>
 istream& operator>> (istream& in, VetorT<T> &vetor) {
-  int n = vetor.n();
+  const int n = vetor.n();
   for (int i = 1; i <= n; ++i)
     in >> vetor(i);
   return in;
