@@ -7,5 +7,7 @@ add_executable(exemplo
     cholesky.h
     pivot.h
     vetor.h
+    lu.h
+    luc.h
 )
 
