@@ -7,18 +7,19 @@
 
 template<typename T>
 T MatrizT<T>::Determinante() {
-  T det(1);
-  for (int i = 1; i <= n_ && det != 0; ++i) {
+  const int n(m_);
+  T temp, det = 1;
+  for (int i = 1; i <= n && det != 0; ++i) {
     if (Pivot(i)) det *= -1;
-    T p = a(i, i);
-    det *= p;
-    if (p != 0) {
-      for (int j = i; j <= n_; ++j)
-        a(i, j) /= p;
-      for (int k = i + 1; k <= n_; ++k) {
-        p = a(k, i);
-        for (int j = i + 1; j <= n_; ++j)
-          a(k, j) -= p * a(i, j);
+    temp = a(i, i);
+    det *= temp;
+    if (temp != 0) {
+      for (int j = i; j <= n; ++j)
+        a(i, j) /= temp;
+      for (int k = i + 1; k <= n; ++k) {
+        temp = a(k, i);
+        for (int j = i + 1; j <= n; ++j)
+          a(k, j) -= temp * a(i, j);
       }
     }
   }
