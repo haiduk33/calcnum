@@ -49,15 +49,18 @@ class MatrizT {
   MatrizT Inversa() const;
   // inversa local
   void Inversa();
-  // Faz o pivoteamento da i-ésima linha retorna true se houve troca.
-  bool Pivot(const int i);
+  // Pivoteamento da i-ésima linha pra baixo, retorna k se trocar com a k-ésima
+  // linha, se não houver troca retorna 0 (poderia retorna i, mas 0 é mais pratico).
+  int Pivot(const int i);
+  // Faz as trocas também no vetor b.
+  int Pivot(const int i, VetorT<T> &b);
   /// Resolução de sistemas usando os métodos de (b é o vetor dos coeficientes):
-  VetorT<T> LU(const VetorT<T> &b);
+  VetorT<T> LU(VetorT<T> &b);
   // Assume-se que m = n + 1 e a última coluna é o vetor dos coeficientes.
   VetorT<T> LUC();
-  VetorT<T> GaussJordan(const VetorT<T> &b);
-  VetorT<T> GaussJacobi(const VetorT<T> &b);
-  VetorT<T> GaussSeidel(const VetorT<T> &b);
+  VetorT<T> GaussJordan(VetorT<T> &b);
+  VetorT<T> GaussJacobi(VetorT<T> &b);
+  VetorT<T> GaussSeidel(VetorT<T> &b);
   // Assume-se que m = n + 1 e a última coluna é o vetor dos coeficientes.
   VetorT<T> Cholesky();
   // Assume que a matriz é tridiagonal (não verifica se é).

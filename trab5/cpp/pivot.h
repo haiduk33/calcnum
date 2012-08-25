@@ -9,24 +9,31 @@ using std::abs;
 using std::swap;
 
 template<typename T>
-bool MatrizT<T>::Pivot(const int i) {
+int MatrizT<T>::Pivot(const int i) {
   int l(i);
   T c = a(i, i);
   // Procurar um termo maior que o pivot dessa linha
-  for (int k = i + 1; k < n_; ++k) {
-    if (abs(c) < abs(a(k, i))) {
+  for (int k = i + 1; k <= m_; ++k) {
+    if (abs(a(k, i)) > abs(c)) {
       c = a(k, i);
       l = k;
     }
   }
   // Se esse for encontrado trocar a linha inteira
   if (l != i) {
-    for (int j = 0; j < n_; ++j)
-      swap(a(i, j), a(j, i));
-    return true;
+    for (int j = 1; j <= n_; ++j)
+      swap(a(i, j), a(l, j));
+    return l;
   } else {
-    return false;
+    return 0;
   }
+}
+
+template<typename T>
+int MatrizT<T>::Pivot(const int i, VetorT<T> &b) {
+  int l = Pivot(i);
+  if (l) swap(b(i), b(l));
+  return l;
 }
 
 #endif
