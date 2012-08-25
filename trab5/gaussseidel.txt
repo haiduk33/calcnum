@@ -1,0 +1,27 @@
+Algoritmo GAUSS-SEIDEL(A,B,N)
+
+Início
+| Ler TOL, NMI
+| Ler X0
+| Para I de 1 até N executar
+| | X(I) <- X0
+| Fim (I)
+| D <- 1
+| K <- 0
+| Enquanto D > 0 e K <= NMI executar
+| | D <- 0
+| | Para I de 1 até N executar
+| | | XV <- X(I)
+| | | SOMA <- B(I)
+| | | Para J de 1 até N executar
+| | | | Se J != I então SOMA <- SOMA - A(I,J) * X(I)
+| | | Fim (J)
+| | | X(I) <- SOMA / A(I,I)
+| | | Se |X(I) - XV| > TOL então D <- 1
+| | Fim (I)
+| | K <- K + 1
+| Fim (Enquanto)
+| Se K > NMI então escrever "Ultrapassou NMI"
+|            senão escrever X(J) I = 1..N
+Fim.
+

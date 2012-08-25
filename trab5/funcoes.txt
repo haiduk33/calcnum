@@ -1,0 +1,13 @@
+Algoritmo FUNÇÕES(I)
+
+Início
+| Caso I, executar
+| | 1. Função f(x) = x + X(2) + X(3) - 2
+| | 2. Função f(x) = X(1) * x + X(1) * X(3) + x * X(3) + 3
+| | 3. Função f(x) = X(1) * X(2) * x + 4
+| | ...
+| | n. Função f(x) = <      > 
+| Fim (Caso)
+| Retornar
+Fim.
+

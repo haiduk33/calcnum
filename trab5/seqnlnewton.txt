@@ -1,0 +1,35 @@
+Algoritmo SWQNL-NEWTON
+
+Início
+| Ler N
+| Ler TOL, NMI
+| Ler X(I), I = 1..N
+| K <- 0
+| ZM <- 1
+| Enquanto K <= NMI, e |ZM| > TOL executar
+| | Para I de 1 até N executar
+| | | Executar FUNÇÕES(I)
+| | | F(I) <- -f(X(I))
+| | | Para J de 1 até N executar
+| | | | X(J) <- X(J) + TOL
+| | | | A(I,J) <- f(X(I))
+| | | | X(J) <- X(I) - 2 * TOL
+| | | | A(I,J) <- (A(I,J) - f(X(I))) / (2*TOL)
+| | | | X(J) <- X(J) + TOL
+| | | Fim (J)
+| | Fim (I)
+| | // SISTEMA deve ser um algoritmo de resolução
+| |    de sistema linear direto //
+| | Executar SISTEMA(A,F,Z)
+| | ZM <- Z(1)
+| | X(1) <- X(1) + Z(1)
+| | Para I de 2 até N executar
+| | | Se |ZM| <= |Z(I)| então ZM <- Z(I)
+| | | X(I) <- X(I) + Z(I)
+| | Fim (I)
+| | K <- K + 1
+| Fim (Enquanto)
+| Se K > NMI então escrever "Ultrapassou NMI"
+|            senão escrever X(I), I = 1..N
+Fim.
+
