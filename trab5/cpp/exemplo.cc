@@ -8,6 +8,7 @@
 #include "luc.h"
 #include "inversa.h"
 #include "inversalocal.h"
+#include "gaussjordan.h"
 
 using namespace std;
 
@@ -57,6 +58,13 @@ int main() {
       } else {
         cout << "Matriz nao possui inversa." << endl;
       }
+    } else if (comando == "gaussjordan") {
+      cin >> n;
+      Matriz m(n);
+      cin >> m;
+      Vetor b(n);
+      cin >> b;
+      cout << m.GaussJordan(b) << endl;
     } else {
       cout << "Comando desconhecido." << endl;
     }
