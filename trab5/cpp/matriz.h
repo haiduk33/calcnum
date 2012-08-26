@@ -46,9 +46,8 @@ class MatrizT {
   // Calcula o determinante assumindo que a matriz é quadrada.
   // Métodos que não são const são destrutivos e alteram a própria matriz
   T Determinante();
-  MatrizT Inversa() const;
-  // inversa local
-  void Inversa();
+  MatrizT Inversa();
+  void InversaLocal();
   // Pivoteamento da i-ésima linha pra baixo, retorna k se trocar com a k-ésima
   // linha, se não houver troca retorna 0 (poderia retorna i, mas 0 é mais pratico).
   int Pivot(const int i);
@@ -79,7 +78,11 @@ class MatrizT {
 // Definindo como imprimir uma matriz
 template<typename T>
 ostream &operator<< (ostream &out, const MatrizT<T> &matriz) {
-  //TODO: implementar
+  for (int i = 1; i <= matriz.m(); ++i) {
+    for (int j = 1; j <= matriz.n(); ++j)
+      out << matriz(i, j) << " ";
+    out << std::endl;
+  }
   return out;
 }
 

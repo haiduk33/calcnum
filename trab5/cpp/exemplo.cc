@@ -6,6 +6,7 @@
 #include "cholesky.h"
 #include "lu.h"
 #include "luc.h"
+#include "inversa.h"
 
 using namespace std;
 
@@ -41,6 +42,11 @@ int main() {
       Matriz m(n, n + 1);
       cin >> m;
       cout << m.LUC() << endl;
+    } else if (comando == "inversa") {
+      cin >> n;
+      Matriz m(n);
+      cin >> m;
+      cout << m.Inversa() << endl;
     } else {
       cout << "Comando desconhecido." << endl;
     }
