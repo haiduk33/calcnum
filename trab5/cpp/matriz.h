@@ -47,7 +47,8 @@ class MatrizT {
   // Métodos que não são const são destrutivos e alteram a própria matriz
   T Determinante();
   MatrizT Inversa();
-  void InversaLocal();
+  // retorna true se for inversível
+  bool InversaLocal();
   // Pivoteamento da i-ésima linha pra baixo, retorna k se trocar com a k-ésima
   // linha, se não houver troca retorna 0 (poderia retorna i, mas 0 é mais pratico).
   int Pivot(const int i);
