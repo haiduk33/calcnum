@@ -36,5 +36,14 @@ int MatrizT<T>::Pivot(const int i, VetorT<T> &b) {
   return l;
 }
 
+template<typename T>
+int MatrizT<T>::Pivot(const int i, MatrizT<T> &m) {
+  int l = Pivot(i);
+  if (l)
+    for (int j = 1; j <= n_; ++j)
+      swap(m(i, j), m(l, j));
+  return l;
+}
+
 #endif
 

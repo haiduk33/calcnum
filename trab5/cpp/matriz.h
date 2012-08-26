@@ -52,8 +52,10 @@ class MatrizT {
   // Pivoteamento da i-ésima linha pra baixo, retorna k se trocar com a k-ésima
   // linha, se não houver troca retorna 0 (poderia retorna i, mas 0 é mais pratico).
   int Pivot(const int i);
-  // Faz as trocas também no vetor b.
+  // Faz a troca também no vetor b.
   int Pivot(const int i, VetorT<T> &b);
+  // Faz a troca também na matriz m
+  int Pivot(const int i, MatrizT<T> &m);
   /// Resolução de sistemas usando os métodos de (b é o vetor dos coeficientes):
   VetorT<T> LU(VetorT<T> &b);
   // Assume-se que m = n + 1 e a última coluna é o vetor dos coeficientes.
