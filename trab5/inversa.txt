@@ -4,7 +4,7 @@ Início
 | // geração da matriz identidade [AI] //
 | Para I de 1 até N executar
 | | Para I de 1 até N executar
-| | | Se I = J então AI(I,J) <- I
+| | | Se I = J então AI(I,J) <- 1
 | | |          senão AI(I,J) <- 0
 | | Fim (J)
 | Fim (I)
