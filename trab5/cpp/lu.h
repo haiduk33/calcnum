@@ -5,6 +5,7 @@
 #include "vetor.h"
 #include "pivot.h"
 
+// Algoritmo LU
 template<typename T>
 VetorT<T> MatrizT<T>::LU(VetorT<T> &b) {
   const int n = m_;

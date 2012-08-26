@@ -8,6 +8,8 @@
 using std::abs;
 using std::swap;
 
+// Algoritmos PIVOT
+
 template<typename T>
 int MatrizT<T>::Pivot(const int i) {
   int l(i);

@@ -5,6 +5,7 @@
 #include "vetor.h"
 #include "pivot.h"
 
+// Algoritmo DETERMINANTE
 template<typename T>
 T MatrizT<T>::Determinante() {
   const int n(m_);

@@ -6,6 +6,7 @@
 
 using std::sqrt;
 
+// Algoritmo CHOLESKY
 template<typename T>
 VetorT<T> MatrizT<T>::Cholesky() {
   int n(m_);

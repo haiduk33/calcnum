@@ -7,6 +7,7 @@
 
 using std::swap;
 
+// Algoritmo INVERSALOCAL
 template<typename T>
 bool MatrizT<T>::InversaLocal() {
   const int n(m_);

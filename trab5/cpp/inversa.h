@@ -3,6 +3,7 @@
 
 #include "matriz.h"
 
+// Algoritmo INVERSA
 template<typename T>
 MatrizT<T> MatrizT<T>::Inversa() {
   const int n(m_);
