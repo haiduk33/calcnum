@@ -10,7 +10,7 @@ Início
 | | | Para J de I até N executar
 | | | | A(I,J) <- A(I,J) / p
 | | | Fim (J)
-| | | B(I) <- B(I) <- P
+| | | B(I) <- B(I) / P
 | | | Para K de 1 até N executar
 | | | | Se K != I então
 | | | | | Q <- A(K,I)
