@@ -1,5 +1,5 @@
-#ifndef CALCNUM_LU
-#define CALCNUM_LU
+#ifndef CALCNUM_LU_H
+#define CALCNUM_LU_H
 
 #include "matriz.h"
 #include "vetor.h"

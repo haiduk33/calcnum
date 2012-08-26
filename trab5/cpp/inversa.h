@@ -1,5 +1,5 @@
-#ifndef CALCNUM_INVERSA
-#define CALCNUM_INVERSA
+#ifndef CALCNUM_INVERSA_H
+#define CALCNUM_INVERSA_H
 
 #include "matriz.h"
 

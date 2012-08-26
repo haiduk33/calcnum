@@ -1,5 +1,5 @@
-#ifndef CALCNUM_CHOLESKY
-#define CALCNUM_CHOLESKY
+#ifndef CALCNUM_CHOLESKY_H
+#define CALCNUM_CHOLESKY_H
 
 #include <cmath>
 #include "matriz.h"
