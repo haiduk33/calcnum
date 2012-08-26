@@ -7,6 +7,7 @@
 #include "lu.h"
 #include "luc.h"
 #include "inversa.h"
+#include "inversalocal.h"
 
 using namespace std;
 
@@ -47,6 +48,15 @@ int main() {
       Matriz m(n);
       cin >> m;
       cout << m.Inversa() << endl;
+    } else if (comando == "inversalocal") {
+      cin >> n;
+      Matriz m(n);
+      cin >> m;
+      if (m.InversaLocal()) {
+        cout << m << endl;
+      } else {
+        cout << "Matriz nao possui inversa." << endl;
+      }
     } else {
       cout << "Comando desconhecido." << endl;
     }
