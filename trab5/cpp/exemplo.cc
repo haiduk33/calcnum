@@ -9,6 +9,13 @@
 #include "inversa.h"
 #include "inversalocal.h"
 #include "gaussjordan.h"
+#include "gaussjacobi.h"
+
+#ifndef TOLNMI
+#define TOLNMI
+double tol;
+int nmi;
+#endif
 
 using namespace std;
 
@@ -65,6 +72,17 @@ int main() {
       Vetor b(n);
       cin >> b;
       cout << m.GaussJordan(b) << endl;
+    } else if (comando == "nmi") {
+      cin >> nmi;
+    } else if (comando == "tol") {
+      cin >> tol;
+    } else if (comando == "gaussjacobi") {
+      cin >> n;
+      Matriz m(n, n + 1);
+      cin >> m;
+      Vetor x0(n);
+      cin >> x0;
+      cout << m.GaussJacobi(x0) << endl;
     } else {
       cout << "Comando desconhecido." << endl;
     }
