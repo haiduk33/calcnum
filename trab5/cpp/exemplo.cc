@@ -10,6 +10,7 @@
 #include "inversalocal.h"
 #include "gaussjordan.h"
 #include "gaussjacobi.h"
+#include "gaussseidel.h"
 
 #ifndef TOLNMI
 #define TOLNMI
@@ -83,6 +84,13 @@ int main() {
       Vetor x0(n);
       cin >> x0;
       cout << m.GaussJacobi(x0) << endl;
+    } else if (comando == "gaussseidel") {
+      cin >> n;
+      Matriz m(n, n + 1);
+      cin >> m;
+      Vetor x0(n);
+      cin >> x0;
+      cout << m.GaussSeidel(x0) << endl;
     } else {
       cout << "Comando desconhecido." << endl;
     }

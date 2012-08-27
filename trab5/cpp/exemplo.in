@@ -50,10 +50,15 @@ gaussjordan 4
 tol 1e-4
 nmi 100
 
-# resposta: 0.9002, 0.3999, 1.1000
+# resposta: 0.9, 0.4, 1.1
 # note que depois do sistema se
 # passa a aproximacao inicial
 gaussjacobi 3
+1  0  1  2
+2  3  0  3
+1  2  3  5
+0  0  0
+gaussseidel 3
 1  0  1  2
 2  3  0  3
 1  2  3  5
