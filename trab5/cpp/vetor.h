@@ -13,7 +13,7 @@ template<typename T>
 class VetorT {
  public:
   // Vetor de tamanho n
-  VetorT(const int n) : n_(n), vetor_(new T[n]) {}
+  VetorT(const int n) : n_(n), vetor_(new T[n]()) {}
   // Copiar outro vetor
   VetorT(const VetorT &outro)
       : n_(outro.n_),

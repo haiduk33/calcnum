@@ -17,9 +17,9 @@ template<typename T>
 class MatrizT {
  public:
   // Matriz quadrada de ordem n
-  MatrizT(const int n) : m_(n), n_(n), matriz_(new T[n * n]) {}
+  MatrizT(const int n) : m_(n), n_(n), matriz_(new T[n * n]()) {}
   // Matriz retangular m x n
-  MatrizT(const int m, const int n) : m_(m), n_(n), matriz_(new T[m * n]) {}
+  MatrizT(const int m, const int n) : m_(m), n_(n), matriz_(new T[m * n]()) {}
   // Copiar outra matriz
   MatrizT(const MatrizT &outra)
       : m_(outra.m_),
@@ -60,9 +60,11 @@ class MatrizT {
   VetorT<T> LU(VetorT<T> &b);
   // Assume-se que m = n + 1 e a última coluna é o vetor dos coeficientes.
   VetorT<T> LUC();
+  // Matriz quadrada, b é o vetor dos coeficientes
   VetorT<T> GaussJordan(VetorT<T> &b);
-  VetorT<T> GaussJacobi(VetorT<T> &b);
-  VetorT<T> GaussSeidel(VetorT<T> &b);
+  // Matriz quadrada+ (última coluna são os coeficientes), x0 são as aproximações iniciais.
+  VetorT<T> GaussJacobi(VetorT<T> &x0);
+  VetorT<T> GaussSeidel(VetorT<T> &x0);
   // Assume-se que m = n + 1 e a última coluna é o vetor dos coeficientes.
   VetorT<T> Cholesky();
   // Assume que a matriz é tridiagonal (não verifica se é).
