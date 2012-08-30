@@ -1,4 +1,4 @@
-Algoritmo SWQNL-NEWTON
+Algoritmo SEQNL-NEWTON
 
 Início
 | Ler N
