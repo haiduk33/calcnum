@@ -7,7 +7,7 @@
 template<typename T>
 VetorT<T> MatrizT<T>::GaussJordan(VetorT<T> &b) {
   const int n(m_);
-  T temp;
+  T temp = 1;
   for (int i = 1; i <= n && temp != (T)0; ++i) {
     Pivot(i, b);
     temp = a(i, i);
