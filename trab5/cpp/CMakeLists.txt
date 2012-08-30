@@ -9,5 +9,10 @@ add_executable(exemplo
     vetor.h
     lu.h
     luc.h
+    inversa.h
+    inversalocal.h
+    gaussjordan.h
+    gaussjacobi.h
+    gaussseidel.h
 )
 
