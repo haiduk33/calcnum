@@ -13,12 +13,12 @@ bool MatrizT<T>::InversaLocal() {
   const int n(m_);
   VetorT<int> v(n);
   T temp, det = 1;
-  for (int i = 1; i <= n && det != 0 ; ++i) {
+  for (int i = 1; i <= n && det != (T)0 ; ++i) {
     v(i) = Pivot(i);
     temp = a(i, i);
     a(i, i) = 1;
     det *= temp;
-    if (temp != 0) {
+    if (temp != (T)0) {
       for (int j = 1; j <= n; ++j)
         a(i, j) /= temp;
       for (int k = 1; k <= n; ++k) {
@@ -31,7 +31,7 @@ bool MatrizT<T>::InversaLocal() {
       }
     }
   }
-  if (det != 0) {
+  if (det != (T)0) {
     for (int j = n; j >= 1; --j)
       if (v(j))
         for (int i = 1; i <= n; ++i)

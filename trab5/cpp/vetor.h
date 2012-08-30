@@ -57,12 +57,24 @@ istream& operator>> (istream& in, VetorT<T> &vetor) {
   return in;
 }
 
-#ifdef USAR_FLOAT
-typedef VetorT<float> Vetor;
-#elif USAR_LONG_DOUBLE
-typedef VetorT<long double> Vetor;
+#ifdef USAR_COMPLEXO
+# include <complex>
+using std::complex;
+# ifdef USAR_FLOAT
+typedef VetorT<complex<float> > Vetor;
+# elif USAR_LONG_DOUBLE
+typedef VetorT<complex<long double> > Vetor;
+# else
+typedef VetorT<complex<double> > Vetor;
+# endif
 #else
+# ifdef USAR_FLOAT
+typedef VetorT<float> Vetor;
+# elif USAR_LONG_DOUBLE
+typedef VetorT<long double> Vetor;
+# else
 typedef VetorT<double> Vetor;
+# endif
 #endif
 
 #endif

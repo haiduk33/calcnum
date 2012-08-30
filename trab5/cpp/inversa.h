@@ -14,11 +14,11 @@ MatrizT<T> MatrizT<T>::Inversa() {
       ai(i, j) = i == j ? 1 : 0;
   // caçulo da inversa que será [AI] no final
   T temp, det = 1;
-  for (int i = 1; i <= n && det != 0 ; ++i) {
+  for (int i = 1; i <= n && det != (T)0 ; ++i) {
     Pivot(i, ai);
     temp = a(i, i);
     det *= temp;
-    if (temp != 0) {
+    if (temp != (T)0) {
       for (int j = 1; j <= n; ++j) {
         a(i, j) /= temp;
         ai(i, j) /= temp;

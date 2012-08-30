@@ -22,7 +22,7 @@ VetorT<T> MatrizT<T>::Cholesky() {
       if (i != j) {
         a(i, j) = temp * soma;
       } else {
-        temp = 1 / sqrt(soma);
+        temp = (T)1 / sqrt(soma);
         a(i, j) = temp;
       }
     }

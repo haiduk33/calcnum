@@ -1,4 +1,5 @@
 //#define USAR_FLOAT
+#define USAR_COMPLEXO
 
 #include <iostream>
 #include <string>
