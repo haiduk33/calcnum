@@ -1,0 +1,32 @@
+Algoritmo POLICAR (A,N,P)
+
+Início
+| Para I de 1 até N executar
+| | Para J de 1 até N executar
+| | | B(I, J) <- A(I, J)
+| | Fim (J)
+| Fim (I)
+| Para I de 1 até N executar
+| | P(I) <- 0
+| | Para J de 1 até N executar
+| | | P(I) <- P(I) + B(J, J)
+| | Fim (J)
+| | P(I) <- P(I) / I
+| | Para J de 1 até N executar
+| | | B(J, J) <- B(J, J) - P(I)
+| | Fim (J)
+| | Para J de 1 até N executar
+| | | Para K de 1 até N executar
+| | | | C(K) <- B(K, J)
+| | | | B(K, J) <- 0
+| | | Fim (K)
+| | | Para K de 1 até N executar
+| | | | Para L de 1 até N executar
+| | | | | B(K, J) <- B(K, J) + A(K, L) * C(L)
+| | | | Fim (L)
+| | | Fim (K)
+| | Fim (J)
+| Fim (I)
+| Retornar P(I), I=1..N
+Fim.
+
