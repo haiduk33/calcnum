@@ -1,0 +1,18 @@
+Algoritmo SIST-COMPLEXO
+
+Início
+| Ler N
+| Para I de 1 até N executar
+| | Para J de I até N executar
+| | | Ler C(I,J), C(N+I,J)
+| | | C(N+I,N+J) <- C(I,J)
+| | | C(I,N+I) <- -C(N+I,J)
+| | Fim (J)
+| | Ler C(I,C*N+1), C(N+I,2*N+I)
+| Fim (I)
+| // SISTEMA é um algoritmo de resolução
+|    de sistemas direto //
+| Executar SISTEMA(2*N,C,Z)
+| Escrever Z(I), Z(N+I), I=1..N
+Fim.
+
