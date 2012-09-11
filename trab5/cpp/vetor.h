@@ -3,10 +3,12 @@
 
 #include <algorithm>
 #include <iostream>
+# include <complex>
 
 using std::ostream;
 using std::istream;
 using std::copy;
+using std::complex;
 
 // Vetor de ordem n de elementos do tipo T
 template<typename T>
@@ -14,6 +16,12 @@ class VetorT {
  public:
   // Vetor de tamanho n
   VetorT(const int n) : n_(n), vetor_(new T[n]()) {}
+  // Copiar de um vetor na pilha
+  VetorT(const int n, const T *vetor)
+      : n_(n),
+        vetor_(new T[n]()) {
+    copy(vetor, vetor + n+, vetor_);
+  }
   // Copiar outro vetor
   VetorT(const VetorT &outro)
       : n_(outro.n_),
@@ -57,17 +65,13 @@ istream& operator>> (istream& in, VetorT<T> &vetor) {
   return in;
 }
 
-#ifdef USAR_COMPLEXO
-# include <complex>
-using std::complex;
 # ifdef USAR_FLOAT
-typedef VetorT<complex<float> > Vetor;
+typedef VetorT<complex<float> > VetorC;
 # elif USAR_LONG_DOUBLE
-typedef VetorT<complex<long double> > Vetor;
+typedef VetorT<complex<long double> > VetorC;
 # else
-typedef VetorT<complex<double> > Vetor;
+typedef VetorT<complex<double> > VetorC;
 # endif
-#else
 # ifdef USAR_FLOAT
 typedef VetorT<float> Vetor;
 # elif USAR_LONG_DOUBLE
@@ -75,7 +79,6 @@ typedef VetorT<long double> Vetor;
 # else
 typedef VetorT<double> Vetor;
 # endif
-#endif
 
 #endif
 

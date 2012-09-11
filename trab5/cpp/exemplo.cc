@@ -1,5 +1,4 @@
 //#define USAR_FLOAT
-#define USAR_COMPLEXO
 
 #include <iostream>
 #include <string>
@@ -33,34 +32,34 @@ int main() {
         cin >> c;
     } else if (comando == "determinante") {
       cin >> n;
-      Matriz m(n);
+      MatrizC m(n);
       cin >> m;
       cout << m.Determinante() << endl;
     } else if (comando == "cholesky") {
       cin >> n;
-      Matriz m(n, n + 1);
+      MatrizC m(n, n + 1);
       cin >> m;
       cout << m.Cholesky() << endl;
     } else if (comando == "lu") {
       cin >> n;
-      Matriz m(n);
+      MatrizC m(n);
       cin >> m;
-      Vetor b(n);
+      VetorC b(n);
       cin >> b;
       cout << m.LU(b) << endl;
     } else if (comando == "luc") {
       cin >> n;
-      Matriz m(n, n + 1);
+      MatrizC m(n, n + 1);
       cin >> m;
       cout << m.LUC() << endl;
     } else if (comando == "inversa") {
       cin >> n;
-      Matriz m(n);
+      MatrizC m(n);
       cin >> m;
       cout << m.Inversa() << endl;
     } else if (comando == "inversalocal") {
       cin >> n;
-      Matriz m(n);
+      MatrizC m(n);
       cin >> m;
       if (m.InversaLocal()) {
         cout << m << endl;
@@ -69,9 +68,9 @@ int main() {
       }
     } else if (comando == "gaussjordan") {
       cin >> n;
-      Matriz m(n);
+      MatrizC m(n);
       cin >> m;
-      Vetor b(n);
+      VetorC b(n);
       cin >> b;
       cout << m.GaussJordan(b) << endl;
     } else if (comando == "nmi") {
@@ -80,16 +79,16 @@ int main() {
       cin >> tol;
     } else if (comando == "gaussjacobi") {
       cin >> n;
-      Matriz m(n, n + 1);
+      MatrizC m(n, n + 1);
       cin >> m;
-      Vetor x0(n);
+      VetorC x0(n);
       cin >> x0;
       cout << m.GaussJacobi(x0) << endl;
     } else if (comando == "gaussseidel") {
       cin >> n;
-      Matriz m(n, n + 1);
+      MatrizC m(n, n + 1);
       cin >> m;
-      Vetor x0(n);
+      VetorC x0(n);
       cin >> x0;
       cout << m.GaussSeidel(x0) << endl;
     } else {

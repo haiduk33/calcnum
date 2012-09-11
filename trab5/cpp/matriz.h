@@ -3,10 +3,12 @@
 
 #include <algorithm>
 #include <iostream>
+#include <complex>
 
 using std::ostream;
 using std::istream;
 using std::copy;
+using std::complex;
 
 template<typename T> class VetorT;
 
@@ -98,17 +100,13 @@ istream &operator>> (istream &in, MatrizT<T> &matriz) {
   return in;
 }
 
-#ifdef USAR_COMPLEXO
-# include <complex>
-using std::complex;
 # ifdef USAR_FLOAT
-typedef MatrizT<complex<float> > Matriz;
+typedef MatrizT<complex<float> > MatrizC;
 # elif USAR_LONG_DOUBLE
-typedef MatrizT<complex<long double> > Matriz;
+typedef MatrizT<complex<long double> > MatrizC;
 # else
-typedef MatrizT<complex<double> > Matriz;
+typedef MatrizT<complex<double> > MatrizC;
 # endif
-#else
 # ifdef USAR_FLOAT
 typedef MatrizT<float> Matriz;
 # elif USAR_LONG_DOUBLE
@@ -116,7 +114,6 @@ typedef MatrizT<long double> Matriz;
 # else
 typedef MatrizT<double> Matriz;
 # endif
-#endif
 
 #endif
 
