@@ -30,6 +30,7 @@ Vetor DecLU(Matriz &a, Vetor b) {
 
 int main() {
   string comando;
+  cout << fixed;
   while(cin >> comando) {
     int n;
     if (comando == "") {
@@ -44,6 +45,7 @@ int main() {
       cin >> nmi;
     } else if (comando == "tol") {
       cin >> tol;
+      cout << setprecision(abs(log10(tol)));
     } else if (comando == "seqnlnewton") {
       string metodo;
       cin >> metodo;
