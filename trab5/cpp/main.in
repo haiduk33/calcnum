@@ -1,0 +1,44 @@
+# 1) Metodo de Newton para Sistema Nao Linear
+# Sistema:
+# 7 * x1^2 * x3 + 2 * x1 = 78.625
+# 14 * x1 - x2 * x3 + 3 * x1^2 = 233.76
+# 7 * x1 * x2 + 5 * x1^4 = 2403.6155
+# a) Resolvendo usando Gauss Jordan em cada passo:
+seqnlnewton gaussjordan
+# b) Resolvendo usando Decomposicao LU em cada passo:
+seqnlnewton lu
+#
+# 2) Sistema de Equacoes Complexas
+# Sistema:
+# (4-3i)z1 + (7+0i)z2 + (8-2i)z3 = 12+3i
+# (0+4i)z1 + (2-1i)z2 + (3+0i)z3 =  7-1i
+# (5+2i)z1 + (3-1i)z2 + (0+6i)z3 =  5-1i
+# a) Resolvendo Sistema por Gauss Jordan:
+gaussjordan 3
+(4,-3) (7, 0) (8,-2)
+(0, 4) (2,-1) (3, 0)
+(5, 2) (3,-1) (0, 6)
+(12,3) (7,-1) (5,-1)
+# b) Resolvendo Sistema por Decomposicao LU:
+lu 3
+(4,-3) (7, 0) (8,-2)
+(0, 4) (2,-1) (3, 0)
+(5, 2) (3,-1) (0, 6)
+(12,3) (7,-1) (5,-1)
+#
+# 3) Autovetores e Autovalores usando Leverrier Faddev
+# Matriz:
+# 5 -4 -2
+# 2 -5  2
+# 2  5  5
+# a) Autovalores
+autovalor 3
+5 -4 -2
+2 -5  2
+2  5  5
+# b) Autovetores
+autovetor 3
+5 -4 -2
+2 -5  2
+2  5  5
+
