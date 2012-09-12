@@ -3,10 +3,16 @@
 # 7 * x1^2 * x3 + 2 * x1 = 78.625
 # 14 * x1 - x2 * x3 + 3 * x1^2 = 233.76
 # 7 * x1 * x2 + 5 * x1^4 = 2403.6155
+# Usando tolerancia de 0.001
+tol 0.001
+nmi 200
+# 78.625 233.76 2403.6155
 # a) Resolvendo usando Gauss Jordan em cada passo:
-seqnlnewton gaussjordan
+seqnlnewton gaussjordan 3
+1 1 1
 # b) Resolvendo usando Decomposicao LU em cada passo:
-seqnlnewton lu
+seqnlnewton lu 3
+1 1 1
 #
 # 2) Sistema de Equacoes Complexas
 # Sistema:
