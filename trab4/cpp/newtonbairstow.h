@@ -23,7 +23,7 @@ bool abscmp(const double &a, const double &b) {
 }
 
 // Algoritmo NEWTON-BAIRSTOW(N,A)
-complex<double> *newtonbairstow(int n, double a[n]) {
+complex<double> *newtonbairstow(int n, double *a) {
   static complex<double> raizes[MAXN];
   double v[MAXN + 1], b[MAXN + 3], c[MAXN + 2];
   double p, q, dp, dq;
