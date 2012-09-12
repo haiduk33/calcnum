@@ -6,7 +6,9 @@
 #include "seqnlnewton.h"
 #include "gaussjordan.h"
 #include "lu.h"
-//#include "policar.h"
+#include "policar.h"
+#include "newtonbairstow.h"
+//#include "autovetor.h"
 
 using namespace std;
 
@@ -73,7 +75,13 @@ int main() {
       cin >> n;
       Matriz m(n);
       cin >> m;
-      cout << "TODO" << endl;
+      Vetor vp = m.PoliCar();
+      //TODO: generalizar ordem de p, usar new
+      double p[] = {-vp(3), -vp(2), -vp(1), 1};
+      complex<double> *r = newtonbairstow(n, p);
+      VetorC av(n);
+      for (int i = 1; i <= n; ++i) av(i) = r[n - i];
+      cout << av << endl;
     } else if (comando == "autovetor") {
       cin >> n;
       Matriz m(n);
