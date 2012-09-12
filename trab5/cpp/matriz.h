@@ -71,10 +71,16 @@ class MatrizT {
   VetorT<T> Cholesky();
   // Assume que a matriz é tridiagonal (não verifica se é).
   VetorT<T> Tridiagonal() const;
+  // Coeficientes do polinomio caracteristico
+  // O indecie n é o termo independente, nao há indicie 0, esse é implicitamente -1
+  VetorT<T> PoliCar() const;
+  // Autovetor associado do autovalor dado
+  VetorT<T> Autovetor(T autovalor) const;
 
  private:
   // syntatic sugar
   inline T &a(const int i, const int j) { return (*this)(i, j); }
+  inline T a(const int i, const int j) const { return (*this)(i, j); }
 
   int m_, n_;
   T *matriz_;
