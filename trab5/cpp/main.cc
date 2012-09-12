@@ -8,7 +8,7 @@
 #include "lu.h"
 #include "policar.h"
 #include "newtonbairstow.h"
-//#include "autovetor.h"
+#include "autovet.h"
 
 using namespace std;
 
@@ -86,7 +86,23 @@ int main() {
       cin >> n;
       Matriz m(n);
       cin >> m;
-      cout << "TODO" << endl;
+      Vetor vp = m.PoliCar();
+      //TODO: generalizar ordem de p, usar new
+      double p[] = {-vp(3), -vp(2), -vp(1), 1};
+      complex<double> *r = newtonbairstow(n, p);
+      VetorC av(n);
+      for (int i = 1; i <= n; ++i) av(i) = r[n - i];
+      MatrizC mc(m);
+      MatrizC uv = mc.Autovet(av);
+      // normalizando
+      for (int i = 1; i <= n; ++i) {
+        complex<double> max = 0;
+        for (int j = 1; j <= n; ++j)
+          max = abs(uv(i, j)) > abs(max) ? uv(i, j) : max;
+        for (int j = 1; j <= n; ++j)
+          uv(i, j) /= max;
+      }
+      cout << uv << endl;
     } else {
       cout << "Comando desconhecido." << endl;
     }
