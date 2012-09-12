@@ -29,11 +29,22 @@ class MatrizT {
         matriz_(new T[outra.m_ * outra.n_]) {
     copy(outra.matriz_, outra.matriz_ + m_ * n_, matriz_);
   }
+  // Copiar outra matriz mudando o tipo
+  template<typename S>
+  MatrizT(const MatrizT<S> &outra)
+      : m_(outra.m()),
+        n_(outra.n()),
+        matriz_(new T[outra.size()]) {
+    for (int i = 1; i <= m_; ++i)
+      for (int j = 1; j <= n_; ++j)
+        a(i, j) = T(outra(i, j));
+  }
   ~MatrizT() { delete[] matriz_; }
 
   // Operador para acessar o elemento i,j chamando m(i,j).
   // Se i ou j estiver fora do tamanho da matriz o comportamento
-  // não é definido, pode ser retornado o termo errado ou ocorrerá
+  // não é definido, pode ser retornado o ter
+  // mo errado ou ocorrerá
   // um erro de acesso na memória.
   inline T &operator()(const int i, const int j) { return matriz_[j - 1 + (i - 1) * n_]; }
   inline T operator()(const int i, const int j) const { return matriz_[j - 1 + (i - 1) * n_]; }
@@ -41,6 +52,7 @@ class MatrizT {
   // Métodos para ler a ordem da matriz.
   inline int m() const { return m_; }
   inline int n() const { return n_; }
+  inline int size() const { return m_ * n_; }
   // Retorna true se for quadrada.
   inline bool Quadrada() const { return m_ == n_; }
 
@@ -74,8 +86,8 @@ class MatrizT {
   // Coeficientes do polinomio caracteristico
   // O indecie n é o termo independente, nao há indicie 0, esse é implicitamente -1
   VetorT<T> PoliCar() const;
-  // Autovetor associado do autovalor dado
-  VetorT<T> Autovetor(T autovalor) const;
+  // Autovetores associado aos autovalores dados, T deve ser complexo
+  MatrizT<T> Autovet(VetorT<T> autoval) const;
 
  private:
   // syntatic sugar
