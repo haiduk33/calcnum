@@ -1,4 +1,5 @@
 //#define USAR_FLOAT
+#define USAR_LONG_DOUBLE
 
 #include <iostream>
 #include <string>

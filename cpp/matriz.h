@@ -118,20 +118,24 @@ istream &operator>> (istream &in, MatrizT<T> &matriz) {
   return in;
 }
 
-# ifdef USAR_FLOAT
+#ifdef USAR_FLOAT
 typedef MatrizT<complex<float> > MatrizC;
-# elif USAR_LONG_DOUBLE
+#else
+#ifdef USAR_LONG_DOUBLE
 typedef MatrizT<complex<long double> > MatrizC;
-# else
+#else
 typedef MatrizT<complex<double> > MatrizC;
-# endif
-# ifdef USAR_FLOAT
+#endif
+#endif
+#ifdef USAR_FLOAT
 typedef MatrizT<float> Matriz;
-# elif USAR_LONG_DOUBLE
+#else
+#ifdef USAR_LONG_DOUBLE
 typedef MatrizT<long double> Matriz;
-# else
+#else
 typedef MatrizT<double> Matriz;
-# endif
+#endif
+#endif
 
 #endif
 

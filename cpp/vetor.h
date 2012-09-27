@@ -3,7 +3,7 @@
 
 #include <algorithm>
 #include <iostream>
-# include <complex>
+#include <complex>
 
 using std::ostream;
 using std::istream;
@@ -65,20 +65,24 @@ istream& operator>> (istream& in, VetorT<T> &vetor) {
   return in;
 }
 
-# ifdef USAR_FLOAT
+#ifdef USAR_FLOAT
 typedef VetorT<complex<float> > VetorC;
-# elif USAR_LONG_DOUBLE
+#else
+#ifdef USAR_LONG_DOUBLE
 typedef VetorT<complex<long double> > VetorC;
-# else
+#else
 typedef VetorT<complex<double> > VetorC;
-# endif
-# ifdef USAR_FLOAT
+#endif
+#endif
+#ifdef USAR_FLOAT
 typedef VetorT<float> Vetor;
-# elif USAR_LONG_DOUBLE
+#else
+#ifdef USAR_LONG_DOUBLE
 typedef VetorT<long double> Vetor;
-# else
+#else
 typedef VetorT<double> Vetor;
-# endif
+#endif
+#endif
 
 #endif
 
