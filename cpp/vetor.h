@@ -20,7 +20,7 @@ class VetorT {
   VetorT(const int n, const T *vetor)
       : n_(n),
         vetor_(new T[n]()) {
-    copy(vetor, vetor + n+, vetor_);
+    copy(vetor, vetor + n, vetor_);
   }
   // Copiar outro vetor
   VetorT(const VetorT &outro)

@@ -18,6 +18,7 @@ double sisnlin(int i, Vetor &x) {
     case 2: return 14 * x(1) - x(2) * x(3) + 3 * pow(x(1), 2) - 233.76;
     case 3: return 7 * x(1) * x(2) + 5 * pow(x(1), 4) - 2403.6155;
   }
+  return 0;
 }
 
 Vetor GaussJordan(Matriz &a, Vetor b) {
