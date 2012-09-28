@@ -1,0 +1,16 @@
+Algoritmo LAGRANGE(N,X,Y)
+
+Início
+| Ler XM
+| Se X(0) <= XM e XM <= X(N) então
+| | YM <- 0
+| | Para K de 0 até N executar
+| | | P <- 1
+| | | Para I de 0 até N executar
+| | | | Se I != K então P <- P * (XM - X(I))/(X(K)-X(I))
+| | | Fim (I)
+| | | YM <- YM + P * Y(K)
+| | Fim (K)
+| Fim (Se)
+Fim.
+
