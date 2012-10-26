@@ -9,7 +9,7 @@ que leciona no IME (Instituto Militar de Engenharia).
 
 
 Contribuindo
-============
+------------
 
 Contribuições são apreciadas.
 
@@ -26,7 +26,7 @@ problemas. *TODO: explicar o que é rodar 'sem muitos problemas'.*
 
 
 Licensa
-=======
+-------
 
 Com exceção dos pseudo-códigos (de autoria do professor Dieguez), o projeto está
 no domínio público, i.e., não possui licensa. Para melhores esclarecimentos ver o
