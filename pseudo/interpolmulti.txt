@@ -1,0 +1,30 @@
+Algoritmo INTERPOLMULTI (M,N,X,Y)
+
+Início
+| P <- 1
+| Para I de 1 até M executar
+| | P <- P * N(I)
+| | Ler XM(I)
+| Fim (I)
+| Para K de 1 até P executar
+| | YI(M,K) <- Y(K)
+| Fim (K)
+| Q <- 1
+| Para I de M até 1, incremento -1, executar
+| | K <- 1
+| | Para J de 1 até N(I) executar
+| | | XL(J) <- X(I,J)
+| | Fim (J)
+| | Q <- Q * N(I)
+| | Para L de 1 até P/Q executar
+| | | Para J de 1 até N(I) executar
+| | | | YL(J) <- YI(I,K)
+| | | | K <- K + 1
+| | | Fim (J)
+| | | Executar INTERPOL(N(I),XL,YL,XM(I))
+| | | YI(I-1,L) <- YM
+| | Fim (L)
+| Fim (I)
+| Escrever YM
+Fim.
+

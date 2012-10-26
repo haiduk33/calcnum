@@ -1,0 +1,29 @@
+Algoritmo INTERPOLBI (N1,N2,X1,X2,Y)
+
+Início
+| Ler X1M, X2M
+| Para I de 1 até N executar
+| | Para J de 1 até N executar
+| | | Y2(J) <- Y(I,J)
+| | Fim (J)
+| | Executar INTERPOL (N2,X2,Y2,X2M)
+| | Y1(I) <- YM
+| Fim (I)
+| Executar INTERPOL (N1,X1,Y1,X1M)
+| Escrever YM
+Fim.
+
+Algoritmo INTERPOL (N1,X,Y,XM)
+
+Início
+| YM <- 0
+| Para I de 0 até N executar
+| | P <- 1
+| | Para J de 0 até N executar
+| | | Se J != I então P <- P * (XM - X(J))/(X(I)-X(J))
+| | Fim (J)
+| | YM <- YM + P * Y(I)
+| Fim (I)
+| Retornar
+Fim.
+

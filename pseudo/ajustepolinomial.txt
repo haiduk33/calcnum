@@ -1,0 +1,59 @@
+Algoritmo AJUSTE POLINOMIAL (M,X,Y)
+
+Início
+| Ler N //grau do polinômio//
+| //montagem do sistema//
+| R(0) <- M;  B(0) <- SY2 <- 0
+| Para K de 1 até M executar
+| | B(0) <- B(0) + Y(K)
+| | SY2 <- SY2 + Y(K) * Y(K)
+| Fim (K)
+| A(0, N+1) <- B(0)
+| Para I de 2 até 2*N, incremento 2, executar
+| | R(I-1) <- R(I) <- B(I/2) <- 0
+| | Para K de 1 até M executar
+| | | R(I-1) <- R(I-1) + X(K)^(I-1)
+| | | R(I) <- R(I) + X(K)^I
+| | | B(I/2) <- B(I/2) + Y(K) * X(K)^(I/2)
+| | Fim (K)
+| | A(I/2, N+1) <- B(I/2)
+| Fim (I)
+| Para I de 0 até N executar
+| | Para J de I até N executar
+| | | A(I,J) <- R(I + J)
+| | Fim (J)
+| | C(I) <- 0
+| Fim (I)
+| //resolução do sistema//
+| Para I de 0 até N executar
+| | Para J de I até N+1 executar
+| | | S <- A(I,J)
+| | | Para K de 0 até I-1 executar
+| | | | S <- S - A(K,I)*A(K,J)
+| | | Fim (K)
+| | | Se I = J então
+| | | | T <- 1/sqrt(S)
+| | | | A(I,J) <- T
+| | | |        senão
+| | | | A(I,J) <- T * S
+| | | Fim (Se)
+| | Fim (J)
+| Fim (I)
+| Para I de N até 0, incremento -1, executar
+| | S <- A(I, N+1)
+| | Para K de I+1 até N executar
+| | | S <- S - A(I,K) * C(K)
+| | Fim (K)
+| | C(I) <- S*A(I,I)
+| Fim (I)
+| //cálculo de R2//
+| R2 <- 0
+| Para I de 0 até N executar
+| | R2 <- R2 + C(I) * (B(I) - R(I) * B(0) / M)
+| Fim (I)
+| R2 <- R2 / (SY2 - B(0) * B(0) / M)
+| //resultado//
+| Escrever C(I), I variando de 0 até N
+| Escrever R2.
+Fim.
+

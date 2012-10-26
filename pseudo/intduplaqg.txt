@@ -1,0 +1,23 @@
+Algoritmo INTDUPLA-QG (T,W)
+
+Início
+| Função f(x,y) = < >
+| Função g(x) = < >
+| Função h(x) = < >
+| Ler A, B
+| Ler N
+| F0 <- 0
+| Para I de 0 até N-1 executar
+| | TI <- T(N,I)
+| | X <- ((B - A) * TI + B + A) / 2
+| | F1 <- 0
+| | Para J de 0 até N-1 executar
+| | | TJ <- T(N, J)
+| | | Y <- ((h(X) - g(X)) * TJ + g(X) + h(X)) / 2
+| | | F1 <- F1 +(h(X) - g(X)) * f(X,Y) * W(N,J) / 2
+| | Fim (J)
+| | F0 <- F0 + (B - A) * F1 * W(N,I) / 2
+| Fim (I)
+| Escrever F0
+Fim.
+

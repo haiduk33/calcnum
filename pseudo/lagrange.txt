@@ -1,4 +1,4 @@
-Algoritmo LAGRANGE(N,X,Y)
+Algoritmo LAGRANGE (N,X,Y)
 
 Início
 | Ler XM

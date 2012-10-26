@@ -1,0 +1,21 @@
+Algoritmo QGAUSS-COMPOSTO (T,W)
+
+Início
+| Função f(x) = < >
+| Ler A, B
+| Ler N
+| S <- 0
+| H <- (B - A) / (2 * N)
+| Para I de 1 até 2 * N executar
+| | B <- A + H
+| | Para J de 2 até N + 1 executar
+| | | K <- J div 2
+| | | TJ <- T(N,K) * (-1)^J
+| | | X <- ((B - A) * TJ + A + B) / 2
+| | | S <- S + (B - A) * f(X) * W(N,K) / 2
+| | Fim (J)
+| | A <- B
+| Fim (I)
+| Escrever S
+Fim.
+

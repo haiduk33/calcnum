@@ -1,0 +1,16 @@
+Algoritmo QGAUSS-SIMPLE (T,W)
+
+Início
+| Função f(x) = < >
+| Ler A, B
+| Ler N
+| S <- 0
+| Para J de 2 até N + 1 executar
+| | K <- J div 2
+| | TJ <- T(N,K) * (-1)^J
+| | X <- ((B - A) * TJ + B + A) / 2
+| | S <- S + (B - A) * f(X) * W(N,K) / 2
+| Fim (J)
+| Escrever S
+Fim.
+
