@@ -1,4 +1,9 @@
 *.swp
 *.py[oc]
 *.beam
+*.exe
+*.obj
+*.o
+*.la
+a.out
 
