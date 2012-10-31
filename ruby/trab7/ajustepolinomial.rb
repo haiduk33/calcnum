@@ -11,6 +11,7 @@ if x.length != y.length
 else
   m = x.length - 1
   n = gets.to_i
+  puts "n=#{n}"
 end
 
 # montagem do sistema
@@ -87,5 +88,6 @@ def p x
 end
 
 puts c.map{|z| p z}.join " "
-puts p r2
+puts "r=#{p r2}"
+puts
 
