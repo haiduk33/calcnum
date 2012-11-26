@@ -1,0 +1,59 @@
+´
+ "Gauss-Seidel"
+ {
+  { "A=" "Matriz de coeficientes" 3 }
+  { "B=" "Vetor soluÁ„o" 3 }
+  { "Xo=" "Valores iniciais" 3 }
+  { "TOL=" "Toler‚ncia" 0 }
+  { "NMI=" "N˙mero m·ximo de iteraÁıes" 0 }
+ }
+ { 2 0 }
+ {
+  [[ 1 0 1 ][ 2 3 0 ][ 1 2 3 ]]
+  [ 2 3 5 ]
+  [ 0 0 0 ]
+  0.001
+  7
+ }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { A B X TOL NMI } STO
+ TOL LOG NEG FIX
+ B SIZE LISTç DROP 'N' STO
+ 1 DUP
+ 'D' STO
+ 'K' STO
+ WHILE D 0 > K NMI â AND REPEAT
+  0 'D' STO
+  1 N FOR I
+   'X(I)' EVAL 'XV' STO
+   0 'SOMA' STO
+   1 N FOR J
+    IF J I ã
+     THEN
+      'A(I,J)' 'X(J)' * EVAL 'SOMA' STO+
+    END
+   1 STEP
+   X I 'B(I)' SOMA - 'A(I,I)' / EVAL PUT 'X' STO
+   IF 'X(I)' XV - EVAL ABS TOL >
+    THEN
+     1 'D' STO
+   END
+  1 STEP
+  "Para a iteraÁ„o " K çSTR + " a soluÁ„o È:
+" X çSTR + + MSGBOX
+  1 'K' STO+
+ END
+ IF K NMI >
+  THEN
+   "N„o atingiu a precis„o com " K 1 - çSTR + " iteraÁıes." + MSGBOX
+  ELSE
+   "A soluÁ„o do sistema È:
+" X çSTR + MSGBOX
+ END
+ { A B X TOL NMI N D K SOMA XV } PURGE
+ª

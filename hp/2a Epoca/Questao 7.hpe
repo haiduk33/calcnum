@@ -1,0 +1,53 @@
+´
+ { '-X' '-1' '3*X^2+2' 0 0 1 1 4 0.0001 }
+ { P Q R X0 Y0 XN YN N TOL } STO
+ TOL LOG -1 * FIX
+ N 1 - DUP 2 çLIST 0 CON 'MATRIZ1' STO
+ N 1 - 1 çLIST 0 CON 'MATRIZ2' STO
+ N 1 + 1 çLIST 0 CON DUP DUP 'Y' STO 'K' STO 'T' STO
+ Y 1 Y0 PUT 'Y' STO
+ Y N 1 + YN PUT 'Y' STO
+ XN X0 - N / 'H' STO
+ X0 'X' STO
+ K 1 Y0 PUT 'K' STO
+ 1 N 1 - FOR I
+   H 'X' STO+
+   1 H P EVAL * 2 / + 'A' STO
+   -1 H 2 ^ * Q EVAL * 2 - 'B' STO
+   1 H P 2 / * EVAL - 'C' STO
+   H 2 ^ R EVAL * 'D' STO
+   B A 'T(I)' EVAL * - 'DEN' STO
+   K I 1 + D A 'K(I)' EVAL * - DEN / PUT 'K' STO
+   T I 1 + C DEN / PUT 'T' STO
+   IF I 1 ==
+    THEN
+     MATRIZ1 { 1 1 } B PUT { 1 2 } C PUT 'MATRIZ1' STO
+     MATRIZ2 1 D A Y0 * - PUT 'MATRIZ2' STO
+   END
+   IF N 1 - I ==
+    THEN
+     MATRIZ1 N 1 - N 2 - 2 çLIST A PUT N 1 - N 1 - 2 çLIST B PUT 'MATRIZ1' STO
+     MATRIZ2 N 1 - D C YN * - PUT 'MATRIZ2' STO
+   END
+   IF N 1 - I ã I 1 ã AND
+    THEN
+     MATRIZ1 I I 1 - 2 çLIST A PUT I I 2 çLIST B PUT I I 1 + 2 çLIST C PUT 'MATRIZ1' STO
+     MATRIZ2 I D PUT 'MATRIZ2' STO
+   END
+ 1 STEP
+ 
+ N 1 - 1 FOR I
+  Y I 1 + 'K(I+1)' 'T(I+1)' 'Y(I+2)' * - EVAL PUT 'Y' STO
+ -1 STEP
+
+ X0 'X' STO
+ MATRIZ2
+ MATRIZ1
+ { 'X' 'Y' }
+ 0 N FOR I
+   X 'Y(I+1)' EVAL 2 çLIST
+   H 'X' STO+
+ 1 STEP
+ N 2 + DUP ç K ´ 1 SWAP FOR j OBJç çARRY IF j K < THEN j 1 + ROLL END NEXT IF K 1 > THEN 1 K 1 - FOR j j 1 + ROLL NEXT END K ROWç ª
+ { P Q R X0 Y0 XN YU N TOL DEN A B C H D K T Y X YN MATRIZ1 MATRIZ2} PURGE
+ª

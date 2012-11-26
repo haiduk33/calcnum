@@ -1,0 +1,82 @@
+´
+ "DecomposiÁ„o LU"
+ {
+  { "A=" "Matriz dos coeficientes" 3 }
+  { "B=" "vetor coluna" 3 }
+ }
+ { 2 0 }
+ {
+  [
+   [ 2 2 4 -2 ]
+   [ 1 3 2 1 ]
+   [ 3 1 3 1 ]
+   [ 1 3 4 2 ]
+  ]
+  [
+   [ 10 ]
+   [ 17 ]
+   [ 18 ]
+   [ 27 ]
+  ]
+ }
+ DUP
+ INFORM
+ IF 0 ==
+  THEN
+   KILL
+ END
+ { A B } STO
+ A SIZE LISTç DROP DROP 'N' STO
+ A B N 1 + COL+ 'A' STO
+ N 1 2 çLIST 0 CON 'X' STO
+ 1 N FOR I
+   1 N 1 + FOR J
+     IF J I <
+      THEN J
+      ELSE I
+     END
+     'L' STO
+     'A(I,J)' EVAL 'SOMA' STO
+     IF L 1 >
+      THEN
+       1 L 1 - FOR K
+         'A(I,K)' 'A(K,J)' * EVAL NEG 'SOMA' STO+
+       1 STEP
+     END
+     A I J 2 çLIST
+     IF J I â
+      THEN SOMA
+      ELSE SOMA 'A(I,I)' / EVAL
+     END
+     PUT 'A' STO
+   1 STEP
+ 1 STEP
+ N 1 FOR I
+   'A(I,N+1)' EVAL 'SOMA' STO
+   IF I N <
+    THEN
+     I 1 + N FOR J
+       'A(I,J)' 'X(J,1)' * EVAL NEG 'SOMA' STO+
+     1 STEP
+   END
+ X I SOMA PUT 'X' STO
+ -1 STEP
+ N N 2 çLIST 0 CON 'L' STO
+ N IDN 'U' STO
+ 1 N FOR I
+  1 N FOR J
+   IF I J ä
+    THEN
+     L I J 2 çLIST 'A(I,J)' EVAL PUT 'L' STO
+    ELSE
+     U I J 2 çLIST 'A(I,J)' EVAL PUT 'U' STO
+   END
+  1 STEP
+ 1 STEP
+ Lower L 2 çLIST
+ "X*" B L / 2 çLIST
+ Uper U 2 çLIST
+ SoluÁ„o X 2 çLIST
+ 4 çLIST
+ { X N A B SOMA L U } PURGE
+ª

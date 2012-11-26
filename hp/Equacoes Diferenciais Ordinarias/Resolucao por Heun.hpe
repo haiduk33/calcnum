@@ -1,0 +1,39 @@
+´
+ "EDO-Heun"
+ {
+  { "Y'(x,y)=" "funÁ„o de X e Y" 9 }
+  { "Xo=" "Valor inicial" 0 }
+  { "Yo=" "Valor inicial" 0 }
+  { "Xn=" "abcissa do ponto desejado" 0 }
+  { "N=" "n˙mero de intervalos" 0 }
+ }
+ { 2 0 }
+ { '0.2*X*Y' 1 1 1.5 10 }
+ { '1-2*X*Y' 0 1 0.10 10 }
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F X0 Y0 XN N } STO
+ XN X0 - N / 'H' STO
+ X0 'X' STO
+ Y0 'Y' STO
+ 1 N FOR I
+  Y H F * + EVAL 'Y2' STO
+  F EVAL
+  Y 'Y1' STO
+  Y2 'Y' STO
+  H 'X' STO+
+  F EVAL
+  + 2 / H *
+  Y1 'Y' STO
+  'Y' STO+
+ "IteraÁ„o=" I çSTR + "
+X=" X çSTR + "
+Y=" Y çSTR + + + MSGBOX
+ 1 STEP
+ "Xn=" XN çSTR + "
+Y=" Y çSTR + + MSGBOX
+{ Y XN Y0 X0 N X F H Y1 Y2} PURGE
+ª

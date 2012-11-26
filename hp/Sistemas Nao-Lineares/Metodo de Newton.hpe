@@ -1,0 +1,78 @@
+´
+ "Entre com as vari·ves como X1,X2...Xn" MSGBOX
+ "Sistemas n„o-lineares (Newton)"
+ {
+  { "FunÁıes=" "vetor com as funÁıes" 3 }
+  { "TOL=" "Toler‚ncia" 0 }
+  { "NMI" "N˙mero m·ximo de iteraÁıes" 0 }
+  { "X=" "vetor linha com os valores iniciais" 3 }
+ }
+ { 1 0 }
+ {
+  [
+   [ 'X1+X2+X3-2' ]
+   [ 'X1*X2+X1*X3+X2*X3+3' ]
+   [ 'X1*X2*X3+4' ]
+  ]
+  0.0001
+  4
+  [ 0 1 -1 ]
+ }
+ {
+  [
+   [ '7*X1^2*X3+2*X2-78.625' ]
+   [ '14*X1*X2*X3+3*X1^2-233.76' ]
+   [ '7*X1*X2+5*X3^4-2403.6155' ]
+  ]
+  0.001
+  7
+  [ 1 2 4 ]
+ }
+ INFORM
+ IF 0 ==
+  THEN
+   KILL
+ END
+ { FUNCOES TOL NMI X } STO
+ TOL LOG NEG 1 + FIX
+ X SIZE LISTç DROP 'N' STO
+ 1 N FOR I
+   "'X(" I + ")'" + STRç "'X" I + DUP "." POS 1 SWAP 1 - SUB "'" + STRç STO
+ 1 STEP
+ 0 'ITERACAO' STO
+ 1 'ZM' STO
+ N N 2 çLIST 0 CON DUP 'A' STO
+ 1 N FOR I
+   1 N FOR J
+     FUNCOES I GET 'F' STO
+     I J 2 çLIST F "'X" J + DUP "." POS 1 SWAP 1 - SUB "'" + STRç à PUT
+   1 STEP
+ 1 STEP
+ DUP
+ "Sistema" "Matriz A" ROT 2 çLIST "FUNCOES" FUNCOES NEG 2 çLIST 2 çLIST 2 çLIST SWAP
+ FUNCOES NEG N 1 + COL+ 'A' STO
+ WHILE ITERACAO NMI â ZM ABS TOL > AND REPEAT
+   A
+   1 N FOR I
+     1 N 1 + FOR J
+       I J 2 çLIST 'A(I,J)' EVAL EVAL PUT
+     1 STEP
+   1 STEP
+   'AUX' STO
+  AUX N 1 + COL- SWAP / 'Z' STO
+  Z 1 GET 'ZM' STO
+  X 1 X 1 GET Z 1 GET + PUT 'X' STO
+  2 N FOR I
+    IF ZM ABS Z I GET ABS â THEN Z I GET 'ZM' STO END
+    X I X I GET Z I GET + PUT 'X' STO
+  1 STEP
+  IteraÁ„o ITERACAO çSTR DUP "." POS 1 SWAP 1 - SUB AUX N 1 + COL- N 1 2 çLIST RDM Z N 1 2 çLIST RDM "Para a prÛxima iteraÁ„o, x=" X N 1 2 çLIST RDM 7 çLIST
+  1 'ITERACAO' STO+
+ END
+ IF ITERACAO 1 - NMI > THEN "Ultrapassou NMI!" MSGBOX END
+ 1 N FOR I
+   "'X" I + DUP "." POS 1 SWAP 1 - SUB "'" + STRç
+ 1 STEP
+ N çLIST
+ { X AUX Z ZM ITERACAO TOL NMI A FUNCOES F N } + PURGE
+ª

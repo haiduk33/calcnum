@@ -1,0 +1,71 @@
+´
+ "Cholesky (Matriz SimÈtrica)"
+ {
+  { "A=" "Matriz dos coeficientes" 3 }
+  { "B=" "vetor coluna" 3 }
+ }
+ { 1 0 }
+ {
+  [
+   [ 1 2 3 4 ]
+   [ 2 20 18 16 ]
+   [ 3 18 19 21 ]
+   [ 4 16 21 33 ]
+  ]
+  [ 4 6 8 8 ]
+ }
+ DUP
+ INFORM
+ IF 0 ==
+  THEN
+   KILL
+ END
+ { A B } STO
+ A SIZE LISTç DROP DROP 'N' STO
+ A B N 1 + COL+ 'A' STO
+ N 1 2 çLIST 0 CON 'X' STO
+ 1 N FOR I
+   I N 1 + FOR J
+     'A(I,J)' EVAL 'SOMA' STO
+     IF I 1 >
+      THEN
+       1 I 1 - FOR K
+         'A(K,I)' 'A(K,J)' * EVAL NEG 'SOMA' STO+
+       1 STEP
+     END
+     IF I J ==
+      THEN
+       SOMA É INV 'T' STO
+       A I J 2 çLIST T PUT 'A' STO
+      ELSE
+       A I J 2 çLIST T SOMA * PUT 'A' STO
+     END
+   1 STEP
+ 1 STEP
+ N 1 FOR I
+   'A(I,N+1)' EVAL 'SOMA' STO
+   IF I N ã
+    THEN
+     I 1 + N FOR K
+       'A(I,K)' X K GET * EVAL NEG 'SOMA' STO+
+     1 STEP
+   END
+   X I SOMA 'A(I,I)' * EVAL PUT 'X' STO
+ -1 STEP
+ "X*" A N 1 + COL- ROT SWAP N 1 2 çLIST RDM 2 çLIST SWAP
+ 1 N FOR I
+   1 N FOR J
+     IF I J >
+      THEN
+       I J 2 çLIST 0 PUT
+     END
+   1 STEP
+ 1 STEP
+ DUP
+ TRAN "U" SWAP 2 çLIST
+ "X" X 2 çLIST
+ ROT
+ "Sistema final" SWAP " * X=" A N 1 + COL- SWAP DROP N 1 2 çLIST RDM 4 çLIST
+ 4 çLIST
+ { A U X SOMA T N B } PURGE
+ª

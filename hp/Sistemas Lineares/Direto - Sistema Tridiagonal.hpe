@@ -1,0 +1,43 @@
+´
+ "Sistema Tridiagonal"
+ {
+  { "A=" "matriz dos coeficientes" 3 }
+  { "B=" "vetor coluna" 3 }
+ }
+ { 1 0 }
+ {
+  [
+   [ 1 2 0 0 ]
+   [ 2 3 1 0 ]
+   [ 0 3 1 2 ]
+   [ 0 0 3 3 ]
+  ]
+  [ 5 11 17 21 ]
+ }
+ DUP
+ INFORM
+ IF 0 == THEN KILL END
+ "Aguarde, calculando." 6. DISP
+ { A B } STO
+ A SIZE LISTç DROP DROP 'N' STO
+ 1 N 2 çLIST 0 CON DUP DUP
+ 'X' STO
+ 1 B 1 GET 'A(1,1)' / EVAL PUT 'K' STO
+ 1 'A(1,2)' 'A(1,1)' / EVAL PUT 'T' STO
+ 2 N 1 - FOR I
+   'A(I,I)' 'A(I,I-1)' T I 1 - GET * - EVAL 'DEN' STO
+   K I B I GET 'A(I,I-1)' K I 1 - GET * - DEN / EVAL PUT 'K' STO
+   T I 'A(I,I+1)' DEN / EVAL PUT 'T' STO
+ 1 STEP
+ K N B N GET 'A(N,N-1)' K N 1 - GET * - 'A(N,N)' 'A(N,N-1)' T N 1 - GET * - / EVAL PUT 'K' STO
+ X N K N GET PUT 'X' STO
+ N 1 - 1 FOR I
+  X I K I GET T I GET X I 1 + GET * - PUT 'X' STO
+ -1 STEP
+ 'i' 't' 'k' 'x' 4 çLIST
+ 1 N FOR I
+   I T I GET K I GET X I GET 4 çLIST
+ 1 STEP
+ N 1 + DUP ç K ´ 1 SWAP FOR j OBJç çARRY IF j K < THEN j 1 + ROLL END NEXT IF K 1 > THEN 1 K 1 - FOR j j 1 + ROLL NEXT END K ROWç ª
+ { A B DEN K X T N } PURGE
+ª

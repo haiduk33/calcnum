@@ -1,0 +1,428 @@
+«
+ "Integral Tripla"
+ {
+  { "f(x)=" "função a integrada." 9 }
+  { "g(x)=" "limite inferior em y" 9 }
+  { "h(x)=" "limite superior em y" 9 }
+  { "m(x,y)=" "limite inferior em z" 9 }
+  { "n(x,y)=" "limite superior em z" 9 }
+  { "a=" "limite inferior em x" 0 }
+  { "b=" "limite superior em x" 0 }
+ }
+ { 2 0 }
+ { 'X+Y+Z' X 'X^2' 'X+Y' '(X+Y)^2' 0 4 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F G H M N A B } STO
+ 
+ "Método para a integral em X:"
+ {
+  { "Trapézio" 1 }
+  { "Simpson 1ª regra" 2 }
+  { "Simpson 2ª regra" 3 }
+  { "Quadratura de Gauss" 4 }
+ }
+ 2
+ CHOOSE
+ IF 0 ==
+  THEN
+   { F G H M N A B } PURGE
+   KILL
+ END
+ 'OPCAO1' STO
+ 
+  "Método para a integral em y:"
+ {
+  { "Trapézio" 1 }
+  { "Simpson 1ª regra" 2 }
+  { "Simpson 2ª regra" 3 }
+  { "Quadratura de Gauss" 4 }
+ }
+ 2
+ CHOOSE
+ IF 0 ==
+  THEN
+   { F G H M N A B OPCAO1 } PURGE
+   KILL
+ END
+ 'OPCAO2' STO
+ "Método para a integral em z:"
+ {
+  { "Trapézio" 1 }
+  { "Simpson 1ª regra" 2 }
+  { "Simpson 2ª regra" 3 }
+  { "Quadratura de Gauss" 4 }
+ }
+ 2
+ CHOOSE
+ IF 0 ==
+  THEN
+   { F G H M N A B OPCAO1 OPCAO2 } PURGE
+   KILL
+ END
+ 'OPCAO3' STO
+ 
+ IF OPCAO1 4 <
+  THEN
+   CASE
+    OPCAO1 2 ==
+     THEN
+      "O número de subintervalos, em x, precisa ser par" MSGBOX
+     END
+    OPCAO1 3 ==
+     THEN
+     "O número de subintervalos, em x, precisa ser múltiplo de 3." MSGBOX
+     END
+   END
+   "Quantos subintervalos em X?"
+   { { "N=" "subintervalos" 0 } }
+   { 1 0 }
+   { 6 }
+   DUP
+   INFORM
+   IF 0 ==
+    THEN
+     { F G H A B OPCAO1 OPCAO2 OPCAO3 } PURGE
+     KILL
+   END
+   { NX } STO
+  ELSE
+   "Quantos pontos em X?"
+   { { "N=" "Número de pontos" 0 } }
+   { 1 0 }
+   { 6 }
+   DUP
+   INFORM
+   IF 0 ==
+    THEN
+     { F G H A B OPCAO1 OPCAO2 } PURGE
+     KILL
+   END
+   { NX } STO
+ END
+  IF OPCAO2 4 <
+   THEN
+    CASE
+     OPCAO2 2 ==
+      THEN
+       "O número de subintervalos, em y, precisa ser par" MSGBOX
+      END
+     OPCAO2 3 ==
+      THEN
+       "O número de subintervalos, em y, precisa ser múltiplo de 3." MSGBOX
+      END
+    END
+    "Quantos subintervalos em y?"
+    { { "N=" "subintervalos" 0 } }
+    { 1 0 }
+    { 6 }
+    DUP
+    INFORM
+    IF 0 ==
+     THEN
+      { NX F G H A B OPCAO1 OPCAO2 } PURGE
+      KILL
+    END
+    { NY } STO
+   ELSE
+    "Quantos pontos em y?"
+    { { "N=" "número de pontos" 0 } }
+    { 1 0 }
+    { 6 }
+    DUP
+    INFORM
+    IF 0 ==
+     THEN
+      { NX F G H A B OPCAO1 OPCAO2 } PURGE
+      KILL
+    END
+    { NY } STO
+  END
+ IF OPCAO3 4 <
+  THEN
+   CASE
+    OPCAO3 2 ==
+     THEN
+      "O número de subintervalos, em z, precisa ser par" MSGBOX
+     END
+    OPCAO3 3 ==
+     THEN
+     "O número de subintervalos, em z, precisa ser múltiplo de 3." MSGBOX
+     END
+   END
+   "Quantos subintervalos em Z?"
+   { { "N=" "subintervalos" 0 } }
+   { 1 0 }
+   { 6 }
+   DUP
+   INFORM
+   IF 0 ==
+    THEN
+     { F G H A B OPCAO1 OPCAO2 OPCAO3 } PURGE
+     KILL
+   END
+   { NZ } STO
+  ELSE
+   "Quantos pontos em Z?"
+   { { "N=" "Número de pontos" 0 } }
+   { 1 0 }
+   { 6 }
+   DUP
+   INFORM
+   IF 0 ==
+    THEN
+     { F G H A B OPCAO1 OPCAO2 OPCAO3 } PURGE
+     KILL
+   END
+   { NZ } STO
+ END
+«
+ CASE
+  OPCAO3 1 ==
+   THEN
+    N M - NZ / EVAL 'HZ' STO
+    "Para
+x=" X STR + "
+y=" + Y STR + "
+hz=" + HZ STR + MSGBOX
+    M EVAL 'Z' STO
+    0 'SZ' STO
+    "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+    1 NZ FOR K
+      F EVAL 'SZ' STO+
+      HZ 'Z' STO+
+    "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+      F EVAL 'SZ' STO+
+    1 STEP
+    HZ 2 / 'SZ' STO*
+    "Para
+x=" X STR +  "
+y=" + Y STR + "
+Sz=" + SZ STR + MSGBOX
+   END
+  OPCAO3 2 ==
+   THEN
+    N M - NZ / EVAL 'HZ' STO
+    "Para
+x=" X STR +  "
+y=" + Y STR + "
+hz=" + HZ STR + MSGBOX
+    M EVAL 'Y' STO
+    0 'SZ' STO
+    1 NZ 2 / FOR K
+        F EVAL
+        "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+        HZ 'Z' STO+
+        "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+        4 F EVAL * +
+        HZ 'Z' STO+
+        "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+        F EVAL +
+        'SZ' STO+
+    1 STEP
+    HZ 3 / 'SZ' STO*
+    "Para
+x=" X STR +  "
+y=" + Y STR + "
+Sz=" + SZ STR + MSGBOX
+   END
+  OPCAO3 4 ==
+   THEN
+    0 'SZ' STO
+    1 NZ FOR K
+      't(NZ,K)' EVAL 'TK' STO
+      N EVAL M EVAL - TK * M EVAL + N EVAL + 2 / 'Z' STO
+      "z=" Z STR + MSGBOX
+      N EVAL M EVAL - F EVAL * 'w(NZ,K)' EVAL * 2 / 'SZ' STO+
+      "ØZ(T" K 1 - STR DUP "." POS 1 SWAP 1 - SUB + ")=" + N EVAL M EVAL - F EVAL * 2 / STR + MSGBOX
+    1 STEP
+    "Para
+x=" X STR +  "
+y=" + Y STR + "
+Sz=" + SZ STR + MSGBOX
+   END
+  OPCAO3 3 ==
+   THEN
+    N M - NZ / EVAL 'HZ' STO
+    "Para
+x=" X STR +  "
+y=" + Y STR + "
+hz=" + HZ STR + MSGBOX
+    M EVAL 'Z' STO
+    0 'SZ' STO
+    1 NZ 3 / FOR K
+       "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+        F EVAL
+        HZ 'Z' STO+
+        "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+        F EVAL
+        HZ 'Z' STO+
+        F EVAL +
+        "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+        3 *
+        HZ 'Z' STO+
+        "f(" X STR + "," + Y STR + "," + Z STR + ")=" + F EVAL STR + MSGBOX
+        F EVAL + +
+        'SZ' STO+
+    1 STEP
+    3 HZ * 8 / 'SZ' STO*
+    "Para
+x=" X STR +  "
+y=" + Y STR + "
+Sz=" + SZ STR + MSGBOX
+   END
+ END
+»
+'INTERNAZ' STO
+
+«
+ CASE
+  OPCAO2 1 ==
+   THEN
+    H G - NY / EVAL 'HY' STO
+    "Para x=" X STR + "
+hy=" + HY STR + MSGBOX
+    G EVAL 'Y' STO
+    0 'SY' STO
+    1 NY 1 + FOR J
+      INTERNAZ
+      HY 'Y' STO+
+      IF J 1 ‹ J NY 1 + ‹ AND THEN 2 'SZ' STO* END
+      SZ 'SY' STO+
+    1 STEP
+    HY 2 / 'SY' STO*
+    "Para x=" X STR + "
+Sy=" + SY STR + MSGBOX
+   END
+  OPCAO2 2 ==
+   THEN
+    H G - NY / EVAL 'HY' STO
+    "Para x=" X STR + "
+hy=" + HY STR + MSGBOX
+    G EVAL 'Y' STO
+    0 'SY' STO
+    0 NY FOR J
+      INTERNAZ
+      IF J 0 ‹ J NY ‹ AND
+       THEN IF J 2 MOD THEN 4 ELSE 2 END
+      END
+      'SZ' STO*
+      SZ 'SY' STO+
+      HY 'Y' STO+
+    1 STEP
+    HY 3 / 'SY' STO*
+    "Para x=" X STR + "
+Sy=" + SY STR + MSGBOX
+   END
+  OPCAO2 4 ==
+   THEN
+    0 'SY' STO
+    1 NY FOR J
+      't(NY,J)' EVAL 'TJ' STO
+      H EVAL G EVAL - TJ * G EVAL + H EVAL + 2 / 'Y' STO
+      "y(" J 1 - STR + ")=" + Y + MSGBOX
+      "h(" X STR + "," + Y STR + ")=" + H EVAL + MSGBOX
+      "G(" X STR + "," + Y STR + ")=" + G EVAL + MSGBOX
+      INTERNAZ
+      H EVAL G EVAL - SZ * 'w(NY,J)' EVAL * 2 / 'SY' STO+
+      "ØY(T" J 1 - STR DUP "." POS 1 SWAP 1 - SUB + ")=" + H EVAL G EVAL - SZ EVAL * 2 / STR + MSGBOX
+    1 STEP
+    "Para x=" X STR + "
+Sy=" + SY STR + MSGBOX
+   END
+  OPCAO2 3 ==
+   THEN
+    H G - NY / EVAL 'HY' STO
+    "Para x=" X STR + "
+hy=" +  HY STR + MSGBOX
+    G EVAL 'Y' STO
+    0 'SY' STO
+    0 NY FOR J
+      INTERNAZ
+      IF J 0 ‹ J NY ‹ AND
+       THEN
+        IF J 3 MOD THEN 3 ELSE 2 END
+        'SZ' STO*
+      END
+      SZ 'SY' STO+
+    1 STEP
+    3 HY * 8 / 'SY' STO*
+    "Para x=" X STR + "
+Sy=" + SY STR + MSGBOX
+   END
+ END
+»
+'INTERNAYZ' STO
+  CASE
+  OPCAO1 3 ==
+   THEN
+    B A - NX / EVAL 'HX' STO
+    "hx=" HX STR + MSGBOX
+    A 'X' STO
+    0 'S' STO
+    0 NX FOR I
+      INTERNAYZ
+      IF I 0 ‹ I NX ‹ AND
+       THEN IF I 3 MOD THEN 3 ELSE 2 END
+       'SY' STO*
+      END
+      SY 'S' STO+
+      HX 'X' STO+
+    1 STEP
+    3 HX * 8 / 'S' STO*
+   END
+  OPCAO1 2 ==
+   THEN
+    B A - NX / EVAL 'HX' STO
+    "hx=" HX STR + MSGBOX
+    A 'X' STO
+    0 'S' STO
+    0 NX FOR I
+      INTERNAYZ
+      IF I 0 ‹ I NX ‹ AND
+       THEN
+        IF I 2 MOD THEN 4 ELSE 2 END
+        'SY' STO*
+      END
+      SY 'S' STO+
+      HX 'X' STO+
+    1 STEP
+    HX 3 / 'S' STO*
+   END
+  OPCAO1 1 ==
+   THEN
+    B A - NX / 'HX' STO
+    "hx=" HX STR + MSGBOX
+    A 'X' STO
+    0 'S' STO
+    1 NX 1 + FOR I
+      INTERNAYZ
+      HX 'X' STO+
+      IF I 1 ‹ I NX 1 + ‹ AND THEN 2 'SY' STO* END
+      SY 'S' STO+
+    1 STEP
+    HX 2 / 'S' STO*
+   END
+  OPCAO1 4 ==
+   THEN
+     0. 'S' STO
+     1 NX FOR I
+       't(NX,I)' EVAL 'TI' STO
+       B A - TI * A + B + 2 / 'X' STO
+       "X(" I 1 - STR + ")=" + X + MSGBOX
+       "G(" X STR + ")=" + G EVAL STR + MSGBOX
+       "H(" X STR + ")=" + H EVAL STR + MSGBOX
+       INTERNAYZ
+       B A - SY * 'w(NX,I)' * EVAL 2 / 'S' STO+
+       "Ø(T" I 1 - STR DUP "." POS 1 SWAP 1 - SUB + ")=" + B A - SY * 2 / STR + MSGBOX
+    1 STEP
+   END
+ END
+ "A integral é igual a
+" S STR + MSGBOX
+ { SZ TK Z NZ N M A B F G H TI NY OPCAO1 OPCAO2 X Y HX HY SY S NX TJ } PURGE
+»

@@ -1,0 +1,55 @@
+´
+ { 'Z' '(É(1+Z)/(2*X))' 100 0 0 0 2 }
+@ { 'X-Z' '-4*Y' 0 1 -1 1 10 }
+  { F G X0 Y0 Z0 XN N } STO
+ XN X0 - N / 'H' STO
+ "H=" H + MSGBOX
+ X0 'X' STO
+ Y0 'Y' STO
+ Z0 'Z' STO
+
+ Y 'Y1' STO
+ Z 'Z1' STO
+
+ 1 N FOR I
+   "X=" X çSTR + MSGBOX
+   H F * EVAL 'K1' STO
+   "K1=" K1 çSTR + MSGBOX
+   H G * EVAL 'L1' STO
+   "L1=" L1 çSTR + MSGBOX
+   Y 'Y1' STO
+   Z 'Z1' STO
+   H 2 / 'X' STO+
+   K1 2 / 'Y' STO+
+   L1 2 / 'Z' STO+
+   H F * EVAL 'K2' STO
+   "K2=" K2 çSTR + MSGBOX
+   H G * EVAL 'L2' STO
+   "L2=" L2 çSTR + MSGBOX
+   Y1 K2 2 / + 'Y' STO
+   Z1 L2 2 / + 'Z' STO
+   H F * EVAL 'K3' STO
+   "K3=" K3 çSTR + MSGBOX
+   H G * EVAL 'L3' STO
+   "L3=" L3 çSTR + MSGBOX
+   H 2 / 'X' STO+
+   Y1 K3 + 'Y' STO
+   Z1 L3 + 'Z' STO
+   H F * EVAL 'K4' STO
+   "K4=" K4 çSTR + MSGBOX
+   IF X 0 ==
+    THEN
+     0 'L4' STO
+    ELSE
+     H G * EVAL 'L4' STO
+   END
+   "L4=" L4 çSTR + MSGBOX
+  Y1 1 6 / K1 * + 1 3 / K2 * + 1 3 / K3 * + K4 6 / + 'Y' STO
+  Z1 1 6 / L1 * + 1 3 / L2 * + 1 3 / L3 * + L4 6 / + 'Z' STO
+ 1 STEP
+"Xn=" XN çSTR + "
+Y=" + Y çSTR + "
+Z=" + Z çSTR + MSGBOX
+{ G F X Y Z X0 Y0 Z0 Y1 Z1 K1 K2 K3 K4 L1 L2 L3 L4 H N XN N} PURGE
+
+ª

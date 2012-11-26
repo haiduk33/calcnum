@@ -1,0 +1,67 @@
+´
+ "Aitken-Neville"
+ {
+  { "X:" "Vetor" 3. }
+  { "Y:" "Vetor" 3. }
+  { "Å:" "N˘mero a ser interpolado" 0. }
+  { "NI:" "Dist‚ncia do limite inferior" 0. }
+  { "NS:" "Dist‚ncia do limite superior" 0. }
+ }
+ { 2. 0. }
+ {
+  [ 1.4 1.9 2.7 3.1 3.6 4.1 ]
+  [ 2.8 3.5 4.2 4.9 5. 7.5 ]
+  3.
+  2.
+  2.
+ }
+ DUP
+ INFORM
+ "Aguarde, calculando." 6. DISP
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ LISTç
+ DROP
+ 'NS' STO
+ 'NI' STO
+ 'IN' STO
+ DUP
+ SIZE LISTç DROP
+ 'N' STO
+ 'Y' STO
+ 'X' STO
+ 0. 'I' STO
+ WHILE IN 'X(I+1.)' EVAL ä I N â AND
+  REPEAT 1. 'I' STO+
+ END
+ IF 'IâN'
+  THEN
+   I 1. - 'II' STO
+   "Ponto est· entre X=" 'X(I)' EVAL çSTR " e X=" 'X(I+1.)' EVAL çSTR + + + MSGBOX
+   II NI - 1. + 'A' STO
+   II NS + 'B' STO
+   IF A 0. ä B N â AND
+    THEN
+     B A - 'M' STO
+     N DUP 2. çLIST 0. CON 'YI' STO
+     A B FOR I
+       YI I 1. + 1. 2. çLIST 'Y(I+1.)' EVAL PUT 'YI' STO
+     1 STEP
+     1 M FOR K
+       A K + B FOR I
+         'X(I+1.)' IN - 'YI(I,K)' * EVAL 'P1' STO
+         'X(I-K+1.)' IN - 'YI(I+1.,K)' * EVAL 'P2' STO
+         'X(I+1.)' 'X(I-K+1.)' - EVAL 'P3' STO
+         YI I 1. + K 1. + 2. çLIST P1 P2 - P3 / PUT 'YI' STO
+       1 STEP
+     1 STEP
+     "Å=" IN çSTR "
+" "Y=" 'YI(B+1.,M+1.)' EVAL çSTR + + + + MSGBOX
+    END
+    ELSE
+     "Ponto fora dos limites de interpolaÁÂo" MSGBOX
+   END
+   { X II YI NI NS A B IN Y I N P1 P2 P3 M } PURGE
+ª

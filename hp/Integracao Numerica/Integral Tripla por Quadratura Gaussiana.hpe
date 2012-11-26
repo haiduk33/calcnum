@@ -1,0 +1,64 @@
+´
+ "Quadratura Gaussiana (Tripla)"
+ {
+  { "F(X,Y,Z)=" "funÁ„o de X Y Z" 9. }
+  { "G1(X,Y)=" "limite inferior em Z" 9. }
+  { "H1(x,Y)=" "limite superior em Z" 9. }
+  { "g(X)=" "limite inferior em y" 9. }
+  { "h(x)=" "limite superior em y" 9. }
+  { "A=" "limite inferior em x" 0. }
+  { "B=" "limite superior em x" 0. }
+  { "N=" "n∫ de ptos" 0. }
+ }
+ { 2. 0. }
+ { 'X+Y+Z' Y '3.*Y' X '2.*X' 0. 2. 3. }
+ DUP
+ INFORM
+ IF 0. ==
+  THEN
+   KILL
+ END
+ LISTç DROP
+ 'N' STO
+ 'B' STO
+ 'A' STO
+ 'H' STO
+ 'G' STO
+ 'H1' STO
+ 'G1' STO
+ 'F' STO
+ "Tabela da p·g 135" MSGBOX
+ 0 'F0' STO
+ 1 N FOR I
+   't(N,I)' EVAL 'TI' STO
+   B A - TI * A + B + 2. / 'X' STO
+   0. 'F1' STO
+   "X(" I 1. - çSTR + ")=" + X + MSGBOX
+   "H(X" I 1. - çSTR + ")=" + H EVAL + MSGBOX
+   "G(X" I 1. - çSTR + ")=" + G EVAL + MSGBOX
+   1 N FOR J
+     't(N,J)' EVAL 'TJ' STO
+     H EVAL G EVAL - TJ * G EVAL + H EVAL + 2. / 'Y' STO
+     0. 'F2' STO
+     "Y(" J 1. - çSTR + ")=" + Y + MSGBOX
+     "H(X,Y" J 1. - çSTR + ")=" + H1 EVAL + MSGBOX
+     "G(X,Y" J 1. - çSTR + ")=" + G1 EVAL + MSGBOX
+     1 N FOR K
+       't(N,K)' EVAL 'TK' STO
+       H1 G1 - TK * G1 + H1 + 2. / EVAL 'Z' STO
+       H1 EVAL G1 EVAL - F EVAL * 'w(N,K)' EVAL * 2. / 'F2' STO+
+       "Z(" K 1. - çSTR + ")=" + Z + MSGBOX
+       "ÿ2(T" K 1. - çSTR + ")=" + H1 EVAL G1 EVAL - F EVAL * 2. / çSTR + MSGBOX
+     1 STEP
+     "F2(X,Y" J 1. - çSTR + ")=" + F2 + MSGBOX
+     H EVAL G EVAL - F2 EVAL * 'w(N,J)' EVAL * 2. / 'F1' STO+
+     "ÿ1(T" J 1. - çSTR + ")=" + H EVAL G EVAL - F2 EVAL * 2. / çSTR + MSGBOX
+   1 STEP
+   "F1(X" I 1. - çSTR + ")=" + F1 + MSGBOX
+   B A - F1 * 'w(N,I)' * EVAL 2. / 'F0' STO+
+   "ÿ(T" I 1. - çSTR + ")=" + B A - F1 * 2. / çSTR + MSGBOX
+ 1 STEP
+ "A integral È igual a
+" F0 çSTR + MSGBOX
+ { Z Y X F2 TI TK F0 F1 H F G A B N TJ H1 G1 } PURGE
+ª

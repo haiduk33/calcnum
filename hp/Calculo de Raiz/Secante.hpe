@@ -1,0 +1,33 @@
+´
+ "Secante"
+ { "f(x)=" "X0=" "X1=" "Tol=" "NMI=" }
+ { 2 5 }
+ { X 0 1 0.001 100 }
+ { X 0 1 0.001 100 }
+ INFORM
+ DROP
+ "Aguarde, calculando." 6. DISP
+ LISTç
+ DROP
+ 'NMI' STO
+ 'TOL' STO
+ 'X1' STO
+ 'X0' STO
+ 'FUNCAO' STO
+ 0 'K' STO
+ WHILE X1 X0 - ABS TOL > X1 'X' STO FUNCAO EVAL ABS TOL > OR K NMI â AND
+  REPEAT
+   X1 'X' STO FUNCAO EVAL X0 'X' STO FUNCAO EVAL / 'G' STO
+   X1 X0 X1 - G * 1 G - / - 'X2' STO
+   K X0 X0 'X' STO FUNCAO EVAL X1 X1 'X' STO FUNCAO EVAL X2 6 çLIST
+   X1 'X0' STO
+   X2 'X1' STO
+   1. 'K' STO+
+  END
+  K DUP ç K ´ 1 SWAP FOR j OBJç çARRY IF j K < THEN j 1 + ROLL END NEXT IF K 1 > THEN 1 K 1 - FOR j j 1 + ROLL NEXT END K ROWç ª
+  IF 'K>NMI'
+   THEN "Ultrapassou o NMI!" MSGBOX
+   ELSE X2 çSTR MSGBOX
+  END
+  { X0 X1 X2 K FUNCAO G TOL NMI } PURGE
+ª

@@ -1,0 +1,82 @@
+´
+ "Romberg"
+ {
+  { "f(x)=" "funÁ„o a ser integrada" 9 }
+  { "A=" "limite inferior" 0 }
+  { "B=" "limite superior" 0 }
+  { "N=" "n˙mero m·ximo de divisıes do intervalo" 0 }
+  { "TOL=" "Toler‚ncia" 0 }
+ }
+ { 2 0 }
+ { 'EXP(X)*SIN(X)' 0 'á/2' 5 0.00001 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ LISTç DROP
+ DUP
+ LOG NEG FIX
+ EVAL 'TOL' STO
+ EVAL 'NMI' STO
+ EVAL 'B' STO
+ EVAL 'A' STO
+ 'F' STO
+ 0 'C' STO
+ B A - 'H' STO
+ NMI 1 + DUP 2 çLIST 0 CON 'T' STO
+ T 2 2 2 çLIST H A 'X' STO F EVAL B 'X' STO F EVAL + * 2 / PUT 'T' STO
+ 2 'M' STO
+ WHILE C 0. == M NMI â AND
+  REPEAT
+   0 'S' STO
+   2 M 1 - ^ 'MM' STO
+   H MM / 'HM' STO
+   1 MM FOR J
+    A HM J * + 'X' STO
+    F EVAL 'S' STO+
+   2 STEP
+   T M 1 + 2 2 çLIST 'T(M,2)' EVAL 2 / HM S * + PUT 'T' STO
+   M 'KM' STO
+   IF 'T(M+1,2)' 'T(M,2)' - EVAL ABS TOL â
+    THEN
+     1 'C' STO
+     'T(M+1,2)' EVAL 'OUT' STO
+   END
+   IF C 1 ã
+    THEN
+     2 KM FOR K
+      KM K - 1 + 'J' STO
+      4 K 1 - ^ 'R' STO
+      T J 1 + K 1 + 2 çLIST R 'T(J+2,K)' * 'T(J+1,K)' - R 1 - /  EVAL PUT 'T' STO
+      IF J 1 ã 'T(J+1,K+1)' 'T(J,K+1)' - EVAL ABS TOL â AND
+       THEN
+        1 'C' STO
+        'T(J+1,K+1)' EVAL 'OUT' STO
+        KM 1 + 'K' STO
+      END
+    1 STEP
+   END
+   1 'M' STO+
+ END
+ IF OUT 'OUT' SAME
+  THEN
+   "Com esse n˙mero de divisıes do intervalo, n„o foi possÌvel obter o resultado com a precis„o desejada." MSGBOX
+  ELSE
+   "A integral È igual a " OUT EVAL çSTR + MSGBOX
+ END
+ T EVAL 2 2 2çLIST M M 2 çLIST SUB
+ 1 M 1 - FOR I
+  I
+ 1 STEP
+ DUP çLIST 1 DUP ç K ´ 1 SWAP FOR j OBJç çARRY IF j K < THEN j 1 + ROLL END NEXT IF K 1 > THEN 1 K 1 - FOR j j 1 + ROLL NEXT END K ROWç ª
+ 1 ROW+
+ 'j\k'
+ 1 M 1 - FOR I
+  I
+ 1 STEP
+ DUP 1 + çLIST 1 DUP ç K ´ 1 SWAP FOR j OBJç çARRY IF j K < THEN j 1 + ROLL END NEXT IF K 1 > THEN 1 K 1 - FOR j j 1 + ROLL NEXT END K COLç ª
+ 1 COL+
+ { X KM M OUT NMI HM KM H A B F T TOL C R MM S J} PURGE
+ª

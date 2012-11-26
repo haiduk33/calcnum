@@ -1,0 +1,50 @@
+´
+ "Gauss-Jordan"
+ { "Matriz dos coeficientes=" "Matriz SoluÁ„o="}
+ { 1 0 }
+ { 0 0 }
+ { 0 0 }
+ "Aguarde, calculando." 6. DISP
+ INFORM
+  IF 1 ==
+   THEN
+    LISTç DROP
+    'B' STO
+    DUP SIZE LISTç DROP DROP 'N' STO
+    'A' STO
+    1 'I' STO
+    1 'P' STO
+    WHILE I N â P 0 ã AND REPEAT
+     PIVOT3
+     A { I I } GET 'P' STO
+     IF 'Pã0'
+      THEN
+       1 N FOR J
+        A { I J } A { I J } GET P / PUT 'A' STO
+       1 STEP
+      B I B I GET P / PUT 'B' STO
+      1 N FOR K
+       IF K I ã
+        THEN
+         A { K I } GET 'Q' STO
+         A { K I } 0 PUT 'A' STO
+         I 1 + N FOR J
+          A { K J } A { K J } GET Q A { K I } GET * - PUT 'A' STO
+         1 STEP
+         B K B I GET * - PUT 'B' STO
+       END
+      1 STEP
+      1 'K' STO+
+      ELSE
+       "Sistema impossÌvel ou indeterminado!" MSGBOX
+     END
+    END
+    IF 'Pã0'
+     THEN
+      1 N FOR I
+       B I GET
+      1 STEP
+    END
+    N çLIST
+ END
+ª

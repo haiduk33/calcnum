@@ -1,0 +1,48 @@
+´
+ "Quadratura Gaussiana (Dupla)"
+ {
+  { "f(X,Y)=" "funÁ„o" 9. }
+  { "g(X)=" "limite inferior em y" 9. }
+  { "h(x)=" "limite superior em y" 9. }
+  { "A=" "limite inferior em x" 0. }
+  { "B=" "limite superior em x" 0. }
+  { "N=" "n∫ de ptos" 0. }
+ }
+ { 2. 0. }
+ { 'X+Y' X '2.*X' 0. 4. 3. }
+ DUP
+ INFORM
+  IF 0. ==
+   THEN KILL
+ END
+ LISTç DROP
+ 'N' STO
+ 'B' STO
+ 'A' STO
+ 'H' STO
+ 'G' STO
+ 'F' STO
+ 0. 'F0' STO
+ "Tabela da p·g 135" MSGBOX
+ 1 N FOR I
+   't(N,I)' EVAL 'TI' STO
+   B A - TI * A + B + 2. / 'X' STO
+   "X(" I 1. - çSTR + ")=" + X + MSGBOX
+   "H(X" I 1. - çSTR + ")=" + H EVAL + MSGBOX
+   "G(X" I 1. - çSTR + ")=" + G EVAL + MSGBOX
+   0. 'F1' STO
+   1 N FOR J
+     't(N,J)' EVAL 'TJ' STO
+     H EVAL G EVAL - TJ * G EVAL + H EVAL + 2. / 'Y' STO
+     "y(" J 1. - çSTR + ")=" + Y + MSGBOX
+     H EVAL G EVAL - F EVAL * 'w(N,J)' EVAL * 2. / 'F1' STO+
+     "ÿ1(T" J 1. - çSTR + ")=" + H EVAL G EVAL - F EVAL * 2. / çSTR + MSGBOX
+   1 STEP
+   "F1(X" I 1. - çSTR + ")=" + F1 + MSGBOX
+   B A - F1 * 'w(N,I)' * EVAL 2. / 'F0' STO+
+   "ÿ(T" I 1. - çSTR + ")=" + B A - F1 * 2. / çSTR + MSGBOX
+ 1 STEP
+ "A integral È igual a
+" F0 çSTR + MSGBOX
+ { X Y TI F0 F1 H F G A B N TJ } PURGE
+ª

@@ -1,0 +1,58 @@
+´
+ "Simpson 1∫ Regra (dupla)"
+ {
+  { "f(x)=" "funÁ„o a integrada." 9 }
+  { "A(x)=" "limite inferior em y" 9 }
+  { "B(x)=" "limite superior em y" 9 }
+  { "A=" "limite inferior em x" 0 }
+  { "B=" "limite superior em x" 0 }
+  { "N=" "subintervalos, precisa ser par" 0 }
+ }
+ { 2 0 }
+ { 'X+Y' X 'X^2' 0 4 8 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F AY BY AX BX N } STO
+ IF N 2 MOD
+  THEN
+   "Os n˙meros de intervalos precisam ser par." MSGBOX
+   { F AY BY AX BX N } PURGE
+   KILL
+  END
+ BX AX - N / EVAL 'HX' STO
+ AX 'X' STO
+ 0 'S' STO
+ 0 N FOR I
+   BY AY - N / EVAL 'HY' STO
+   AY EVAL 'Y' STO
+   0 'SY' STO
+   1 N 2 / FOR J
+       F EVAL
+       HY 'Y' STO+
+       4 F EVAL * +
+       HY 'Y' STO+
+       F EVAL +
+       'SY' STO+
+   1 STEP
+   HY 3 / 'SY' STO*
+   "SY=" SY çSTR + MSGBOX
+   IF I 0 == I N == OR
+    THEN 1 'FATOR' STO
+    ELSE
+     IF I 2 MOD
+      THEN 4 'FATOR' STO
+      ELSE 2 'FATOR' STO
+     END
+   END
+   FATOR SY * 'S' STO+
+   HX 'X' STO+
+   "S=" S çSTR + MSGBOX
+ 1 STEP
+ HX 3 / 'S' STO*
+ "A integral È igual a " S çSTR + MSGBOX
+ { X Y HX HY SY S F AX BX AY BY N FATOR } PURGE
+ª

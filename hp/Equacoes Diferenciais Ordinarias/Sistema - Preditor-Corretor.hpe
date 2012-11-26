@@ -1,0 +1,360 @@
+´
+ "Sist. de EDO1"
+ {
+  { "y'(x,y,z)=" "funÁ„o de X, Y e Z" 9 }
+  { "g'(x,y,z)=" "funÁ„o de X, Y e Z" 9 }
+  { "Xo=" "Valor inicial" 0 }
+  { "Yo=" "Valor inicial" 0 }
+  { "Zo=" "Valor inicial" 0 }
+  { "Xn=" "abcissa do ponto desejado" 0 }
+  { "N=" "n˙mero de intervalos" 0 }
+ }
+ { 2 0 }
+ { 'X-Z' '-4*Y' 0 1 -1 1 10 }
+ DUP
+ INFORM
+ 3 FIX
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F G X0 Y0 Z0 XN N } STO
+ XN X0 - N / 'H' STO
+ X0 'X' STO
+ Y0 'Y' STO
+ Z0 'Z' STO
+ 
+ N 1 + 1 çLIST 0 CON 'PY' STO
+ PY 1 F EVAL PUT 'PY' STO
+ N 1 + 1 çLIST 0 CON 'PZ' STO
+ PZ 1 G EVAL PUT 'PZ' STO
+
+@Inicio do Inicializador
+ "Qual o inicializador ?"
+ { { "Runge-Kutta 3 " 1 } { "Runge-Kutta 4 " 2 } { "Runge-Kutta 5 " 3 }  { "Heun" 4} { "Euler" 5} { "Euler Modificado" 6}}
+ 3
+ CHOOSE
+ IF 0 ==
+  THEN
+   { F X0 Y0 XN N X Y H PY PZ G Z0} PURGE
+   KILL
+ END
+ 'OPCAO' STO
+"N„o sei o motivo, mas o preditor e corretor precisam ser da mesma ordem" MSGBOX
+  "Qual o preditor ?"
+ { { "Adams-Bashforth 2" 1 } { "Adams-Bashforth 3" 2 } { "Adams-Bashforth 4" 3 } { "Adams-Bashforth 5" 4 } }
+ 3
+ CHOOSE
+ IF 0 ==
+  THEN
+   { F G XO YO ZO XN N X Y H OPCAO} PURGE
+   KILL
+ END
+ 'OPCAO2' STO
+
+  "Qual o corretor ?"
+ { { "Adams-Moulton 2" 1 } { "Adams-Moulton 3" 2 } { "Adams-Moulton 4" 3 } { "Adams-Moulton 5" 4 } }
+ OPCAO2
+ CHOOSE
+ IF 0 ==
+  THEN
+   { F G XO YO ZO XN N X Y H OPCAO OPCAO2 } PURGE
+   KILL
+ END
+ 'OPCAO3' STO
+ OPCAO3 OPCAO2 MAX 1 + 'n' STO
+
+ CASE
+  OPCAO 1 ==
+   THEN
+    1 n FOR I
+      H F * EVAL 'K1' STO
+      H G * EVAL 'L1' STO
+      Y 'Y1' STO
+      Z 'Z1' STO
+      H 2 / 'X' STO+
+      K1 2 / 'Y' STO+
+      L1 2 / 'Z' STO+
+      H F * EVAL 'K2' STO
+      H G * EVAL 'L2' STO
+      H 4 / 'X' STO+
+      Y1 3 K2 * 4 / + 'Y' STO
+      Z1 3 L2 * 4 / + 'Z' STO
+      H F * EVAL 'K3' STO
+      H G * EVAL 'L3' STO
+      Y1 2 9 / K1 * + 1 3 / K2 * + 4 9 / K3 * + 'Y' STO
+      Z1 2 9 / L1 * + 1 3 / L2 * + 4 9 / L3 * + 'Z' STO
+      H 4 / 'X' STO+
+      PY I 1 + F EVAL PUT 'PY' STO
+      PZ I 1 + G EVAL PUT 'PZ' STO
+      "Para a iteraÁ„o
+" I çSTR + MSGBOX
+"K1=" K1 çSTR + "
+K2=" K2 çSTR + "
+K3=" K3 çSTR + "
+L1=" L1 çSTR + "
+L2=" L2 çSTR + "
+L3=" L3 çSTR + + + + + + MSGBOX
+"X=" X çSTR + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + MSGBOX
+"PY(" I çSTR + ")=" + 'PY(I+1)' EVAL çSTR + "
+PZ(" + I çSTR + ")=" + 'PZ(I+1)' EVAL çSTR + MSGBOX
+ 1 STEP
+"Runge-Kutta 3
+Xn=" XN çSTR + "
+Y=" Y çSTR + + "
+Z=" Z çSTR + + MSGBOX
+  END
+  OPCAO 2 ==
+   THEN
+    1 n FOR I
+      H F * EVAL 'K1' STO
+      H G * EVAL 'L1' STO
+      Y 'Y1' STO
+      Z 'Z1' STO
+      H 2 / 'X' STO+
+      K1 2 / 'Y' STO+
+      L1 2 / 'Z' STO+
+      H F * EVAL 'K2' STO
+      H G * EVAL 'L2' STO
+      Y1 K2 2 / + 'Y' STO
+      Z1 L2 2 / + 'Z' STO
+      H F * EVAL 'K3' STO
+      H G * EVAL 'L3' STO
+      H 2 / 'X' STO+
+      Y1 K3 + 'Y' STO
+      Z1 L3 + 'Z' STO
+      H F * EVAL 'K4' STO
+      H G * EVAL 'L4' STO
+      Y1 1 6 / K1 * + 1 3 / K2 * + 1 3 / K3 * + K4 6 / + 'Y' STO
+      Z1 1 6 / L1 * + 1 3 / L2 * + 1 3 / L3 * + L4 6 / + 'Z' STO
+      PY I 1 + F EVAL PUT 'PY' STO
+      PZ I 1 + G EVAL PUT 'PZ' STO
+      "Para a iteraÁ„o
+" I çSTR + MSGBOX
+"K1=" K1 çSTR + "
+K2=" K2 çSTR + "
+K3=" K3 çSTR + "
+K4=" K4 çSTR + "
+L1=" L1 çSTR + "
+L2=" L2 çSTR + "
+L3=" L3 çSTR + "
+L4=" L4 çSTR + + + + + + + + MSGBOX
+"X=" X çSTR + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + MSGBOX
+"PY(" I çSTR + ")=" + 'PY(I+1)' EVAL çSTR + "
+PZ(" + I çSTR + ")=" + 'PZ(I+1)' EVAL çSTR + MSGBOX
+    1 STEP
+"Runge-Kutta 4
+Xn=" XN çSTR + "
+Y=" Y çSTR + + "
+Z=" Z çSTR + + MSGBOX
+  END
+  OPCAO 3 ==
+   THEN
+    1 n FOR I
+      H F * EVAL 'K1' STO
+      H G * EVAL 'L1' STO
+      Y 'Y1' STO
+      Z 'Z1' STO
+      X 'X1' STO
+      H 4 / 'X' STO+
+      K1 4 / 'Y' STO+
+      L1 4 / 'Z' STO+
+      H F * EVAL 'K2' STO
+      H G * EVAL 'L2' STO
+      Y1 K1 K2 + 8 / + 'Y' STO
+      Z1 L1 L2 + 8 / + 'Z' STO
+      H F * EVAL 'K3' STO
+      H G * EVAL 'L3' STO
+      H 4 / 'X' STO+
+      Y1 K2 -2 / K3 + + 'Y' STO
+      Z1 L2 -2 / L3 + + 'Z' STO
+      H F EVAL * 'K4' STO
+      H G EVAL * 'L4' STO
+      H 4 / 'X' STO+
+      Y1 K1 3 * K4 9 * + 16 / + 'Y' STO
+      Z1 L1 3 * L4 9 * + 16 / + 'Z' STO
+      H F * EVAL 'K5' STO
+      H G * EVAL 'L5' STO
+      H 4 / 'X' STO+
+      Y1 -3 K1 * 2 K2 * + 12 K3 * + -12 K4 * + 8 K5 * + 7 / + 'Y' STO
+      Z1 -3 L1 * 2 L2 * + 12 L3 * + -12 L4 * + 8 L5 * + 7 / + 'Z' STO
+      H F * EVAL 'K6' STO
+      H G * EVAL 'L6' STO
+      Y1 7 K1 * 32 K3 * 12 K4 * 32 K5 * 7 K6 * + + + + 90 / + 'Y' STO
+      Z1 7 L1 * 32 L3 * 12 L4 * 32 L5 * 7 L6 * + + + + 90 / + 'Z' STO
+      PY I 1 + F EVAL PUT 'PY' STO
+      PZ I 1 + G EVAL PUT 'PZ' STO
+      "Para a iteraÁ„o
+" I çSTR + MSGBOX
+"K1=" K1 çSTR + "
+K2=" K2 çSTR + "
+K3=" K3 çSTR + "
+K4=" K4 çSTR + "
+K5=" K5 çSTR + "
+K6=" K6 çSTR + + + + + + MSGBOX
+"L1=" L1 çSTR + "
+L2=" L2 çSTR + "
+L3=" L3 çSTR + "
+L4=" L4 çSTR + "
+L5=" L5 çSTR + "
+L6=" L6 çSTR + + + + + + MSGBOX
+"X=" X çSTR + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + MSGBOX
+"PY(" I çSTR + ")=" + 'PY(I+1)' EVAL çSTR + "
+PZ(" + I çSTR + ")=" + 'PZ(I+1)' EVAL çSTR + MSGBOX
+    1 STEP
+"Runge-Kutta 5
+Xn=" XN çSTR + "
+Y=" Y çSTR + + "
+Z=" Z çSTR + + MSGBOX
+  END
+  OPCAO 4 ==
+   THEN
+    1 n FOR I
+      Y H F * + EVAL 'Y2' STO
+      F EVAL
+      G EVAL
+      Y 'Y1' STO
+      Y2 'Y' STO
+      Z 'Z1' STO
+      Z2 'Z' STO
+      H 'X' STO+
+      G EVAL + 2 / H *
+      Z1 'Z' STO
+      'Z' STO+
+      F EVAL + 2 / H *
+      Y1 'Y' STO
+      'Y' STO+
+      PY I 1 + F EVAL PUT 'PY' STO
+      PZ I 1 + G EVAL PUT 'PZ' STO
+"IteraÁ„o=" I çSTR + "
+X=" X çSTR + + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + "
+PY(" I çSTR + ")=" + 'PY(I+1)' EVAL çSTR + "
+PZ(" + I çSTR + ")=" + 'PZ(I+1)' EVAL çSTR + + MSGBOX
+ 1 STEP
+    "Heun
+Xn=" XN çSTR + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + MSGBOX
+   END
+   OPCAO 5 ==
+    THEN
+ 1 n FOR I
+  H F * EVAL 'Y' STO+
+  H G * EVAL 'Z' STO+
+  H 'X' STO+
+  PY I 1 + F EVAL PUT 'PY' STO
+  PZ I 1 + G EVAL PUT 'PZ' STO
+"IteraÁ„o=" I çSTR + "
+X=" X çSTR + + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + "
+PY(" I çSTR + ")=" + 'PY(I+1)' EVAL çSTR + "
+PZ(" + I çSTR + ")=" + 'PZ(I+1)' EVAL çSTR + + MSGBOX
+ 1 STEP
+    "Euler
+Xn=" XN çSTR + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + MSGBOX
+   END
+   OPCAO 6 ==
+    THEN
+     1 n FOR I
+       Y 'Y1' STO
+       Z 'Z1' STO
+       H 2 / F EVAL * 'Y' STO+
+       H 2 / G EVAL * 'Z' STO+
+       H 2 / 'X' STO+
+       Y1 H F EVAL * + 'Y' STO
+       Z1 H G EVAL * + 'Z' STO
+       H 2 / 'X' STO+
+       PY I 1 + F EVAL PUT 'PY' STO
+       PZ I 1 + G EVAL PUT 'PZ' STO
+"IteraÁ„o=" I çSTR + "
+X=" X çSTR + + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + "
+PY(" I çSTR + ")=" + 'PY(I+1)' EVAL çSTR + "
+PZ(" + I çSTR + ")=" + 'PZ(I+1)' EVAL çSTR + + MSGBOX
+ 1 STEP
+    "Euler Modificado
+Xn=" XN çSTR + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + MSGBOX
+    END
+ END
+@Fim do Inicializador
+
+@ InÌcio do Preditor/Corretor
+ CASE
+  OPCAO2 1 ==
+   THEN
+    { 2 3 -1 0 0 0 } { a b c d m f } STO
+  END
+  OPCAO2 2 ==
+   THEN
+    { 12 23 -16 5 0 0 } { a b c d m f } STO
+  END
+  OPCAO2 3 ==
+   THEN
+    { 24 55 -59 37 -9 0 } { a b c d m f } STO
+  END
+  OPCAO2 4 ==
+   THEN
+    { 720 1901 -2774 2616 -1274 251 } { a b c d m f } STO
+  END
+ END
+
+ CASE
+  OPCAO3 1 ==
+   THEN
+    { 2 1 1 0 0 0 } { g h o j k l } STO
+  END
+  OPCAO3 2 ==
+   THEN
+    { 12 5 8 -1 0 0 } { g h o j k l } STO
+  END
+  OPCAO3 3 ==
+   THEN
+    { 24 9 19 -5 1 0 } { g h o j k l } STO
+  END
+  OPCAO3 4 ==
+   THEN
+    { 720 251 646 -264 106 -19 } { g h o j k l } STO
+  END
+ END
+
+n N 1 - FOR I
+  H 'X' STO+
+  Y b 'PY(I+1)' * c 'PY(I)' * + d 'PY(I-1)' * + m 'PY(I-2)' * + f 'PY(I-3)' * + H * a / + EVAL 'YP' STO
+  Z b 'PZ(I+1)' * c 'PZ(I)' * + d 'PZ(I-1)' * + m 'PZ(I-2)' * + f 'PZ(I-3)' * + H * a / + EVAL 'ZP' STO
+  Y 'Y1' STO
+  Z 'Z1' STO
+  "YP=" YP çSTR + "
+ZP=" ZP çSTR + + MSGBOX
+    YP 'Y' STO
+    ZP 'Z' STO
+    F EVAL 'FT' STO
+    G EVAL 'GT' STO
+    Y1 h FT * o 'PY(I+1)' * + j 'PY(I)' * + k 'PY(I-1)' * + l 'PY(I-2)' * + H * g / + EVAL 'Y' STO
+    Z1 h GT * o 'PZ(I+1)' * + j 'PZ(I)' * + k 'PZ(I-1)' * + l 'PZ(I-2)' * + H * g / + EVAL 'Z' STO
+    PY I 2 + F EVAL PUT 'PY' STO
+    PZ I 2 + G EVAL PUT 'PZ' STO
+  "Y=" Y çSTR + "
+Z=" Z çSTR + + MSGBOX
+ 1 STEP
+ 
+"Resposta Final
+Xn=" XN çSTR + "
+Y=" Y çSTR + "
+Z=" Z çSTR + + + MSGBOX
+
+{ Y XN Y0 X0 N X F H Y1 Y2 K1 K2 K3 K4 ER YC YP G FT TOL a b c d o f g h m j k l OPCAO OPCAO2 OPCAO3 Y2 n X1 K6 K5 PZ PY F L1 L2 L3 L4 L5 L6 GT ZP Z Z0 Z1 Z2} PURGE
+ª

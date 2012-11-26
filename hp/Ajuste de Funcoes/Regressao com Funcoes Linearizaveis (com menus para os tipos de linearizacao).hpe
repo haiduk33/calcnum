@@ -1,0 +1,148 @@
+´ "Regress„o com FunÁıes Lineariz·veis" { { "X:" "Ponha na forma de vetor." 3. } { "Y:" "Ponha na forma de vetor." 3. } } { 1. 0. } { [ 10. 20. 30. 40. 50. ] [ 1.293 1. .8 .654 .546 ] } DUP INFORM
+  IF 0. SAME
+  THEN KILL
+  END LISTç DROP 0. 1. ROW+ 'Y' STO DUP SIZE LISTç DROP 'M' STO 0. 1. ROW+ 'X' STO
+  IF X SIZE Y SIZE SAME NOT
+  THEN "ERRO: O n˙mero de pontos em X ã de em Y." MSGBOX { X Y M } PURGE KILL
+  END 0. 'NaoPodeX' STO 0. 'NaoPodeY' STO 2. X SIZE LISTç DROP
+  FOR I
+    IF 'X(I)' EVAL 0. â
+    THEN 1. 'NaoPodeX' STO
+    END 1.
+  STEP
+  IF NaoPodeX
+  THEN "Existe um ponto Xâ0, assim, n„o È possÌvel usar a LogarÌtimica e a Potencial" MSGBOX
+  END 2. Y SIZE LISTç DROP
+  FOR I
+    IF 'Y(I)' EVAL 0. â
+    THEN 1. 'NaoPodeY' STO
+    END 1.
+  STEP
+  IF NaoPodeY
+  THEN "Existe um ponto Y<0, assim, sÛ È possÌvel usar a Reta e a HiperbÛlica" MSGBOX
+  END 0. 'NaoPodeHIP' STO 2. Y SIZE LISTç DROP
+  FOR I
+    IF 'Y(I)' EVAL 0. ==
+    THEN 1. 'NaoPodeHIP' STO
+    END 1.
+  STEP
+  IF NaoPodeHIP
+  THEN "Existe um ponto Y=0, assim, sÛ È possÌvel usar a Reta" MSGBOX
+  END "Qual a linearizaÁ„o?" { { Reta 1. } { LogarÌtmica 2. } { Potencial 3. } { Exponencial 4. } { "Potencial X" 5. } { "Segundo Grau" 6. } { HiperbÛlica 7. } { "HiperbÛlica do 2∫ grau" 8. } { "achar maior R2" 10. } { "Inserir manualmente" 11. } { Sair 12. } } 1. CHOOSE
+  IF 0. SAME
+  THEN { X Y M } PURGE KILL
+  END 'OPCAO' STO 1. 'TESTE' STO 2. 1. çLIST 0. CON 'MAIOR' STO 11. 1. çLIST 0. CON 'R2Cteste' STO 0. 'OPCAO2' STO
+  WHILE TESTE 1. ==
+  REPEAT
+    IF OPCAO 10. == NaoPodeY 1. == NaoPodeX 1. == NaoPodeHIP 1. == OR OR AND
+    THEN "H· restriÁıes quanto a X ou Y, conforme mensagem mostrada antes, assim, essa opÁ„o est· indisponÌvel" MSGBOX { OPCAO2 R2Cteste MAIOR X Y NaoPodeX NaoPodeY NaoPodeHIP M OPCAO TESTE } PURGE KILL
+    END
+    CASE OPCAO 10. ==
+      THEN 1. 'OPCAO' STO 10. 'OPCAO2' STO
+      END
+    END
+    IF OPCAO 7. ã OPCAO 11. ã OR OPCAO 12. ã OR OPCAO 1. ã OR NOT NaoPodeY 1. == NOT AND
+    THEN "H· restriÁıes quanto a X ou Y, conforme mensagem mostrada antes, assim, essa opÁ„o est· indisponÌvel" MSGBOX { OPCAO2 R2Cteste MAIOR X Y NaoPodeX NaoPodeY NaoPodeHIP M OPCAO TESTE } PURGE KILL
+    END
+    IF OPCAO 2. == OPCAO 3. == OR NaoPodeY 1. == NaoPodeX 1. == OR AND
+    THEN "H· restriÁıes quanto a X ou Y, conforme mensagem mostrada antes, assim, essa opÁ„o est· indisponÌvel" MSGBOX { OPCAO2 R2Cteste MAIOR X Y NaoPodeX NaoPodeY NaoPodeHIP M OPCAO TESTE } PURGE KILL
+    END
+    CASE OPCAO 12. ==
+      THEN { OPCAO2 R2Cteste MAIOR X Y NaoPodeX NaoPodeY NaoPodeHIP M TESTE OPCAO } PURGE KILL
+      END OPCAO 11. ==
+      THEN "Veja a tabela 2.1, p·gina 49 do volume II" MSGBOX "AtenÁ„o quanto as restriÁıes do tipo â,ä, ã, = a zero" MSGBOX "Nessa ·rea n„o ser„o feitos testes da entrada, podendo assim, causar erros inesperados no programa" MSGBOX "FunÁıes ‡ LinearizaÁ„o" { { "f(x)=" "escreva em funÁ„o de a,b,x" 9. } { "f1(y)=" "escreva em funÁ„o de y" 9. } { "f2(x)=" "escreva em funÁ„o de x" 9. } { "f3(a)=" "escreva em funÁ„o de a" 9. } { "f4(b)=" "escreva em funÁ„o de b" 9. } } { 2. 0. } { 'a*EXP(b*x)' 'LN(y)' x 'EXP(a)' b } { '1./(a+b*x)^2.' '1./Éy' x a b } INFORM
+        IF 0. SAME
+        THEN { OPCAO2 R2Cteste MAIOR X Y NaoPodeX NaoPodeY NaoPodeHIP M TESTE OPCAO } PURGE KILL
+        END
+      END OPCAO 1. ==
+      THEN { 'a*x+b' y x a b }
+      END OPCAO 2. ==
+      THEN { 'a+b*LN(x)' y 'LN(x)' a b }
+      END OPCAO 4. ==
+      THEN { 'a*EXP(b*x)' 'LN(y)' x 'EXP(a)' b }
+      END OPCAO 3. ==
+      THEN { 'a*x^b' 'LN(y)' 'LN(x)' 'EXP(a)' b }
+      END OPCAO 5. ==
+      THEN { 'a*b^x' 'LOG(y)' x '10.^a' '10.^b' }
+      END OPCAO 6. ==
+      THEN { '(a+b*x)^2.' 'Éy' x a b }
+      END OPCAO 7. ==
+      THEN
+        IF NaoPodeHIP 1. ==
+        THEN "Como mostrado antes, h· um Y=0, assim, essa opÁ„o est· indisponÌvel" MSGBOX { OPCAO2 R2Cteste MAIOR X Y NaoPodeX NaoPodeY NaoPodeHIP M OPCAO TESTE } PURGE KILL
+        END { '1./(a+b*x)' '1./y' x a b }
+      END OPCAO 8. ==
+      THEN { '1./(a+b*x)^2.' '1./Éy' x a b }
+      END
+    END "Aguarde, calculando." 7. DISP { F F1 F2 F3 F4 } STO { 0. 0. 0. 0. 0. 0. } { SX SY SX2 SY2 Ym SXY } STO 1. M
+    FOR I 'Y(I+1.)' 'y' STO F1 EVAL 'SY' STO+ 'X(I+1.)' 'x' STO F2 EVAL 'SX' STO+ 'Y(I+1.)' 'y' STO F1 'X(I+1.)' 'x' STO F2 * EVAL 'SXY' STO+ 'Y(I+1.)' 'y' STO F1 'Y(I+1.)' 'y' STO F1 * EVAL 'SY2' STO+ 'X(I+1.)' 'x' STO F2 'X(I+1.)' 'x' STO F2 * EVAL 'SX2' STO+ 'Y(I+1.)' M / EVAL 'Ym' STO+ 1.
+    STEP SXY SX SY * M / - SX2 SX SX * M / - / 'B' STO SY B SX * - M / 'A' STO A SY * B SXY * + SY SY * M / - SY2 SY SY * M / - / 'R2' STO { 0. 0. } { SN SD } STO A 'a' STO F3 EVAL 'A' STO B 'b' STO F4 EVAL 'B' STO A 'a' STO B 'b' STO
+    1 M
+    FOR I
+        @
+    'Y(I+1.)' EVAL 'X(I+1.)' EVAL 'x' STO F EVAL - DUP * 'SN' STO+
+    'Y(I+1.)' EVAL Ym - DUP *  'SD' STO+
+    1. STEP
+    1. SN SD / - 'R2C' STO
+    R2Cteste OPCAO R2C PUT 'R2Cteste' STO
+    1. OPCAO
+    FOR I
+      IF R2C 'R2Cteste(I)' EVAL >
+      THEN
+        IF R2C 'MAIOR(2.)' EVAL >
+        THEN MAIOR 1. OPCAO PUT 2. R2C PUT 'MAIOR' STO
+        END
+      END 1.
+    STEP
+    CASE OPCAO 1. ==
+      THEN "para reta" MSGBOX
+      END OPCAO 2. ==
+      THEN "para logarÌtmica" MSGBOX
+      END OPCAO 3. ==
+      THEN "para potencial" MSGBOX
+      END OPCAO 4. ==
+      THEN "para exponencial" MSGBOX
+      END OPCAO 5. ==
+      THEN "para potencial em X" MSGBOX
+      END OPCAO 6. ==
+      THEN "para 2∫ grau" MSGBOX
+      END OPCAO 7. ==
+      THEN "para hiperbÛlica" MSGBOX
+      END OPCAO 8. ==
+      THEN "para hiperbÛlica do 2∫ grau" MSGBOX
+      END
+    END "A=" A çSTR + " " + "B=" B çSTR + + MSGBOX "Linearizado" "
+" + "R2=" + R2 çSTR + MSGBOX
+    IF OPCAO 1. ã
+    THEN "Corrigido" "
+" + "R2=" + R2C çSTR + MSGBOX
+    END { x y a b } PURGE
+    IF OPCAO2 10. ==
+    THEN 1. 'OPCAO' STO+
+      IF 'R2Cteste(8.)' EVAL 0. ã
+      THEN 0. 'TESTE' STO "O melhor ajuste È"
+        CASE 'MAIOR(1.)' EVAL 1. ==
+          THEN "para reta" + MSGBOX
+          END 'MAIOR(1.)' EVAL 2. ==
+          THEN "para logarÌtmica" + MSGBOX
+          END 'MAIOR(1.)' EVAL 3. ==
+          THEN "para potencial" + MSGBOX
+          END 'MAIOR(1.)' EVAL 4. ==
+          THEN "para exponencial" + MSGBOX
+          END 'MAIOR(1.)' EVAL 5. ==
+          THEN "para potencial em X" + MSGBOX
+          END 'MAIOR(1.)' EVAL 6. ==
+          THEN "para 2∫ grau" + MSGBOX
+          END 'MAIOR(1.)' EVAL 7. ==
+          THEN "para hiperbÛlica" + MSGBOX
+          END 'MAIOR(1.)' EVAL 8. ==
+          THEN "para hiperbÛlica do 2∫ grau" + MSGBOX
+          END
+        END "com R2 corrigido=" 'MAIOR(2.)' EVAL çSTR + MSGBOX
+      END
+    END
+    IF OPCAO2 10. ã
+    THEN 0. 'TESTE' STO
+    END
+  END { NaoPodeY NaoPodeX NaoPodeHIP TESTE OPCAO2 MAIOR R2Cteste OPCAO X Y A B a b y x M SD SN SX SY SX2 SY2 Ym SXY F F1 F2 F3 F4 R2 R2C } PURGE
+ª

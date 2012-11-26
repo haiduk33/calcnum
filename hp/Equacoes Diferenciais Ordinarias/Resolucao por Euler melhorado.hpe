@@ -1,0 +1,35 @@
+´
+ "EDO-Euler Melhorado"
+ {
+  { "Y'(x,y)=" "funÁ„o de X e Y" 9 }
+  { "Xo=" "Valor inicial" 0 }
+  { "Yo=" "Valor inicial" 0 }
+  { "Xn=" "abcissa do ponto desejado" 0 }
+  { "N=" "n˙mero de intervalos" 0 }
+ }
+ { 2 0 }
+ { '1-2*X*Y' 0 1 .1 10 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F X0 Y0 XN N } STO
+ XN X0 - N / 'H' STO
+ X0 'X' STO
+ Y0 'Y' STO
+ 1 N FOR I
+  Y 'Y1' STO
+  H 2 / F EVAL * 'Y' STO+
+  H 2 / 'X' STO+
+  Y1 H F EVAL * + 'Y' STO
+  H 2 / 'X' STO+
+ "IteraÁ„o=" I çSTR + "
+X=" X çSTR + "
+Y=" Y çSTR + + + MSGBOX
+ 1 STEP
+ "Xn=" XN çSTR + "
+Y=" Y çSTR + + MSGBOX
+{ Y XN Y0 X0 N X F H Y1} PURGE
+ª

@@ -1,0 +1,45 @@
+´ "Lagrange"
+ {
+  { "X:" "Vetor" 3. }
+  { "Y:" "Vetor" 3. }
+  { "Å:" "N˙mero a ser interpolado" 0. }
+  { "N˙mero de casas decimais:" "apenas ‡ resposta" 0. }
+ }
+ { 1 0. }
+ {
+  [ 0. 1. 2. 3. ] [ -1. 2. 13. 38. ] 1.5 3
+ }
+ DUP
+ INFORM
+ "Aguarde, calculando." 7 DISP
+ IF 0. SAME
+  THEN
+   KILL
+  END
+  LISTç DROP
+  FIX
+  'IN' STO
+  DUP SIZE LISTç DROP
+  'N' STO
+  'Y' STO
+  'X' STO
+  IF 'X(1.)' EVAL IN â IN 'X(N)' EVAL â AND
+   THEN
+    0 'OUT' STO
+    1 N FOR K
+     1 'P' STO
+     1 N FOR I
+      IF 'IãK'
+       THEN
+        P IN 'X(I)' - 'X(K)' 'X(I)' - / * EVAL 'P' STO
+      END
+     1 STEP
+     P 'Y(K)' * EVAL 'OUT' STO+
+    1 STEP
+    'X' IN = çSTR "
+" 'Y' OUT = çSTR + + MSGBOX
+   ELSE
+    "X N„o pertence ao intervalo de interpolaÁ„o!" MSGBOX
+  END
+  { X Y IN OUT N P } PURGE
+ª

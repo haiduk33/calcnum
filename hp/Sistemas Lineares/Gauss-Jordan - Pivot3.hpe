@@ -1,0 +1,22 @@
+«
+ A { I I } GET 'C' STO
+ I 'L' STO
+ I 1 + N FOR K
+  IF C ABS A { K I } GET ABS <
+   THEN
+    A { K I } GET 'C' STO
+    K 'L' STO
+  END
+ 1 STEP
+  IF 'L‹I'
+   THEN
+    1 N FOR J
+     A { I J } GET 'TEMP' STO
+     A { I J } A { L J } GET PUT 'A' STO
+     A { L J } TEMP PUT 'A' STO
+    1 STEP
+    B I GET 'TEMP' STO
+    B I B L GET PUT 'B' STO
+    B L TEMP PUT 'B' STO
+  END
+»

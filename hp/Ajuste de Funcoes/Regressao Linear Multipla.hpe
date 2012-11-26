@@ -1,0 +1,97 @@
+´
+ "Regress„o Linear M˙ltipla"
+ {
+  { "X:" "Uma vari·vel por linha." 3 }
+  { "Y:" "Ponha na forma de vetor." 3 }
+ }
+ { 1 0 }
+ {
+  [ [ 0 1.2 1 1 0 0.5 0 1 ] [ 0 0 1 0 1 0 1 1 ] [ 0.2 0 0 1.4 0 1 0.6 1 ] ]
+  [ 0.8 5 7.8 8 3.9 4.9 5.5 10.5 ]
+ }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ "Aguarde, calculando." 6. DISP
+ LISTç DROP
+ 0 1 ROW+
+ 'Y' STO
+ DUP SIZE LISTç DROP
+ 'M' STO
+ 'N' STO
+ M 1 çLIST 1 CON 1 ROW+
+ N 1 + 1 çLIST 0 CON 1 COL+
+ 'X' STO
+ IF M 1 + Y SIZE LISTç DROP SAME NOT
+  THEN
+   "ERRO: O n˙mero de pontos em X ã de em Y." MSGBOX
+   { X Y N M } PURGE
+   KILL
+ END
+ N 1 + 1 çLIST 0 CON 'R' STO
+ 0 'SY2' STO
+ R 1 M PUT 'R' STO
+ 1 M FOR K
+@  X 1 K 1 + 2 çLIST 1 PUT 'X' STO
+@j· pus zero na 1™ linha
+  1 N FOR J
+   R J 1 + 'R(J+1)' 'X(J+1,K+1)' + EVAL PUT 'R' STO
+  1 STEP
+  'Y(K+1)' DUP * EVAL 'SY2' STO+
+ 1 STEP
+ N 2 + 1 çLIST 0 CON 'C' STO
+ M 1 çLIST 0 CON 'B' STO
+ N 2 + DUP 2 çLIST 0 CON 'A' STO @aumentei do tamanho de A em raz„o do prÛximo FOR c/A(i+1,n+2)
+ 0 N FOR I 
+  0 I FOR J
+   1 M FOR K
+    A J 1 + I 1 + 2 çLIST 'A(J+1,I+1)' 'X(I+1,K+1)' 'X(J+1,K+1)' * + EVAL PUT 'A' STO
+   1 STEP
+  1 STEP
+  1 M FOR K
+   B I 1 + 'B(I+1)' 'Y(K+1)' 'X(I+1,K+1)' * + EVAL PUT 'B' STO
+  1 STEP
+  A I 1 + N 2 + 2 çLIST 'B(I+1)' EVAL PUT 'A' STO
+ 1 STEP
+ 0 N FOR I
+  I N 1 + FOR J
+   'A(I+1,J+1)' EVAL 'S' STO
+   IF 0 I 1 - â @para evitar que o FOR ocorra ante do devido tempo
+    THEN
+     0 I 1 - FOR K
+      S 'A(K+1,I+1)' 'A(K+1,J+1)' * - EVAL 'S' STO
+     1 STEP
+   END
+   IF I J SAME
+    THEN
+     1 S É / 'T' STO
+     A I 1 + J 1 + 2 çLIST T PUT 'A' STO
+    ELSE
+     A I 1 + J 1 + 2 çLIST T S * PUT 'A' STO
+   END
+  1 STEP
+ 1 STEP
+ N 0 FOR I
+  'A(I+1,N+2)' EVAL 'S' STO
+  IF I 1 + N â
+   THEN
+    I 1 + N FOR K
+     S 'A(I+1,K+1)' 'C(K+1)' * - EVAL 'S' STO
+    1 STEP
+  END
+  C I 1 + S 'A(I+1,I+1)' * EVAL PUT 'C' STO
+ -1 STEP
+ 0 'R2' STO
+ 0 N FOR I
+  'C(I+1)' 'B(I+1)' 'R(I+1)' 'B(1)' * M / - * EVAL 'R2' STO+
+ 1 STEP
+ R2 SY2 'B(1)' DUP * M / - / EVAL 'R2' STO
+ 0 N FOR I
+  "C(" I çSTR + ")=" + 'C(I+1)' EVAL çSTR + MSGBOX
+ 1 STEP
+ "R2=" R2 çSTR + MSGBOX
+ { X Y M N R2 A B C SY2 S T R} PURGE
+ª

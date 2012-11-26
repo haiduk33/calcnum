@@ -1,0 +1,35 @@
+´
+ "Simpson 2∫ Regra"
+ {
+  { "f(x)=" "funÁ„o a integrada." 9 }
+  { "A=" "limite inferior" 0 }
+  { "B=" "limite superior" 0 }
+  { "N=" "intervalos, m˙ltiplo de 3" 0 }
+ }
+ { 1 0 }
+ { 'X^3+X' '0' '6' '6' }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F A B N } STO
+ IF N 3 MOD
+  THEN
+   "O n˙mero de intervalos n„o È m˙ltiplo de trÍs." MSGBOX
+   { F A B N } PURGE
+   KILL
+  END
+ B A - N /  'H' STO
+ "h=" H çSTR + MSGBOX
+ 0 'S' STO
+ A 'x' STO
+ 1 N 3 / START
+  x 'X' STO F EVAL 3 x H + 'X' STO F EVAL x 2 H * + 'X' STO F EVAL + * + x 3 H * + 'X' STO F EVAL + 'S' STO+
+  3 H * 'x' STO+
+ NEXT
+ H 3 8 / * 'S' STO*
+ "A integral È igual a " S EVAL çSTR + "." + MSGBOX
+ { X x H S F A B N } PURGE
+ª

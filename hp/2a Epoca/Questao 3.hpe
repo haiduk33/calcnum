@@ -1,0 +1,205 @@
+´
+ [
+  [ 1 3 -2 ]
+  [ 1 0 0 ]
+  [ 0 1 0 ]
+ ]
+ DUP DUP
+ 'MATRIZ' STO
+ 'MATRIZ2' STO
+ SIZE LISTç DROP DROP 'N' STO
+ 1 N 1 + 2 çLIST 0 CON 'A' STO
+ A 1 -1 N ^ PUT 'A' STO
+ 2 N 1 + FOR I
+   A I 0 PUT 'A' STO
+   1 N FOR J
+     A I A I GET 'MATRIZ2(J,J)' + EVAL PUT 'A' STO
+   1 STEP
+   A I A I GET I 1 - / PUT 'A' STO
+   1 N FOR J
+     MATRIZ2 J J 2 çLIST 'MATRIZ2(J,J)' EVAL A I GET - PUT 'MATRIZ2' STO
+   1 STEP
+   N 1 2 çLIST 0 CON 'c' STO
+   1 N FOR J
+     1 N FOR K
+       c K 'MATRIZ2(K,J)' EVAL PUT 'c' STO
+       MATRIZ2 K J 2 çLIST 0 PUT 'MATRIZ2' STO
+     1 STEP
+     1 N FOR K
+       1 N FOR L
+         MATRIZ2 K J 2 çLIST 'MATRIZ2(K,J)' 'MATRIZ(K,L)' c L GET * + EVAL PUT 'MATRIZ2' STO
+       1 STEP
+     1 STEP
+   1 STEP
+ 1 STEP
+ A N 1 + 1 çLIST RDM 'A' STO
+ "termos do polinÙmio caracterÌstico
+" A çSTR + MSGBOX
+ A
+ 0 N FOR I
+   I 1 + A N 1 + I - GET PUT
+ 1 STEP
+ 'A' STO
+
+@Newton Bairstow
+
+ { 0.001 20 } { TOL NMI } STO
+ ´
+  P DUP * 4 Q * - 'DELTA' STO
+  P 2 / -1 * 'R' STO
+  DELTA ABS É 2 / 'IMA' STO
+  IF 'DELTAä0'
+   THEN
+    PR J R IMA + PUT
+    J 1 + R IMA - PUT
+    'PR' STO
+    PI J 0 PUT
+    J 1 + 0 PUT 'PI' STO
+   ELSE
+    PR J R PUT
+    J 1 + R PUT 'PR' STO
+    PI J IMA PUT
+    J 1 + IMA -1 * PUT 'PI' STO
+  END
+ ª
+ 'EQ2G' STO
+
+ N 'M' STO
+ N 1 çLIST 0 CON DUP
+ 'PR' STO
+ 'PI' STO
+ A DUP N 1 + GET / DUP
+ 'A' STO
+ 'V' STO
+ 1 'K' STO
+ WHILE K 0 >
+  REPEAT 0 'K' STO 1 M
+    FOR J
+      IF 'V(J)' EVAL ABS 'V(J+1)' EVAL ABS >
+       THEN
+        V J 'V(J+1)' EVAL PUT J 1 + 'V(J)' EVAL PUT 'V' STO
+        1 'K' STO
+      END
+    1 STEP
+ END
+ 'V(M+1)' 'V(M-1)' / EVAL 'Po' STO
+ 'V(M)' 'V(M-1)' / EVAL 'Qo' STO
+ 1 'J' STO N 3 + 1 çLIST 0 CON DUP
+ 'B' STO
+ 'C' STO
+ WHILE M 2 >
+  REPEAT
+   B M 2 + 0 PUT 'B' STO
+   B M 3 + 0 PUT 'B' STO
+   C M 2 + 0 PUT 'C' STO
+   C M 3 + 0 PUT 'C' STO
+   Po 'P' STO
+   Qo 'Q' STO
+   1 DUP
+   'DP' STO
+   'DQ' STO
+   0 'K' STO
+   WHILE DP ABS DQ ABS + TOL > K NMI â AND
+       REPEAT
+        IF M 1 ä
+         THEN
+          M 1 FOR I
+            B I 1 + 'A(I+1)' P 'B(I+2)' * - Q 'B(I+3)' * - EVAL PUT 'B' STO
+            C I 1 + 'B(I+1)' P 'C(I+2)' * - Q 'C(I+3)' * - EVAL PUT 'C' STO
+          -1 STEP
+        END
+        B 1 'A(1)' P 'B(2)' * - Q 'B(3)' * - EVAL PUT 'B' STO
+        'C(2)' 'B(2)' - EVAL 'C1' STO
+        'C(3)' DUP * C1 'C(4)' * - EVAL 'D' STO
+        IF D ABS 0 >
+         THEN
+          'B(2)' 'C(3)' * 'B(1)' 'C(4)' * - D / EVAL 'DP' STO
+          'B(1)' 'C(3)' * 'B(2)' C1 * - D / EVAL 'DQ' STO
+          DP 'P' STO+
+          DQ 'Q' STO+
+         ELSE 0 'M' STO
+        END
+        1 'K' STO+
+      END
+      IF M 0 >
+       THEN
+        EQ2G
+        M 2 - 'M' STO
+        2 'J' STO+
+        0 M FOR I
+          A M I - 1 + 'B(M+3-I)' EVAL PUT 'A' STO
+        1 STEP
+        IF M 1 >
+         THEN
+          'V(M+1)' 'V(M-1)' / EVAL 'Po' STO
+          'V(M)' 'V(M-1)' / EVAL 'Qo' STO
+        END
+      END
+    END
+    IF M 0 > K NMI â AND
+     THEN
+      IF M 2 ==
+       THEN
+        'B(4)' EVAL 'P' STO
+        'B(3)' EVAL 'Q' STO
+        EQ2G
+       ELSE
+        PR J 'B(3)' -1 * EVAL PUT 'PR' STO
+        PI J 0 PUT 'PI' STO
+      END
+    END
+    IF K NMI > THEN "Ultrapassou o NMI!" MSGBOX END
+    IF M 0 ==
+     THEN
+      "Estime novos valores iniciais para P e Q" MSGBOX
+    END
+ "Autovalores
+" PR çSTR + MSGBOX
+ PR 'AUTOVAL' STO
+ N 1 2 çLIST 0 CON 'C' STO
+ N N 2 çLIST 0 CON DUP
+ 'B' STO
+ 'X' STO
+
+@ AUTVETLEV
+
+ 1 N FOR I
+   1 N FOR J
+     B I J 2 çLIST 'MATRIZ(I,J)' EVAL PUT 'B' STO
+     IF J I ==
+      THEN X I J 2 çLIST 1 PUT 'X' STO
+      ELSE X I J 2 çLIST 0 PUT 'X' STO
+     END
+    1 STEP
+ 1 STEP
+  1 N 1 - FOR K
+   0 'P' STO
+   1 N FOR I
+     'B(I,I)' EVAL 'P' STO+
+   1 STEP
+   P K / 'P' STO
+   1 N FOR I
+     B I I 2 çLIST 'B(I,I)' P - EVAL PUT 'B' STO
+     1 N FOR J
+       X I J 2 çLIST AUTOVAL J GET 'X(I,J)' * 'B(I,J)' + EVAL PUT 'X' STO
+     1 STEP
+   1 STEP
+   1 N FOR I
+     1 N FOR J
+       C J 'B(J,I)' EVAL PUT 'C' STO
+       B J I 2 çLIST 0 PUT 'B' STO
+     1 STEP
+     1 N FOR J
+       1 N FOR L
+         B J I 2 çLIST 'B(J,I)' 'MATRIZ(J,L)' C L GET * + EVAL PUT 'B' STO
+       1 STEP
+     1 STEP
+   1 STEP
+ 1 STEP
+ 1 N FOR I
+   "Autovalor=" AUTOVAL I GET çSTR + "
+Autovetor=" + X I COL- SWAP DROP DUP
+Vç 1 N 1 - FOR I MAX 1 STEP / çSTR + MSGBOX
+ 1 STEP
+ { D M AUTOVAL IMA A P MATRIZ B MATRIZ2 X R c C DELTA C1 DP DQ P Q Po Qo J K V EQ2G PI PR TOL NMI N } PURGE
+ª

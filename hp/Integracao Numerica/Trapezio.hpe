@@ -1,0 +1,33 @@
+´
+ "TrapÈzio"
+ {
+  { "f(x)=" "funÁ„o a ser integrada" 9 }
+  { "A=" "limite inferior" 0 }
+  { "B=" "limite superior" 0 }
+  { "N=" "quantidade de subintervalos" 0 }
+ }
+ { 1 0 }
+ { 'X^2+1' 0 6 6 }
+ { 'X^2+1' 0 6 12 }
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F A B N } STO
+ B A - N / 'H' STO
+ A 'X' STO
+ 0 'S' STO
+ "Para x= " X çSTR + "
+y=" F EVAL çSTR + + MSGBOX
+ 1 N FOR I
+  F EVAL 'S' STO+
+  H 'X' STO+
+  F EVAL 'S' STO+
+  "Para x= " X çSTR + "
+y=" F EVAL çSTR + + MSGBOX
+ 1 STEP
+ H 2 / 'S' STO*
+ "A integral È igual a " S EVAL çSTR + MSGBOX
+ { F A B N H S X } PURGE
+ª

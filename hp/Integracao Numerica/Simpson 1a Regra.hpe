@@ -1,0 +1,35 @@
+´
+ "Simpson 1∫ Regra"
+ {
+  { "f(x)=" "funÁ„o a integrada." 9 }
+  { "A=" "limite inferior" 0 }
+  { "B=" "limite superior" 0 }
+  { "N=" "intervalos, precisa ser par" 0 }
+ }
+ { 1 0 }
+ { 'X^3+X' '0' '6' '6' }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F A B N } STO
+ IF N 2 MOD
+  THEN
+   "O n˙mero de intervalos È impar e precisa ser par." MSGBOX
+   { F A B N } PURGE
+   KILL
+  END
+ B A - N /  'H' STO
+ "h=" H çSTR + MSGBOX
+ 0 'S' STO
+ A 'x' STO
+ 1 N 2 / START
+  x 'X' STO F EVAL 4 x H + 'X' STO F EVAL * x 2 H * + 'X' STO F EVAL + + 'S' STO+
+  2 H * 'x' STO+
+ NEXT
+ H 3 / 'S' STO*
+ "A integral È igual a " S çSTR + "." + MSGBOX
+ { X x H S F A B N } PURGE
+ª

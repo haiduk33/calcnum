@@ -1,0 +1,51 @@
+´
+
+ {
+  [
+   [ 4 -1 0 -1 0 0 0 0 0 ]
+   [ -1 4 -1 0 -1 0 0 0 0 ]
+   [ 0 -1 4 -1 0 0 0 0 0 ]
+   [ -1 0 0 4 -1 0 -1 0 0 ]
+   [ 0 -1 0 -1 4 -1 0 -1 0 ]
+   [ 0 0 -1 0 -1 4 0 0 -1 ]
+   [ 0 0 0 -1 0 0 4 -1 0 ]
+   [ 0 0 0 0 -1 0 -1 4 -1 ]
+   [ 0 0 0 0 0 -1 0 -1 4 ]
+  ]
+  [ 70 30 80 40 0 50 10 10 60 ]
+ }
+ { A B } STO
+ A SIZE LISTç DROP DROP 'N' STO
+ A B N 1 + COL+ 'A' STO
+ N 1 2 çLIST 0 CON 'X' STO
+ 1 N FOR I
+   I N 1 + FOR J
+     'A(I,J)' EVAL 'SOMA' STO
+     IF I 1 >
+      THEN
+       1 I 1 - FOR K
+         'A(K,I)' 'A(K,J)' * EVAL NEG 'SOMA' STO+
+       1 STEP
+     END
+     IF I J ==
+      THEN
+       SOMA É INV 'T' STO
+       A I J 2 çLIST T PUT 'A' STO
+      ELSE
+       A I J 2 çLIST T SOMA * PUT 'A' STO
+     END
+   1 STEP
+ 1 STEP
+ N 1 FOR I
+   'A(I,N+1)' EVAL 'SOMA' STO
+   IF I N ã
+    THEN
+     I 1 + N FOR K
+       'A(I,K)' X K GET * EVAL NEG 'SOMA' STO+
+     1 STEP
+   END
+   X I SOMA 'A(I,I)' * EVAL PUT 'X' STO
+ -1 STEP
+ X N N * 1 çLIST RDM
+ { A U X SOMA T N B } PURGE
+ª

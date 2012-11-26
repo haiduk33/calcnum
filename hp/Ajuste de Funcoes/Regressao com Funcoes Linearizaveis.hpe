@@ -1,0 +1,83 @@
+´
+ "Regress„o com FunÁıes Lineariz·veis"
+ {
+  { "X:" "Ponha na forma de vetor." 3 }
+  { "Y:" "Ponha na forma de vetor." 3 }
+ }
+ { 1 0 }
+ {
+  [ 10 20 30 40 50 ] [ 1.293 1 0.8 0.654 0.546 ]
+ }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ LISTç DROP
+ 0 1 ROW+
+ 'Y' STO
+ DUP SIZE LISTç DROP
+ 'M' STO
+ 0 1 ROW+
+ 'X' STO
+ IF X SIZE Y SIZE SAME NOT
+  THEN
+   "ERRO: O n˙mero de pontos em X ã de em Y." MSGBOX
+   { X Y M } PURGE
+   KILL
+ END
+ "Veja a tabela 2.1, p·gina 49 do volume II" MSGBOX
+ "FunÁıes ‡ LinearizaÁ„o"
+ {
+  { "f(x)=" "escreva em funÁ„o de a,b,x" 9 }
+  { "f1(y)=" "escreva em funÁ„o de y" 9 }
+  { "f2(x)=" "escreva em funÁ„o de x" 9 }
+  { "f3(a)=" "escreva em funÁ„o de a" 9 }
+  { "f4(b)=" "escreva em funÁ„o de b" 9 }
+ }
+ { 2 0 }
+ { 'a*EXP(b*x)' 'LN(y)' 'x' 'EXP(a)' 'b' }
+ DUP
+ INFORM
+  IF 0. SAME
+  THEN
+   { X Y M } PURGE
+   KILL
+ END
+ "Aguarde, calculando." 7. DISP
+ LISTç DROP
+ 'F4' STO
+ 'F3' STO
+ 'F2' STO
+ 'F1' STO
+ 'F' STO
+ { 0 0 0 0 0 0 } { SX SY SX2 SY2 Ym SXY } STO
+ 1 M FOR I
+  'Y(I+1)' 'y' STO F1 EVAL 'SY' STO+
+  'X(I+1)' 'x' STO F2 EVAL 'SX' STO+
+  'Y(I+1)' 'y' STO F1 'X(I+1)' 'x' STO F2 * EVAL 'SXY' STO+
+  'Y(I+1)' 'y' STO F1 'Y(I+1)' 'y' STO F1 * EVAL 'SY2' STO+
+  'X(I+1)' 'x' STO F2 'X(I+1)' 'x' STO F2 * EVAL 'SX2' STO+
+  'Y(I+1)' M / EVAL 'Ym' STO+
+ 1 STEP
+ SXY SX SY * M / - SX2 SX SX * M / - / 'B' STO
+ SY B SX * - M / 'A' STO
+ A SY * B SXY * + SY SY * M / - SY2 SY SY * M / - / 'R2' STO
+ { 0 0 } { SN SD } STO
+ A 'a' STO F3 EVAL 'A' STO
+ B 'b' STO F4 EVAL 'B' STO
+ A 'a' STO
+ B 'b' STO
+ 1 M FOR I
+  'Y(I+1)' 'X(I+1)' 'x' STO F - DUP * EVAL 'SN' STO+
+  'Y(I+1)' Ym - DUP * EVAL 'SD' STO+
+ 1 STEP
+ 1 SN SD / - 'R2C' STO
+ "A=" A çSTR + " " + "B=" B çSTR + + MSGBOX
+ "Linearizado" "
+" + "R2=" + R2 çSTR + MSGBOX
+ "Corrigido" "
+" + "R2=" + R2C çSTR + MSGBOX
+ { X Y A B a b y x M SD SN SX SY SX2 SY2 Ym SXY F F1 F2 F3 F4 R2 R2C} PURGE
+ª

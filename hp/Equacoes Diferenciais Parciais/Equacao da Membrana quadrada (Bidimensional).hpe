@@ -1,0 +1,85 @@
+´
+ "EquaÁ„o da Onda Bi"
+ {
+  { "f(x,y)=" "PosiÁ„o inicial" 9 }
+  { "g(x,y)=" "Velociada Inicial" 9 }
+  { "u(X,0)=" "Pos inicial da extremidade" 0 }
+  { "u(X,L)=" "Pos inicial da extremidade" 0 }
+  { "u(0,Y)=" "Pos inicial da extremidade" 0 }
+  { "u(L,Y)=" "Pos inicial da extremidade" 0 }
+  { "L=" "comprimento da membrana" 0 }
+  { "N=" "n˙mero de intervalos" 0 }
+  { "TD=" "instante de tempo" 0 }
+  { "å=" "constante" 0 }
+ }
+ { 3 0 }
+ { 'X+Y' 'X+Y' 5 4 3 2 10 2 1 1 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F G U0x ULx U0y ULy L N TD A } STO
+
+ L N / 'H' STO
+ H A / 'K' STO
+ 
+ N 1 + DUP 2 çLIST 0 CON
+ {1,1} U0x PUT
+ N 1 2 çLIST ULx PUT
+ {1,2} U0y PUT
+  N 2 2 çLIST ULy PUT
+ 'U' STO @ U … O TEMPO J-1
+  U 'V' STO @ V … O TEMPO J
+
+ 0 DUP DUP 'Y' STO'X' STO 'T' STO
+
+ 1 N 1 - FOR J
+  H 'X' STO+
+  1 N 1 - FOR I
+   H 'Y' STO+
+   U J 1 + I 1 + 2 çLIST F EVAL PUT 'U' STO
+  1 STEP
+  0 'Y' STO
+ 1 STEP
+ 
+  "T=" T + MSGBOX
+  "U=" U çSTR + MSGBOX
+ 
+ K 'T' STO+
+ 0 'X' STO
+ 0 'Y' STO
+
+ 1 N 1 - FOR J
+  H 'X' STO+
+  1 N 1 - FOR I
+   H 'Y' STO+
+   V J 1 + J 1 +  2 çLIST 'U(J,I+1)' 'U(J+2,I+1)' 'U(J+1,I)' 'U(J+1,I+2)' + + + 4 / K G * + EVAL  PUT 'V' STO
+  1 STEP
+  0 'Y' STO
+ 1 STEP
+ 
+ "T=" T + MSGBOX
+ "V=" V çSTR + MSGBOX
+ 
+ N 1 + 1 DUP 2 çLIST 0 CON 'W' STO @ W … O TEMPO J+1
+
+ WHILE T TD < REPEAT
+  K 'T' STO+
+  "T=" T çSTR + MSGBOX
+  1 N 1 - FOR J
+   1 N 1 - FOR I
+    W J 1 + I 1 + 2 çLIST 'V(J,I+1)' 'V(J+2,I+1)' 'V(J+1,I)' + 'V(J+1,I+2)' + 'U(J+1,I+1)' 3 * - +  EVAL PUT 'W' STO
+   1 STEP
+  1 STEP
+  "W=" W çSTR + MSGBOX
+  1 N 1 - FOR J
+   1 N 1 - FOR I
+    U J 1 + I 1 + 2 çLIST 'V(J+1,I+1)' EVAL PUT 'U' STO
+    V J 1 + I 1 + 2 çLIST 'W(J+1,I+1)' EVAL PUT 'V' STO
+   1 STEP
+  1 STEP
+ END
+ { F G U0x ULx U0y ULy L N TD A H K W V Y X T } PURGE
+ª

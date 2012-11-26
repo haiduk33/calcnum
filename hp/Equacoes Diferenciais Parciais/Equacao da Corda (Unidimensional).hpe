@@ -1,0 +1,69 @@
+´
+ "EquaÁ„o Corda Unidimensional"
+ {
+  { "f(x)=" "PosiÁ„o inicial" 9 }
+  { "g(x)=" "Velociada Inicial" 9 }
+  { "u(0,0)=" "Pos inicial da extremidade" 0 }
+  { "u(L,0)=" "Pos inicial da extremidade" 0 }
+  { "L=" "comprimento da corda" 0 }
+  { "N=" "n˙mero de intervalos" 0 }
+  { "TD=" "instante de tempo" 0 }
+  { "å=" "constante" 0 }
+ }
+ { 2 0 }
+ { 'X*(4-X)' 0 0 0 4 8 1 2 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F G U0 UL L N TD A } STO
+
+ L N / 'H' STO
+ H A / 'K' STO
+
+ N 1 + 1 çLIST 0 CON
+ 'U' STO
+
+ U 1 U0 PUT
+ N UL PUT
+ DUP
+ 'U' STO @ U … O TEMPO J-1
+ 'V' STO @ V … O TEMPO J
+
+ 0 DUP 'X' STO 'T' STO
+
+ 1 N 1 - FOR J
+  H 'X' STO+
+  U J 1 + F EVAL PUT 'U' STO
+ 1 STEP
+  "T=" T + MSGBOX
+  "U=" U çSTR + MSGBOX
+ 
+ K 'T' STO+
+ 0 'X' STO
+
+ 1 N 1 - FOR J
+  H 'X' STO+
+  V J 1 + 'U(J)' 'U(J+2)' + 2 / K G * + EVAL  PUT 'V' STO
+ 1 STEP
+ "T=" T + MSGBOX
+ "V=" V çSTR + MSGBOX
+ 
+ N 1 + 1 çLIST 0 CON 'W' STO @ W … O TEMPO J+1
+
+ WHILE T TD < REPEAT
+  K 'T' STO+
+  "T=" T çSTR + MSGBOX
+  1 N 1 - FOR J
+   W J 1 + 'V(J)' 'V(J+2)' 'U(J+1)' - +  EVAL PUT 'W' STO
+  1 STEP
+  "W=" W çSTR + MSGBOX
+  1 N 1 - FOR J
+   U J 1 + 'V(J+1)' EVAL PUT 'U' STO
+   V J 1 + 'W(J+1)' EVAL PUT 'V' STO
+  1 STEP
+ END
+ { U V W N T K X F G U0 UL L N TD A } PURGE
+ª

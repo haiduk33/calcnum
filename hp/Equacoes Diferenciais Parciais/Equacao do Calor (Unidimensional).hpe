@@ -1,0 +1,163 @@
+´
+ "EquaÁ„o do Calor"
+ {
+  { "u(X,0)=" "Pos inicial da extremidade" 9 }
+  { "u(0,t)=" "Pos inicial da extremidade" 0 }
+  { "L=" "comprimento da membrana" 0 }
+  { "N=" "n˙mero de intervalos" 0 }
+  { "å=" "constante" 0 }
+ }
+ { 2 0 }
+ { 20 80 1.6 8 1 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { UB UI L N A } STO
+
+ L N / 'H' STO
+ H 2 ^ 2 A * / 'K' STO
+
+ "Extremidade L isolada?"
+ { { "Sim" 1 } { "N„o" 2 } }
+ 2
+ CHOOSE
+ IF 0 ==
+  THEN
+   { UB UI L N A H K } PURGE
+   KILL
+ END
+ 'OPCAO' STO
+ CASE
+  OPCAO 1 ==
+   THEN
+    N 1 + 'NC' STO
+    UB 'UF' STO
+  END
+  OPCAO 2 ==
+   THEN
+    N 'NC' STO
+    "EquaÁ„o do Calor"
+    {
+     { "u(L,t)=" "temp inicial da extremidade" 0 }
+    }
+    { 2 0 }
+    { 20 }
+    DUP
+    INFORM
+    IF 0 ==
+     THEN
+      { UB UI L N A H K NC} PURGE
+      KILL
+    END
+    { UF }  STO
+   END
+ END
+ 
+ "Resolver atÈ equilÌbrio?"
+ { { "Sim" 1 } { "atÈ tempo t" 2 } }
+ 2
+ CHOOSE
+ IF 0 ==
+  THEN
+   { UB UI L N A H K } PURGE
+   KILL
+ END
+ 'OPCAO' STO
+
+ CASE
+
+  OPCAO 1 ==
+   THEN
+    "EquaÁ„o do Calor"
+    {
+     { "TOL=" "Toler‚ncia" 0 }
+     { "NMI=" "N˙mero m·ximo de iteraÁıes" 0 }
+    }
+    { 2 0 }
+    { 1E-5 200 }
+    DUP
+    INFORM
+    IF 0 ==
+     THEN
+      { UB UI L N A H K NC} PURGE
+      KILL
+    END
+    { TOL NMI }  STO
+   END
+   
+  OPCAO 2 ==
+   THEN
+    "EquaÁ„o do Calor"
+     {
+      { "t=" "tempo" 0 }
+     }
+     { 1 0 }
+     { 2 }
+     DUP
+     INFORM
+     IF 0 ==
+      THEN
+       { UB UI L N A H K NC } PURGE
+       KILL
+     END
+     { T }  STO
+     T K / FLOOR 'NMI' STO
+     0 'TOL' STO
+   END
+ END
+
+ N 2 + 1 çLIST 0 CON 'U' STO
+
+ 1 N 1 - FOR J
+  U J 1 + UB EVAL PUT 'U' STO
+ 1 STEP
+ 
+ 1 'D' STO
+ 0 'I' STO
+ 0 'T' STO
+ 
+ U 1 UI PUT
+ N 1 + UF PUT
+ DUP
+ 'U' STO
+ 'V' STO
+ 
+ WHILE D 0 > I NMI < AND REPEAT
+  0 'D' STO
+
+  IF NC N >
+   THEN
+    U NC 1 + 'U(N)' EVAL PUT 'U' STO
+  END
+
+  1 'I' STO+
+  K 'T' STO+
+
+  1 NC 1 - FOR J
+   'V(J+1)' EVAL 'VX' STO
+   V J 1 + 'U(J)' 'U(J+2)' + 2 / EVAL PUT 'V' STO
+   IF VX 'V(J+1)' - EVAL ABS TOL >
+    THEN
+     1 'D' STO
+   END
+  1 STEP
+  
+  1 NC 1 - FOR J
+   U J 1 + 'V(J+1)' EVAL PUT 'U' STO
+  1 STEP
+  
+ END
+ 
+ IF I NMI == TOL 0 > AND
+  THEN
+     "Ultrapassou o NMI!" MSGBOX
+   ELSE
+    "Tempo gasto=" T çSTR "s" + + MSGBOX
+    "iteraÁıes=" I çSTR + MSGBOX
+    "U=" U Vç DROP N 1 + çLIST çSTR + MSGBOX
+ END
+ { NMI T UF NC OPCAO H K N L UB V TOL U VX I UI D A} PURGE
+ª

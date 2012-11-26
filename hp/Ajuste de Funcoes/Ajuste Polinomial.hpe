@@ -1,0 +1,184 @@
+´
+ "Ajuste Polinomial"
+ {
+  { "X:" "vetor linha" 3. }
+  { "Y:" "vetor linha" 3. }
+ }
+ 1
+ {
+  [ 10. 20. 30. 40. 50. ]
+  [ 1.293 1. .8 .654 .546 ]
+ }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN KILL
+ END
+ LISTç DROP
+ 'Y' STO
+ DUP SIZE LISTç DROP 'M' STO
+ 'X' STO
+ IF X SIZE Y SIZE SAME NOT
+  THEN
+   "ERRO: O n˙mero de pontos em X e Y s„o diferentes." MSGBOX
+   { X M Y } PURGE KILL
+ END
+ "Escolha a opÁ„o"
+ {
+  { "Definir R2 mÌnimo" 1. }
+  { "Definir grau" 2. }
+ }
+ 2
+ CHOOSE
+ IF 0. SAME
+  THEN
+   { X Y M } PURGE
+   KILL
+ END
+ 'OPCAO' STO
+ CASE
+  OPCAO 2. SAME
+   THEN
+    "Grau do polinÙmio"
+    {
+     { "N:" "Quanto maior o N, maior a precis„o." 0. }
+    }
+    { 1. 0. }
+    X SIZE { 1. } - DUP
+    INFORM
+    IF 0. SAME
+     THEN
+      { X Y M OPCAO } PURGE
+      KILL
+    END
+    LISTç DROP 'N' STO
+    0. 'R2D' STO
+    IF 'N<2.'
+     THEN
+      "ERRO: N precisa ser maior que 2." MSGBOX
+      { N M X Y OPCAO R2D } PURGE
+      KILL
+    END
+    IF 'N+1.>M'
+     THEN
+      "ERRO: N maior do que o possÌvel com o n˙mero de pontos dados" MSGBOX
+      { N M X Y OPCAO } PURGE
+      KILL
+    END
+    1. 'Q' STO
+   END
+  OPCAO 1. SAME
+   THEN
+    "Coeficiente de DeterminaÁ„o (R2)"
+    {
+     { "R2:" "Limitado de 0 a 1, quanto maior, mais preciso." 0. }
+    }
+    { 1. 0. }
+    { .99 }
+    DUP
+    INFORM
+    IF 0. SAME
+     THEN
+      { X Y M OPCAO } PURGE
+      KILL
+    END
+    LISTç DROP 'R2D' STO
+    IF R2D 0. â
+     THEN "ERRO: R2â0" MSGBOX
+     { R2D OPCAO X Y M } PURGE
+     KILL
+    END
+    IF R2D 1. >
+     THEN
+      "ERRO: R2 maior que 1" MSGBOX
+      { R2D OPCAO X Y M } PURGE
+      KILL
+    END
+    2. 'N' STO
+   END
+ END
+ "Aguarde, calculando." 6. DISP
+ 0. 'R2' STO
+ WHILE
+      IF OPCAO 1. ==
+       THEN R2 R2D < N 1. + M â AND
+       ELSE Q 1. â
+       END
+  REPEAT
+   2. N * 1. + 1. çLIST 0. CON 'R' STO
+   N 1. + 1. çLIST 0. CON 'B' STO
+   N 2. + 1. çLIST 0. CON 'C' STO
+   2. N * 2. + DUP 2. çLIST 0. CON 'A' STO
+   R 1. M PUT 'R' STO
+   B 1. 0. PUT 'B' STO
+   0. 'SY2' STO
+   0 M 1. - FOR K
+     B 1. 'B(1.)' 'Y(K+1.)' + EVAL PUT 'B' STO
+     'Y(K+1.)' DUP * EVAL 'SY2' STO+
+   1 STEP
+   A 1. N 2. + 2. çLIST 'B(1.)' EVAL PUT 'A' STO
+   2 2. N * FOR I
+     R I 0. PUT
+       I 1. + 0. PUT 'R' STO
+     B I 2. / 1. + 0. PUT 'B' STO
+     0 M 1. - FOR K
+       R I 'R(I)' 'X(K+1.)' I 1. - ^ + EVAL PUT
+         I 1. + 'X(K+1.)' I ^ 'R(I+1.)' + EVAL PUT 'R' STO
+       B I 2. / 1. + 'B(I/2.+1.)' 'Y(K+1.)' 'X(K+1.)' I 2. / ^ * + EVAL PUT 'B' STO
+     1 STEP
+     A I 2. / 1. + N 2. + 2. çLIST 'B(I/2.+1.)' EVAL PUT 'A' STO
+   2 STEP
+   0 N FOR I
+     I N FOR J
+       A I 1. + J 1. + 2. çLIST 'R(I+J+1.)' EVAL PUT 'A' STO
+     1 STEP
+     C I 1. + 0. PUT 'C' STO
+   1 STEP
+     0 N FOR I
+       I N 1. + FOR J
+         'A(I+1.,J+1.)' EVAL 'S' STO
+         IF I 1. - 0. ä
+          THEN
+           0 I 1. - FOR K
+             S 'A(K+1.,I+1.)' 'A(K+1.,J+1.)' * - EVAL 'S' STO
+           1 STEP
+         END
+         IF I J SAME
+          THEN
+           1. S É / 'T' STO
+           A I 1. + J 1. + 2. çLIST T PUT 'A' STO
+          ELSE
+           A I 1. + J 1. + 2. çLIST T S * PUT 'A' STO
+         END
+       1 STEP
+     1 STEP
+     N 0 FOR I
+       'A(I+1.,N+2.)' EVAL 'S' STO
+       I 1. + N FOR K
+         S 'A(I+1.,K+1.)' 'C(K+1.)' * - EVAL 'S' STO
+       1 STEP
+       C I 1. + S 'A(I+1.,I+1.)' * EVAL PUT 'C' STO
+     -1 STEP
+     0. 'R2' STO
+     0 N FOR I
+       'C(I+1.)' 'B(I+1.)' 'R(I+1.)' 'B(1.)' * M / - * EVAL 'R2' STO+
+     1 STEP
+     R2 SY2 'B(1.)' DUP * M / - / EVAL 'R2' STO
+     "PolinÙmio do grau " N çSTR + MSGBOX
+     0 N FOR I
+       "C(" I çSTR + ")=" + 'C(I+1.)' EVAL çSTR + MSGBOX
+     1 STEP
+     "R2=" R2 çSTR + MSGBOX
+     IF OPCAO 2. SAME
+      THEN
+       1 'Q' STO+
+      ELSE
+       1 'N' STO+
+     END
+ END
+ IF R2 R2D <
+  THEN
+   "ImpossÌvel obter a precis„o desejada" MSGBOX
+ END
+ { R2 R2D A B C N X Y R OPCAO Q M SY2 T S } PURGE
+ª

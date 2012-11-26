@@ -1,0 +1,84 @@
+´
+ "Simpson 2∫ Regra (tripla)"
+ {
+  { "f(x)=" "funÁ„o a integrada." 9 }
+  { "A(x,y)=" "limite inferior em z" 9 }
+  { "B(x,y)=" "limite superior em z" 9 }
+  { "A(x)=" "limite inferior em y" 9 }
+  { "B(x)=" "limite superior em y" 9 }
+  { "A=" "limite inferior em x" 0 }
+  { "B=" "limite superior em x" 0 }
+  { "N=" "subintervalos, precisa ser m˙ltiplo de 3" 0 }
+ }
+ { 3 0 }
+ { 'X+Y+Z' 'Y' 'Y^2' X 'X^2' 0 4 21 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F AZ BZ AY BY AX BX N } STO
+ IF N 3 MOD
+  THEN
+   "n precisa ser m˙ltiplo de 3" MSGBOX
+   { F AZ BZ AY BY AX BX N } PURGE
+   KILL
+  END
+ BX AX - N / EVAL 'HX' STO
+ AX 'X' STO
+ 0 'S' STO
+ 0 N FOR I
+   BY AY - N / EVAL 'HY' STO
+   AY EVAL 'Y' STO
+   0 'SY' STO
+   0 N FOR J
+     BZ AZ - N / EVAL 'HZ' STO
+     AZ EVAL 'Z' STO
+     0 'SZ' STO
+     1 N 3 / FOR K
+       F EVAL
+       HZ 'Z' STO+
+       F EVAL +
+       HZ 'Z' STO+
+       F EVAL +
+       3 *
+       HZ 'Z' STO+
+       F EVAL +
+       'SZ' STO+
+     1 STEP
+     3 HZ * 8 / 'SZ' STO*
+     "SZ=" SZ çSTR + MSGBOX
+     IF J 0 == J N == OR
+      THEN 1 'FATOR' STO
+      ELSE
+       IF J 3 MOD
+        THEN
+         3 'FATOR' STO
+        ELSE
+         2 'FATOR' STO
+       END
+     END
+     FATOR SZ * 'SY' STO+
+     HY 'Y' STO+
+   1 STEP
+   3 HY * 8 / 'SY' STO*
+   "SY=" SY çSTR + MSGBOX
+   IF I 0 == I N == OR
+    THEN 1 'FATOR' STO
+    ELSE
+     IF I 3 MOD
+      THEN
+       3 'FATOR' STO
+      ELSE
+       2 'FATOR' STO
+     END
+   END
+   FATOR SY * 'S' STO+
+   HX 'X' STO+
+  "S=" S çSTR + MSGBOX
+ 1 STEP
+ 3 HX * 8 / 'S' STO*
+ "A integral È igual a " S çSTR + MSGBOX
+ { X Y Z HX HY HZ S SY SZ F AX BX AY BY AZ BZ N FATOR } PURGE
+ª

@@ -1,0 +1,169 @@
+«
+  "Newton-Bairstow"
+  {
+   { "Vetor dos Coeficientes=" "potências crescentes em X" 3 }
+   { "Tolerância=" "TOL" 0 }
+   { "Número máximo de iterações=" "NMI" 0 }
+  }
+  { 1 0 }
+  {
+   [ 8 -1 7 -2 -5 6 -3 1 ]
+   .0001
+   20
+  }
+  DUP
+  INFORM
+  IF 0 == THEN KILL END
+  LIST
+  DROP
+  'NMI' STO
+  DUP LOG NEG FIX 'TOL' STO
+  DUP SIZE LIST DROP 1 - DUP
+  'N' STO
+  'M' STO
+  N 1 LIST 0 CON DUP
+  'PR' STO
+  'PI' STO
+  DUP
+  N 1 + GET / 'A' STO
+  A 'V' STO
+  1 'K' STO
+  1 'VOLTA' STO
+  WHILE K 0 >
+   REPEAT 0 'K' STO 1 M
+    FOR J
+      IF 'V(J)' EVAL ABS 'V(J+1)' EVAL ABS >
+       THEN
+        V J 'V(J+1.)' EVAL PUT J 1 + 'V(J)' EVAL PUT 'V' STO
+        1 'K' STO
+      END
+    1 STEP
+  END
+  WHILE VOLTA 1 ==
+   REPEAT
+    "Deseja Estimar Po e Qo?"
+    {
+     { "Estimarei" 1 }
+     { "O programa estimará" 2 }
+    }
+    2 CHOOSE
+    IF 0 == THEN { V M N TOL A K PR VOLTA PI NMI } PURGE KILL END
+    'OPCAO' STO
+    CASE
+     OPCAO 1 ==
+      THEN
+       "Insira Po e Qo"
+       {
+        { "Po=" "sugiro maior/3º maior coeficiente" 0 }
+        { "Qo=" "2º maior/3º maior coeficiente" 0 }
+       }
+       { 1 5 }
+       { 0 0 }
+       DUP
+       INFORM
+       IF 0 ==
+        THEN { NMI TOL A M N PI PR V K VOLTA } PURGE KILL END
+        LIST DROP 'Po' STO 'Qo' STO
+      END
+     OPCAO 2 ==
+      THEN
+       'V(M+1.)' 'V(M-1.)' / EVAL 'Po' STO
+       'V(M)' 'V(M-1.)' / EVAL 'Qo' STO
+       "Po=" Po STR + "
+Qo=" Qo STR + + MSGBOX
+      END
+    END
+    1 'J' STO N 3. + 1. LIST 0. CON DUP
+    'B' STO
+    'C' STO
+    WHILE M 2 >
+     REPEAT
+      B M 2 + 0 PUT 'B' STO
+      B M 3. + 0. PUT 'B' STO
+      C M 2. + 0. PUT 'C' STO
+      C M 3. + 0. PUT 'C' STO
+      Po 'P' STO
+      Qo 'Q' STO
+      1 DUP
+      'DP' STO
+      'DQ' STO
+      0 'K' STO
+      WHILE DP ABS DQ ABS + TOL > K NMI ‰ AND
+       REPEAT
+        IF M 1 Š
+         THEN
+          M 1 FOR I
+            B I 1 + 'A(I+1)' P 'B(I+2)' * - Q 'B(I+3)' * - EVAL PUT 'B' STO
+            C I 1 + 'B(I+1)' P 'C(I+2)' * - Q 'C(I+3)' * - EVAL PUT 'C' STO
+          -1 STEP
+        END
+        B 1 'A(1)' P 'B(2)' * - Q 'B(3)' * - EVAL PUT 'B' STO
+        'C(2)' 'B(2)' - EVAL 'C1' STO
+        'C(3)' DUP * C1 'C(4)' * - EVAL 'D' STO
+        IF D ABS 0 >
+         THEN
+          'B(2)' 'C(3)' * 'B(1)' 'C(4)' * - D / EVAL 'DP' STO
+          'B(1)' 'C(3)' * 'B(2)' C1 * - D / EVAL 'DQ' STO
+          DP 'P' STO+
+          DQ 'Q' STO+
+          "Po=" P STR + "
+Qo=" Q STR + + MSGBOX
+         ELSE 0 'M' STO
+        END
+        1 'K' STO+
+      END
+      IF M 0 >
+       THEN
+        EQ2G "Raízes=
+" 'PR(J)' EVAL STR +
+        IF 'PI(J)' EVAL 0 ‹
+         THEN
+          "±" + 'PI(J)' EVAL + "i" +
+         ELSE
+          " e " + 'PR(J+1)' EVAL STR +
+        END
+        MSGBOX
+        M 2 - 'M' STO
+        2 'J' STO+
+        0 M FOR I
+          A M I - 1 + 'B(M+3.-I)' EVAL PUT 'A' STO
+        1 STEP
+        IF M 1 >
+         THEN
+          'V(M+1.)' 'V(M-1.)' / EVAL 'Po' STO
+          'V(M)' 'V(M-1.)' / EVAL 'Qo' STO
+        END
+      END
+    END
+    IF M 0 > K NMI ‰ AND
+     THEN
+      IF M 2 ==
+       THEN
+        'B(4)' EVAL 'P' STO
+        'B(3)' EVAL 'Q' STO
+        "Po=" P STR + "
+Qo=" Q STR + + MSGBOX EQ2G "Raízes=
+" 'PR(J)' EVAL STR +
+        IF 'PI(J)' EVAL 0 ‹
+         THEN "±" + 'PI(J)' EVAL + "i" +
+         ELSE " e " + 'PR(J+1.)' EVAL STR +
+        END
+        MSGBOX
+       ELSE
+        PR J 'B(3.)' -1. * EVAL PUT 'PR' STO
+        PI J 0. PUT 'PI' STO
+        "Raíz=
+" 'PR(J)' EVAL STR + MSGBOX
+      END
+    END
+    IF K NMI > THEN "Ultrapassou o NMI!" MSGBOX END
+    IF M 0 ==
+     THEN
+      "Estime novos valores iniciais para P e Q" MSGBOX
+      1 'VOLTA' STO
+     ELSE
+      0 'VOLTA' STO
+    END
+  END
+  { D C1 OPCAO J IMA R P Q DELTA N A V DP DQ Po Qo C B K PI PR TOL NMI VOLTA M } PURGE
+»

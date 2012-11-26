@@ -1,0 +1,18 @@
+«
+ P DUP * 4 Q * - 'DELTA' STO
+ P 2 / -1 * 'R' STO
+ DELTA ABS ƒ 2 / 'IMA' STO
+ IF 'DELTAŠ0'
+  THEN
+   PR J R IMA + PUT
+   J 1 + R IMA - PUT
+   'PR' STO
+   PI J 0 PUT
+   J 1 + 0 PUT 'PI' STO
+  ELSE
+   PR J R PUT
+   J 1 + R PUT 'PR' STO
+   PI J IMA PUT
+   J 1 + IMA -1 * PUT 'PI' STO
+ END
+»

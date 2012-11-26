@@ -1,0 +1,63 @@
+´
+ "Simpson 2∫ Regra (dupla)"
+ {
+  { "f(x)=" "funÁ„o a integrada." 9 }
+  { "A(x)=" "limite inferior em y" 9 }
+  { "B(x)=" "limite superior em y" 9 }
+  { "A=" "limite inferior em x" 0 }
+  { "B=" "limite superior em x" 0 }
+  { "N=" "subintervalos, m˙ltiplo de 3" 0 }
+ }
+ { 2 0 }
+ { 'X+Y' X 'X^2' 0 4 21 }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ { F AY BY AX BX N } STO
+ IF N 3 MOD
+  THEN
+   "n precisa ser m˙ltiplo de 3." MSGBOX
+   { F AY BY AX BX N } PURGE
+   KILL
+  END
+ BX AX - N / EVAL 'HX' STO
+ AX 'X' STO
+ 0 'S' STO
+ 0 N FOR I
+   BY AY - N / EVAL 'HY' STO
+   AY EVAL 'Y' STO
+   0 'SY' STO
+   1 N 3 / FOR J
+       F EVAL
+       HY 'Y' STO+
+       F EVAL
+       HY 'Y' STO+
+       F EVAL +
+       3 *
+       HY 'Y' STO+
+       F EVAL + +
+       'SY' STO+
+   1 STEP
+   3 HY * 8 / 'SY' STO*
+@   "SY=" SY çSTR + MSGBOX
+   IF I 0 == I N == OR
+    THEN 1 'FATOR' STO
+    ELSE
+     IF I 3 MOD
+      THEN
+       3 'FATOR' STO
+      ELSE
+       2 'FATOR' STO
+     END
+   END
+   FATOR SY * 'S' STO+
+   HX 'X' STO+
+@   "S=" S çSTR + MSGBOX
+ 1 STEP
+ 3 HX * 8 / 'S' STO*
+ "A integral È igual a " S çSTR + MSGBOX
+ { X Y HX HY SY S F AX BX AY BY N FATOR } PURGE
+ª

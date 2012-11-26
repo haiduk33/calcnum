@@ -1,0 +1,108 @@
+´
+ "Lagrange Multidimensional"
+ {
+  { "X=" "Matriz, indice da vari·vel, valor" 3 }
+  { "Y=" "Vetor, vari·vel independente" 3 }
+  { "Å=" "Vetor a ser interpolado" 3 }
+ }
+ { 1 0 }
+ {
+  [
+   [ 1 1 ]
+   [ 1 2 ]
+   [ 2 1 ]
+   [ 2 2 ]
+   [ 2 3 ]
+   [ 2 4 ]
+   [ 3 1 ]
+   [ 3 2 ]
+   [ 3 3 ]
+  ]
+  [ 2 3 4 4 6 8 6 9 12 8 12 16 3 4 5 6 8 10 9 12 15 12 16 20 ]
+  [ 1.2 3.7 2.1 ]
+ }
+ DUP
+ INFORM
+ IF 0. SAME
+  THEN
+   KILL
+ END
+ LISTç DROP
+ DUP
+ 'Å' STO
+ SIZE LISTç DROP 'M' STO
+ 'Y' STO
+ 'Xin' STO
+ M 1 çLIST 0 CON 'N' STO
+ 1 Xin SIZE LISTç DROP DROP FOR I
+  1 M FOR J
+   IF 'Xin(I,1)' EVAL J ==
+    THEN
+     N J 'N(J)' 1 + EVAL PUT 'N' STO
+   END
+  1 STEP
+ 1 STEP
+ M N Vç M çLIST SORT REVLIST HEAD 2 çLIST 0 CON 'X' STO
+ 0 'S' STO
+ 1 M FOR L
+  1 'J' STO
+  S 1 + 'N(L)' EVAL S + FOR I
+   X 'Xin(I,1)' EVAL J 2 çLIST 'Xin(I,2)' EVAL PUT 'X' STO
+   1 'J' STO+
+  1 STEP
+  'N(L)' EVAL 'S' STO+
+ 1 STEP
+ { Xin S J } PURGE
+ "Aguarde, calculando." 7 DISP
+ 1 'P' STO
+ 1 M FOR I
+  'N(I)' EVAL 'P' STO*
+ 1 STEP
+
+ N Vç M çLIST SORT REVLIST HEAD 1 çLIST 0 CON 'XL' STO
+
+ M 1 + P 1 + 2 çLIST 0 CON 'YI' STO
+ 1 P FOR I
+   YI M I 2 çLIST 'Y(I)' EVAL PUT 'YI' STO
+ 1 STEP
+ 1 'Q' STO
+ M 1 FOR L
+  1 'K' STO
+  1 'N(L)' EVAL FOR I
+   XL I 'X(L,I)' EVAL PUT 'XL' STO
+  1 STEP
+  'N(L)' EVAL 'Q' STO*
+  1 P Q / FOR I
+   1 'N(L)' EVAL FOR J
+    Y J 'YI(L,K)' EVAL PUT 'Y' STO
+    1 'K' STO+
+   1 STEP
+@InÌcio do Lagrange Unidimensional
+  IF 'XL(1.)' EVAL 'Å(L)' EVAL â 'Å(L)' EVAL XL 'N(L)' EVAL GET EVAL â AND
+   THEN
+    0 'Ym' STO
+    1 'N(L)' EVAL FOR K
+     1 'p' STO
+     1 'N(L)' EVAL FOR I
+      IF 'IãK'
+       THEN
+        p 'Å(L)' EVAL 'XL(I)' - 'XL(K)' 'XL(I)' - / * EVAL 'p' STO
+      END
+     1 STEP
+     p 'Y(K)' * EVAL 'Ym' STO+
+    1 STEP
+    "X=" 'Å(L)' EVAL çSTR + "
+" + "Y=" + Ym çSTR + MSGBOX
+   ELSE
+    'Å(L)' EVAL çSTR " n„o pertence ao intervalo de interpolaÁ„o!" + MSGBOX
+  END
+@Fim do Lagrange Unidimensional
+    IF L 1 - 0 ã
+     THEN
+      YI L 1 - I 2 çLIST Ym PUT 'YI' STO
+    END
+  1 STEP
+ -1 STEP
+ "y=" Ym çSTR + MSGBOX
+ { YI X Y XL K N M Ym P Å p Q} PURGE
+ª

@@ -1,0 +1,44 @@
+´
+ "Regula Falsi"
+ { "f(x)=" "Xi=" "Xf=" "Tol=" "NMI=" }
+ { 2 5 }
+ { 0 0 0 0.001 100 }
+ { 0 0 0 0.001 100 }
+ INFORM
+ DROP
+ LISTç
+ "Aguarde, calculando." 6. DISP
+ DROP
+ 'NMI' STO
+ DUP LOG NEG FIX
+ 'TOL' STO
+ 'XF' STO
+ 'XI' STO
+ 'FUNCAO' STO
+ IF XI 'X' STO FUNCAO EVAL XF 'X' STO FUNCAO EVAL * 0 <
+  THEN
+   0. 'K' STO
+   XI 'X' STO FUNCAO EVAL XF 'X' STO FUNCAO EVAL / 'G' STO
+   XI XF XI - G * 1. G - / - 'XM' STO
+   WHILE XM XF - ABS TOL > XI XM - ABS TOL > AND XM 'X' STO FUNCAO EVAL ABS TOL > OR K NMI â AND
+    REPEAT
+     XI 'X' STO FUNCAO EVAL XF 'X' STO FUNCAO EVAL / 'G' STO
+     XI XF XI - G * 1. G - / - 'XM' STO
+     K XI XI 'X' STO FUNCAO EVAL XF  XF 'X' STO FUNCAO EVAL XM XM 'X' STO FUNCAO EVAL 7 çLIST
+     IF XI 'X' STO FUNCAO EVAL XM 'X' STO FUNCAO EVAL * 0 <
+      THEN XM 'XF' STO
+      ELSE XM 'XI' STO
+     END
+     1. 'K' STO+
+   END
+   IF 'K>NMI'
+    THEN "Ultrapassou NMI!" MSGBOX
+    ELSE
+     K
+     DUP ç K ´ 1 SWAP FOR j OBJç çARRY IF j K < THEN j 1 + ROLL END NEXT IF K 1 > THEN 1 K 1 - FOR j j 1 + ROLL NEXT END K ROWç ª
+     XM çSTR MSGBOX
+   END
+  ELSE "Nao ha garantia da existencia de raiz no intervalo" MSGBOX
+ END
+ { XI XF XM K X G FUNCAO } PURGE
+ª
