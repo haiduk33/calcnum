@@ -1,0 +1,43 @@
+Algoritmo PVC-DF-NLINEAR
+
+Início
+| Função f*(X,Y,Z) = < >
+| Ler TOL, NMI
+| D <- TOL
+| Função fy(X,Y,Z) = (f*(X,Y+D,Z) - f*(X,Y-D,Z)) / (2*D)
+| Função fz(X,Y,Z) = (f*(X,Y,Z+D) - f*(X,Y,Z+D)) / (2*D)
+| Ler X0, Y0, XN, YN
+| Ler N
+| H <- (XN - X0) / N
+| Y(0) <- Y0; Y(N) <- YN
+| Para I de 1 até N-1 executar
+| | Y(I) <- Y0 + I * H * (YN - Y0) / (XN - X0)
+| Fim (I)
+| KC <- 0
+| K(0) <- T(0) <- 0; V <- 1
+| Enquanto KC <= NMI e |V| > TOL executar
+| | Para I de 1 até N-1 executar
+| | | X <- X0 + I * H
+| | | Z <- (Y(I+1) - Y(I-1)) / (2*H)
+| | | A <- -1 - H * fz(X,Y(I),Z) / 2
+| | | B <-  2 + H^2 * fy(X,Y(I),Z)
+| | | C <- -1 + H * fz(X,Y(I),Z) / 2
+| | | D <- Y(I-1) - 2 * Y(I) + Y(I+1) - H^2 * f*(X,Y(I),Z)
+| | | DEN <- B - A * T(I-1)
+| | | K(I) <- (D - A*K(I-1)) / DEN
+| | | T(I) <- C / DEN
+| | Fim (I)
+| | V(N-1) <- K(N-1); V <- V(N-1)
+| | Y(N-1) <- Y(N-1) + V(N-1)
+| | Para I de N-2 até 1, incremento -1, excutar
+| | | V(I) <- K(I) - T(I) * V(I+1)
+| | | Y(I) <- Y(I) + V(I)
+| | | Se |V| < |V(I)| então V <- V(I)
+| | Fim (I)
+| | KC <- KC + 1
+| Fim (Enquanto)
+| Se KC > NMI então escrever "Ultrapassou NMI."
+|             senão escrever Y(I), I=0,N
+| Fim (Se)
+Fim.
+

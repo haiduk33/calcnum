@@ -1,0 +1,20 @@
+Algoritmo INTERPOLAÇÃO LINEAR (N,X,Y)
+
+Início
+| Ler XM
+| Se XM >= X(0) e XM <= X(N)
+|    então
+| | I <- 0
+| | Enquanto X(I) < XM e I <= N executar
+| | | I <- I + 1
+| | Fim (Enquanto)
+| | DEN <- X(I) - X(I-1)
+| | A <- (Y(I) - Y(I-1)) / DEN
+| | B <- (X(I) * Y(I-1) - X(I-1) * Y(I)) / DEN
+| | YM <- A * XM + B
+| | Escrever XM, YM
+|    senão
+| | Escrever "XM está fora dos limites de interpolação"
+| Fim (Se)
+Fim.
+
