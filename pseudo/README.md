@@ -1,0 +1,1 @@
+Lista de algoritmos===================2.3 Exemplos de Algoritmos- SOMA-MÉDIA: 23- FATORIAL: 24- POLINÔMIO: 24- BOLHA: 25- TROCA: 25- VETORIZAÇÃO: 26- RECUPERA-MATRIZ: 26

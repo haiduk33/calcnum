@@ -1,0 +1,134 @@
+Algoritmo VOLUME (T,W)
+Início
+|	Ler A, B // lim. de integração de x //
+|	Ler C, D // lim. de integração de y //
+|	Ler N // número de pontos //
+|	F0 <- 0
+|	Para I de 0 até N-1 executar
+|	|	TI <- T(N, I)
+|	|	X <- ((B - A) * TI + A + B) / 2
+|	|	F1 <- 0
+|	|	Para J de 0 até N-1 executar
+|	|	|	TJ <- T(N, J)
+|	|	|	Y <- ((D - C) * TJ + C + D) / 2
+|	|	|	Ler Z
+|	|	|	F1 <- F1 + (D - C) * Z * W(N, J) / 2
+|	|	Fim (J)
+|	|	F0 <- F0 + (B - A) * F1 * W(N, I) / 2
+|	Fim (I)
+|	Escrever F0
+Fim.
+
+
+Algoritmo PVI-PVC-AJUSTE
+Início
+|	Função f*(x, y, z) = (3 * y * y + 10 * z * z * z) / (10 * x * y)
+|	Ler X0, Y0, Z0, XN, N
+|	H <- (XN - X0) / N
+|	X <- X0; Y <- Y0; Z <- Z0
+|	Para I de 0 até N-1 executar
+|	|	K1 <- H * Z
+|	|	L1 <- H * f*(X, Y, Z)
+|	|	K2 <- H * (Z + L1)
+|	|	L2 <- H * f*(X + H, Y + K1, Z + L1)
+|	|	Z <- Z + (L1 + L2) / 2
+|	|	Y <- Y + (K1 + K2) / 2
+|	|	X <- X + H
+|	Fim (I)
+|	YN <- Y; ZN <- Z
+|	Ler N, TOL, NMI
+|	Função fy(x, y, z) = 0,3 / x - z * z / (y * y)
+|	Função fx(x, y, z) = 2 * z / y
+|	H <- (XN - X0) / N
+|	Para I de 1 até N-1 executar
+|	|	Y(I) <- Y0 + I * H * (YN - Y0) / (XN - X0)
+|	Fim (I)
+|	KC <- T(0) <- K(0) <- V <- 1
+|	Enquanto KC <= NMI e |V| > TOL executar
+|	|	Para I de 1 até N-1 executar
+|	|	|	X <- X0 + I * H
+|   |   |   Z <- (Y(I + 1) - Y(I - 1)) / (2 * H)
+|   |   |   A <- -1 - H * fz(X, Y(I), Z) / 2
+|   |   |   B <- 2 + H * H * fy(X, Y(I), Z)
+|   |   |   C <- -1 + H * fz(X, Y(I), Z) / 2
+|   |   |   D <- Y(I - 1) - 2 * Y(I) + Y(I + 1) - H * H * f(X, Y(I), Z)
+|   |   |   DEN <- B - A * T(I - 1)
+|   |   |   K(I) <- (D - A * T(I - 1)) / DEN
+|   |   |   T(I) <- C / DEN
+|	|	Fim (I)
+|	|	V(N-1) <- K(N-1); V <- V(N-1)
+|	|	Y(N-1) <- Y(N-1) + V(N-1) 
+|	|	Para I de N-2 até 1, incremento -1, executar
+|	|	|	V(I) <- K(I) - T(I) * V(I+1)
+|	|	|	Y(I) <- Y(I) + V(I)
+|	|	|	Se |V| < |V(I)| então V <- V(I)
+|	|	Fim (I)
+|	|	KC <- KC + 1
+|	Fim (Enquanto)
+|	Escrever Y(I), I variando de 0 até N
+|	Função f(x) = A * X ^ (B * X)
+|	Função f1(y) = ln(y)
+|	Função f2(x) = x * ln(x)
+|	Função f3(a) = exp(a)
+|	Função f4(b) = b
+|	SX <- SY <- SX2 <- SXY <- YM <- 0; M <- N + 1
+|	Para I de 0 até N executar
+|	|	SY <- SY + f1(Y(I))
+|	|	SX <- SX + f2(X(I))
+|	|	SXY <- SXY + f1(Y(I)) * f2(X(I))
+|	|	SX2 <- SX2 + f2(X(I)) ^2
+|	|	YM <- YM + Y(I) / M
+|	Fim (I)
+|	B <- (SXY - SX * SY / M) / (SX2 - SX * SX / M)
+|	A <- (SY - B * SX) / M
+|	SN <- SD <- 0
+|	A <- f3(A)
+|	B <- f4(B)
+|	Para I de 1 até M executar
+|	|	SN <- SN + (Y(I) - f(X(I))) ^ 2
+|	|	SD <- SD + (Y(I) - YM) ^2
+|	Fim (I)
+|	R2 <- 1 - SN / SD
+|	Escrever A, B, R
+|	Escrever Y(I), I variando de 0 até N
+Fim.
+
+
+Algoritmo AQUIFERO
+Início
+|	Ler N
+|	Ler T, S, H, TI, TEMPO
+|	Função R(x, y, t) = <  > // ou matriz de valores R(x, y, t) = R(I, K) //
+|	P <- S * H ^ 2 / (4 * T)
+|	Para I de 1 até N executar
+|	|	Ler X(I), Y(I)
+|	|	C(I) <- 0
+|	|	Para J de 1 até 4 executar
+|	|	|	Ler V(I, J)
+|	|	|	Se V(I, J) = 0 executar
+|	|	|	|	Ler CI
+|	|	|	|	C(I) <- C(I) + CI
+|	|	|	Fim (Se)
+|	|	Fim (J)
+|	|	U(I) = 0
+|	Fim (I)
+|	K <- U(0) <- 0; TE <- TI
+|	D <- 1
+|	Enquanto D=1 e K<=int(TEMPO / P) executar
+|	|	D <- 0
+|	|	Para I de 1 até N executar
+|	|	|	W(I) <- C(I) + R(X(I), Y(I), TE) * H ^ 2 / T
+|	|	|	Para J de 1 até 4 executar
+|	|	|	|	W(I) <- W(I) + U(V(I, J))
+|	|	|	Fim (J)
+|	|	|	W(I) <- W(I) / 4
+|	|	|	Se |W(I) - U(I)| > TOL então D <- 1
+|	|	Fim (I)
+|	|	K <- K + 1; TE <- TE + P
+|	|	Escrever TE
+|	|	Para I de 1 até N executar
+|	|	|	U(I) <- w(I)
+|	|	|	Escrever U(I)
+|	|	Fim (I)
+|	Fim (Enquanto)
+Fim.
