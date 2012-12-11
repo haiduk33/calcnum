@@ -106,7 +106,7 @@ def pvi_pvc_ajuste
     end
 
     for i in 0..n
-        puts y[i]
+        puts "y[#{i}] = #{y[i]}"
     end
 
     include Math

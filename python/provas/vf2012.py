@@ -39,7 +39,7 @@ def volume():
         p = (b - a) * f1 / 2
         f0 = f0 + p * W[n][i]
 
-    print f0
+    print 'f0 =', f0
 
 
 #TODO: validar/corrigir
@@ -94,7 +94,7 @@ def pvi_pvc_ajuste():
         kc = kc + 1
 
     for i in range(0, n + 1):
-        print y[i]
+        print 'y[i] =', y[i]
 
     f = lambda x: a * x ** (b * x)
     from math import log, exp
@@ -122,9 +122,9 @@ def pvi_pvc_ajuste():
         sd = sd + (y[i] - ym) ** 2
     r2 = 1 - sn / sd
 
-    print a, b, r
+    print 'a =', a, 'b =', b, 'r =', r
     for i in range(0, n + 1):
-        print y[i]
+        print 'y[i] =', y[i]
 
 
 def aquifero():
@@ -164,7 +164,7 @@ def aquifero():
             if abs(w[i] - u[i]) > tol:
                 d = 1
         k = k + 1; te = te + p
-        print te
+        print 'te =', te
         for i in range(1, n + 1):
             u[i] = w[i]
-            print u[i]
+            print 'u[i] =', u[i]
