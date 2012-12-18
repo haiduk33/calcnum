@@ -134,9 +134,11 @@ def policar(a, n):
 
 
 def autovet(n, a, autoval):
-    b = [[None] * (n + 1)] * (n + 1)
-    x = [[None] * (n + 1)] * (n + 1)
+    b = [None] * (n + 1)
+    x = [None] * (n + 1)
     for i in range(1, n + 1):
+        b[i] = [None] * (n + 1)
+        x[i] = [None] * (n + 1)
         for j in range(1, n + 1):
             b[i][j] = a[i][j]
             if j == i:
