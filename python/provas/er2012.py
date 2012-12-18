@@ -281,7 +281,7 @@ def faddeev_leverrier():
         print '[', ' '.join([str(t) for t in l]), ']'
 
 
-def pivot4(a, b, n, i):
+def pivot(a, b, n, i):
     c = a[i][i]
     l = i
     for k in range(i + 1, n + 1):
@@ -292,37 +292,36 @@ def pivot4(a, b, n, i):
         for j in range(1, n + 1):
             a[i][j], a[l][j] = a[l][j], a[i][j]
         b[i], b[l] = b[l], b[i]
+    return a, b
 
 
 def lu(a, b, n):
     x = [None] * (n + 1)
 
-    print a
     # geração das matrizes [L] e [U]
     for i in range(1, n + 1):
-        pivot4(a, b, n, i)
+        a, b = pivot(a, b, n, i)
+        print a
         for j in range(1, n + 1):
             if j < i:
                 l = j - 1
             else:
                 l = i - 1
-            soma = a[i][j]
+            soma = 0.0 + a[i][j]
             for k in range(1, l + 1):
                 soma = soma - a[i][k] * a[k][j]
             if j <= i:
                 a[i][j] = soma
             else:
                 a[i][j] = soma / a[i][j]
-        x[i] = 0
+        x[i] = 0.0
 
     # solução de [L]{X*} = {B}
     for i in range(1, n + 1):
-        soma = b[i]
+        soma = 0.0 + b[i]
         for k in range(1, i):
             soma = soma - a[i][k] * x[k]
         x[i] = soma / a[i][i]
-    print a
-    print x
 
     # solução de [U]{X} = {X*}
     for i in range(n, 0, -1):
@@ -330,11 +329,11 @@ def lu(a, b, n):
         for j in range(i + 1, n + 1):
             soma = soma - a[i][j] * x[j]
         x[i] = soma
-    print a
 
     return x
 
 
+from math import *
 def seqnl_newton():
     """SEQNL-NEWTON"""
     n = input('Entre N: ')
@@ -359,9 +358,12 @@ def seqnl_newton():
                 x[j] = x[j] + tol
                 a[i][j] = f[i](x)
                 x[j] = x[j] - 2 * tol
-                a[i][j] = (a[i][j] - f[i](x)) / (2 * tol)
+                a[i][j] = (a[i][j] - f[i](x)) / (2.0 * tol)
                 x[j] = x[j] + tol
-        z = lu(a, f, n)
+        print a, fs
+        z = lu(a, fs, n)
+        print z
+        print
         zm = z[1]
         x[1] = x[1] + z[1]
         for i in range(2, n + 1):
@@ -375,11 +377,58 @@ def seqnl_newton():
         print 'Solução:', '[', ' '.join(x), ']'
 
 
+def regressao_linear(m, n, x, y):
+    r = [0.0] * (n + 1)
+    r[0] = m; sy2 = 0
+    for k in range(1, m + 1):
+        x[0][k] = 1
+        for j in range(1, n + 1):
+            r[j] = r[j] + x[j][k]
+        sy2 = sy2 + y[k] * y[k]
+
+    c = [0.0] * (n + 1)
+    b = [0.0] * (n + 1)
+    a = [None] * (n + 1)
+    for i in range(0, n + 1):
+        c[i] = 0
+        a[i] = [0.0] * (n + 2)
+        for j in range(0, i + 1):
+            for k in range(1, m + 1):
+                a[j][i] = a[j][i] + x[i][k] * x[j][k]
+        for k in range(1, m + 1):
+            b[i] = b[i] + y[k] * x[i][k]
+        a[i][n + 1] = b[i]
+
+    for i in range(0, n + 1):
+        for j in range(i, n + 2):
+            s = a[i][j]
+            for k in range (0, i):
+                s = s - a[k][i] * a[k][j]
+            if i == j:
+                t = 1 / sqrt(s)
+                a[i][j] = t
+            else:
+                a[i][j] = t * s
+    for i in range(n, -1, -1):
+        s = a[i][n + 1]
+        for k in range(i + 1, n + 1):
+            s = s - a[i][k] * c[k]
+        x[i] = s * a[i][i]
+
+    r2 = 0.0
+    for i in range(0, n + 1):
+        r2 = r2 + c[i] * (b[i] - r[i] * b[0] / m)
+    r2 = r2 / (sy2 - b[0] ** 2 / m)
+    print 'C:', ', '.join([str(t) for t in c])
+    print 'R2:', r2
+
+
 FUNCS = [
     integral_tripla_qg,
     pvi_pvc,
     faddeev_leverrier,
-    seqnl_newton,
+    seqnl_newton, # broken
+    regressao_linear, # broken
     # adicione mais funcoes aqui
 ]
 
