@@ -104,15 +104,15 @@ def pvi_pvc():
 
 
 def policar(a, n):
-    b = [[None] * (n + 1)] * (n + 1)
+    b = [None] * (n + 1)
     for i in range(1, n + 1):
+        b[i] = [None] * (n + 1)
         for j in range(1, n + 1):
             b[i][j] = a[i][j]
 
-    p = [None] * (n + 1)
+    p = [1.0] * (n + 1)
     for i in range(1, n + 1):
         p[i] = 0.0
-
         for j in range(1, n + 1):
             p[i] = p[i] + b[j][j]
         p[i] = p[i] / i
@@ -125,9 +125,11 @@ def policar(a, n):
             for k in range(1, n + 1):
                 c[k] = b[k][j]
                 b[k][j] = 0
+
             for k in range(1, n + 1):
                 for l in range(1, n + 1):
                     b[k][j] = b[k][j] + a[k][l] * c[l] # ???
+
     return p
 
 
@@ -163,15 +165,19 @@ def autovet(n, a, autoval):
                 for l in range(1, n + 1):
                     b[j][i] = b[j][i] + a[j][l] * c[l]
 
+    return x
+
 
 
 def faddeev_leverrier():
     """FADDEEV LEVERRIER"""
     n = input('Entre N: ')
-    a = [[None] * (n + 1)] * (n + 1)
+    a = [None] * (n + 1)
     for i in range(1, n + 1):
+        a[i] = [None] * (n + 1)
         for j in range(1, n + 1):
             a[i][j] = input('Entre A(%d, %d): ' % (i, j))
+    print a
     p = policar(a, n)
     print p
 
@@ -184,7 +190,8 @@ FUNCS = [
 ]
 
 
-if __name__ == '__main__':
+faddeev_leverrier()
+if __name__ == '__main__!':
     loop = True
     while loop:
         try:
