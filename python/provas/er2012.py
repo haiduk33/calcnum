@@ -229,7 +229,7 @@ def newton_bairstow(n, a):
             q0 = v[m - 1] / v[m - 2]
     if m != 0 and k <= nmi:
         if m == 2:
-            r[j:j + 2] = eq2g(b[3], b[2])
+            r[j:j + 2] = eq2g(1, b[3], b[2])
         else:
             r[j] = -b[2]
         return r
@@ -275,11 +275,105 @@ def faddeev_leverrier():
         print '[', ' '.join(['%f' % t for t in l]), ']'
 
 
+def pivot4(a, b, n, i):
+    c = a[i][i]
+    l = i
+    for k in range(i + 1, n + 1):
+        if abs(c) < abs(a[k][i]):
+            c = a[k][i]
+            l = k
+    if l != i:
+        for j in range(1, n + 1):
+            a[i][j], a[l][j] = a[l][j], a[i][j]
+        b[i], b[l] = b[l], b[i]
+
+
+def lu(a, b, n):
+    x = [None] * (n + 1)
+
+    print a
+    # geração das matrizes [L] e [U]
+    for i in range(1, n + 1):
+        pivot4(a, b, n, i)
+        for j in range(1, n + 1):
+            if j < i:
+                l = j - 1
+            else:
+                l = i - 1
+            soma = a[i][j]
+            for k in range(1, l + 1):
+                soma = soma - a[i][k] * a[k][j]
+            if j <= i:
+                a[i][j] = soma
+            else:
+                a[i][j] = soma / a[i][j]
+        x[i] = 0
+
+    # solução de [L]{X*} = {B}
+    for i in range(1, n + 1):
+        soma = b[i]
+        for k in range(1, i):
+            soma = soma - a[i][k] * x[k]
+        x[i] = soma / a[i][i]
+    print a
+    print x
+
+    # solução de [U]{X} = {X*}
+    for i in range(n, 0, -1):
+        soma = x[i]
+        for j in range(i + 1, n + 1):
+            soma = soma - a[i][j] * x[j]
+        x[i] = soma
+    print a
+
+    return x
+
+
+def seqnl_newton():
+    """SEQNL-NEWTON"""
+    n = input('Entre N: ')
+    tol, nmi = input('Entre TOL, NMI: ')
+    x = [None] * (n + 1)
+    for i in range(1, n + 1):
+        x[i] = input('Entre X[%d]: ' % i)
+    f = [None] * (n + 1)
+    for i in range(1, n + 1):
+        f[i] = eval('lambda x:' + raw_input('Entre com F%d(x): ' % i))
+    k = 0
+    zm = 1.0
+
+    while k <= nmi and abs(zm) > tol:
+        fs = [None] * (n + 1)
+        a = [None] * (n + 1)
+        for i in range(1, n + 1):
+            fs[i] = -f[i](x)
+
+            a[i] = [None] * (n + 1)
+            for j in range(1, n + 1):
+                x[j] = x[j] + tol
+                a[i][j] = f[i](x)
+                x[j] = x[j] - 2 * tol
+                a[i][j] = (a[i][j] - f[i](x)) / (2 * tol)
+                x[j] = x[j] + tol
+        z = lu(a, f, n)
+        zm = z[1]
+        x[1] = x[1] + z[1]
+        for i in range(2, n + 1):
+            if abs(zm) <= abs(z[i]):
+                zm = z[i]
+            x[i] = x[i] + z[i]
+        k = k + 1
+    if k >= nmi:
+        print 'Ultrapassou NMI'
+    else:
+        print 'Solução:', '[', ' '.join(x), ']'
+
 
 FUNCS = [
     integral_tripla_qg,
     pvi_pvc,
     faddeev_leverrier,
+    seqnl_newton,
     # adicione mais funcoes aqui
 ]
 
