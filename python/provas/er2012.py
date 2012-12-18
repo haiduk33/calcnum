@@ -111,7 +111,7 @@ def policar(a, n):
         for j in range(1, n + 1):
             b[i][j] = a[i][j]
 
-    p = [1.0] * (n + 1)
+    p = [-1.0] * (n + 1)
     for i in range(1, n + 1):
         p[i] = 0.0
         for j in range(1, n + 1):
@@ -173,13 +173,70 @@ def autovet(n, a, autoval):
 
 from math import sqrt
 def eq2g(a, b, c):
-    delta = b * b - 4 * a * c
-    pr = -b / (2 * a)
-    pi = sqrt(abs(delta)) / (2 * a)
+    delta = b * b - 4.0 * a * c
+    pr = -b / (2.0 * a)
+    pi = sqrt(abs(delta)) / (2.0 * a)
     if delta >= 0:
         return [pr + pi, pr - pi]
     else:
-        return [complex(pr, pi), complex(pr, -pi)]
+        return [pr + pi * 1j, pr - pi * 1j]
+
+
+def newton_bairstow(n, a):
+    tol, nmi = input('Entre TOL, NMI: ')
+    t = a[n]
+    v = [None] * (n + 1)
+    for i in range(n, -1, -1):
+        a[i] = a[i] / t
+        v[i] = a[i]
+    m = n
+    for i in range(0, m + 1):
+        for j in range(0, m):
+            if abs(v[j]) > abs(v[j + 1]):
+                v[j], v[j + 1] = v[j + 1], v[j]
+    p0 = v[m] / v[m - 2]
+    q0 = v[m - 1] / v[m - 2]
+    j = 0
+    b = [None] * (n + 3)
+    c = [None] * (n + 3)
+    r = [None] * n
+    while m > 2:
+        b[m + 2] = b[m + 1] = c[m + 2] = c[m + 1] = 0
+        p = p0; q = q0
+        dp = dq = 1.0
+        k = 0
+        while abs(dp) + abs(dq) > tol and k <= nmi:
+            for i in range(m, 0, -1):
+                b[i] = a[i] - p * b[i + 1] - q * b[i + 2]
+                c[i] = b[i] - p * c[i + 1] - q * c[i + 2]
+            b[0] = a[0] - p * b[1] - q * b[2]
+            c1 = c[1] - b[1]
+            d = c[2] * c[2] - c1 * c[3]
+            if abs(d) > 0:
+                dp = (b[1] * c[2] - b[0] * c[3]) / d
+                dq = (b[0] * c[2] - b[1] * c1) / d
+                p = p + dp; q = q + dq
+            else:
+                m = 0
+            k = k + 1
+        if m != 0:
+            r[j:j + 2] = eq2g(1, p, q)
+            j = j + 2
+            m = m - 2
+            for i in range(0, m + 1):
+                a[m - i] = b[m + 2 - i]
+            p0 = v[m] / v[m - 2]
+            q0 = v[m - 1] / v[m - 2]
+    if m != 0 and k <= nmi:
+        if m == 2:
+            r[j:j + 2] = eq2g(b[3], b[2])
+        else:
+            r[j] = -b[2]
+        return r
+    if k > nmi:
+        print 'Ultrapassou NMI'
+    if m == 0:
+        print 'Não convergiu com valores iniciais P0 e Q0'
 
 
 def faddeev_leverrier():
@@ -190,9 +247,33 @@ def faddeev_leverrier():
         a[i] = [None] * (n + 1)
         for j in range(1, n + 1):
             a[i][j] = input('Entre A(%d, %d): ' % (i, j))
-    print a
     p = policar(a, n)
-    print p
+
+    # newton-bairstow usa os coeficientes ao contrario
+    p.reverse()
+    r = newton_bairstow(n, p)
+    r.sort()
+    print 'Autovalores: ', ' '.join(['%f' % t for t in r])
+
+    # autovet vai de 1 a N, r começa em 0
+    r.insert(0, None)
+    x = autovet(n, a, r)
+    # transpondo x e normalizando as linhas
+    v = [None] * n
+    for i in range(n):
+        v[i] = [None] * n
+        for j in range(n):
+            v[i][j] = x[j + 1][i + 1]
+        vm = v[i][0]
+        for j in range(n):
+            if abs(v[i][j]) > abs(vm):
+                vm = v[i][j]
+        for j in range(n):
+            v[i][j] = v[i][j] / vm
+    print 'Autovetores:'
+    for l in v:
+        print '[', ' '.join(['%f' % t for t in l]), ']'
+
 
 
 FUNCS = [
@@ -203,8 +284,7 @@ FUNCS = [
 ]
 
 
-faddeev_leverrier()
-if __name__ == '__main__!':
+if __name__ == '__main__':
     loop = True
     while loop:
         try:
