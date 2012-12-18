@@ -46,12 +46,18 @@ def integral_tripla_qg():
 
 
 if __name__ == '__main__':
-    funcs = [
-        integral_tripla_qg,
-        # adicione mais funcoes aqui
-    ]
-    for i, f in enumerate(funcs):
-        print i + 1, '-', f.func_doc
-    k = input('Esolha uma rotina: ')
-    funcs[k - 1]()
+    loop = True
+    while loop:
+        try:
+            funcs = [
+                integral_tripla_qg,
+                # adicione mais funcoes aqui
+            ]
+            for i, f in enumerate(funcs):
+                print i + 1, '-', f.func_doc
+            k = input('Esolha uma rotina: ')
+            funcs[k - 1]()
+        except KeyboardInterrupt:
+            loop = False
+    print
 
