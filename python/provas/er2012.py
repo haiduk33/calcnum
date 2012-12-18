@@ -72,6 +72,7 @@ def pvi_pvc():
     # não precisa calcular h denovo
     v = [0] * (n + 2) # lista de tamanho n + 2
     y = [0] * (n + 2) # lista de tamanho n + 2
+    y[0], y[n] = y0, yn
 
     for i in range(1, n):
         y[i] = y0 * i * h * (yn - y0) / (xn - x0)
@@ -87,7 +88,7 @@ def pvi_pvc():
             c = -1 + h * fz(x, y[i], z) / 2
             d = y[i - 1] - 2 * y[i] + y[i + 1] - h * h * f(x, y[i], z)
             den = b - a * t[i - 1]
-            k[i] = (d - a * t[i - 1]) / den
+            k[i] = (d - a * k[i - 1]) / den
             t[i] = c / den
         v[n - 1] = k[n - 1]; vc = v[n - 1]
         y[n - 1] = y[n - 1] + v[n - 1]
@@ -169,6 +170,16 @@ def autovet(n, a, autoval):
 
     return x
 
+
+from math import sqrt
+def eq2g(a, b, c):
+    delta = b * b - 4 * a * c
+    pr = -b / (2 * a)
+    pi = sqrt(abs(delta)) / (2 * a)
+    if delta >= 0:
+        return [pr + pi, pr - pi]
+    else:
+        return [complex(pr, pi), complex(pr, -pi)]
 
 
 def faddeev_leverrier():
