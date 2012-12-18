@@ -17,7 +17,9 @@ W = [None,
     #TODO: continuar, tabela na pag 313
 ]
 
+
 def integral_tripla_qg():
+    """INTEGRAL TRIPLA QG"""
     f = eval('lambda x, y, z: ' + raw_input('Entre F(x, y, z): '))
     g1 = eval('lambda x: ' + raw_input('Entre g1(x): '))
     h1 = eval('lambda x: ' + raw_input('Entre h1(x): '))
@@ -41,3 +43,15 @@ def integral_tripla_qg():
             f1 = f1 + (h1(x) - g1(x)) * f2 * W[n][j] / 2.0
         f0 = f0 + (b - a) * f1 * W[n][i] / 2.0
     print 'f0 =', f0
+
+
+if __name__ == '__main__':
+    funcs = [
+        integral_tripla_qg,
+        # adicione mais funcoes aqui
+    ]
+    for i, f in enumerate(funcs):
+        print i + 1, '-', f.func_doc
+    k = input('Esolha uma rotina: ')
+    funcs[k - 1]()
+
