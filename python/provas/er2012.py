@@ -61,10 +61,13 @@ def pvi_pvc():
         y = y + (k1 + k2) / 2
         x = x + h
 
+    print 'YN =', y
+    print 'ZN =', z
+
     yn, zn = y, z
     n, tol, nmi = input('Entre N, TOL, NMI: ')
-    fy = lambda x, y, z: 0.3 / x - z * z / (y * y)
-    fz = lambda x, y, z: 2 * z / y
+    fy = lambda x, y, z: (f(x, y + tol, z) - f(x, y - tol, z)) / (2 * tol)
+    fz = lambda x, y, z: (f(x, y, z + tol) - f(x, y, z - tol)) / (2 * tol)
 
     # não precisa calcular h denovo
     v = [0] * (n + 2) # lista de tamanho n + 2
@@ -97,12 +100,52 @@ def pvi_pvc():
         kc = kc + 1
 
     for i in range(0, n + 1):
-        print 'y[i] =', y[i]
+        print 'y[%d] =' % i, y[i]
+
+
+def policar(a, n):
+    b = [[None] * (n + 1)] * (n + 1)
+    for i in range(1, n + 1):
+        for j in range(1, n + 1):
+            b[i][j] = a[i][j]
+
+    p = [None] * (n + 1)
+    for i in range(1, n + 1):
+        p[i] = 0.0
+
+        for j in range(1, n + 1):
+            p[i] = p[i] + b[j][j]
+        p[i] = p[i] / i
+
+        for j in range(1, n + 1):
+            b[j][j] = b[j][j] - p[i]
+
+        for j in range(1, n + 1):
+            c = [None] * (n + 1)
+            for k in range(1, n + 1):
+                c[k] = b[k][j]
+                b[k][j] - 0
+            for k in range(1, n + 1):
+                for l in range(1, n + 1):
+                    b[k][j] = b[k][j] + a[k][l] * c[l] # ???
+    return p
+
+
+def faddeev_leverrier():
+    """FADDEEV LEVERRIER"""
+    n = input('Entre N: ')
+    a = [[None] * (n + 1)] * (n + 1)
+    for i in range(1, n + 1):
+        for j in range(1, n + 1):
+            a[i][j] = input('Entre A(%d, %d): ' % (i, j))
+    p = policar(a, n)
+    print p
 
 
 FUNCS = [
     integral_tripla_qg,
     pvi_pvc,
+    faddeev_leverrier,
     # adicione mais funcoes aqui
 ]
 
