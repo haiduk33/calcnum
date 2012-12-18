@@ -251,9 +251,15 @@ def faddeev_leverrier():
 
     # newton-bairstow usa os coeficientes ao contrario
     p.reverse()
-    r = newton_bairstow(n, p)
-    r.sort()
-    print 'Autovalores: ', ' '.join(['%f' % t for t in r])
+    if n == 2:
+        r = eq2g(p[0], p[1], [2])
+    else:
+        r = newton_bairstow(n, p)
+    try:
+        r.sort()
+    except TypeError:
+        pass
+    print 'Autovalores: ', ' '.join([str(t) for t in r])
 
     # autovet vai de 1 a N, r começa em 0
     r.insert(0, None)
@@ -272,7 +278,7 @@ def faddeev_leverrier():
             v[i][j] = v[i][j] / vm
     print 'Autovetores:'
     for l in v:
-        print '[', ' '.join(['%f' % t for t in l]), ']'
+        print '[', ' '.join([str(t) for t in l]), ']'
 
 
 def pivot4(a, b, n, i):
